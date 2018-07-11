@@ -11,8 +11,8 @@ public class Utilisateur {
 	protected LocalDateTime dateNaissance;
 	protected String email;
 	
-	public Utilisateur(String uNom) {
-		nom= uNom;
+	public Utilisateur() {
+		
 	}
 
 	public String getNom() {

@@ -9,7 +9,7 @@ public class Stagiaire extends Utilisateur {
 	private HashSet<Metier> metiers;
 
 	public Stagiaire(String uNom) {
-		super(uNom);
+		super();
 		metiers = new HashSet<Metier>();
 	}
 
