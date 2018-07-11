@@ -1,0 +1,6 @@
+.classpath
+.project
+.settings/
+build/
+lib/
+WebContent/WEB-INF/classes/
