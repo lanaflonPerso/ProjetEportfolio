@@ -45,6 +45,7 @@ public class Index extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	
 
 
 	@Override
@@ -53,7 +54,4 @@ public class Index extends HttpServlet {
 		Utilisateur= config.getInitParameter("Utilisateur");
 		Projet= config.getInitParameter("Projet");		
 	}
-
 }
-
-
