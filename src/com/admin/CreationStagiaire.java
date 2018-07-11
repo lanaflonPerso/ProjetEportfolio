@@ -1,7 +1,6 @@
 package com.admin;
 
 import java.io.IOException;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.vianney.Stagiaire;
-import com.vianney.Utilisateur;
+import com.vianney.bean.Stagiaire;
 
 /**
  * Servlet implementation class CreationStagiaire
@@ -41,21 +39,22 @@ public class CreationStagiaire extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		final Pattern VALID_EMAIL_ADDRESS_REGEX = 
-			    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-//		Stagiaire user= new Stagiaire();
-//		user.setNom(nom);
-//		user.se
-//		String nom= request.getParameter("nom");
+		String erreur= "";
+		
+		String nom= request.getParameter("nom");
+		System.out.println(nom);
 		String prenom= request.getParameter("prenom");
-		String email= (String) request.getParameter("email");
+		String email= request.getParameter("email");
 		
-//		if(nom.length() < 5 || prenom.length() < 5 || )
-		
-		request.setAttribute("erreur", "non");
-//		request.setAttribute("nom", nom);
-		
-//		System.out.printf("%s %s %s", nom, prenom, email);
+		Stagiaire newStagiaire= new Stagiaire();
+		if(!newStagiaire.setNom(nom))
+			erreur+= "Le nom n'est pas valide (6 caractéres minimum<br>";
+		if(!newStagiaire.setPrenom(prenom))
+			erreur+= "Le prénom n'est pas valide (6 caractéres minimum<br>";
+		if(!newStagiaire.setEmail(email))
+			erreur+= "Le email n'est pas valide<br>";
+				
+		request.setAttribute("erreur", erreur);
 		
 		request.getRequestDispatcher("/WEB-INF/FormCreateStagiaire.jsp").forward(request, response);
 	}
@@ -73,5 +72,4 @@ public class CreationStagiaire extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
-
 }
