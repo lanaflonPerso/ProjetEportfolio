@@ -15,19 +15,21 @@
 					<c:choose>
 	    				<c:when test="${ ok }">
 							<div class="alert alert-success" role="alert">
-								<strong>Ok</strong> utilisateur crée.<br>
-								<p>nom: ${ map.get("msgNom") }</p>
-								<p>prenom: ${ map.get("msgPrenom") }</p>
-								<p>email: ${ map.get("msgEmail") }</p>
+								<strong>Ok</strong> utilisateur crée.<br />
+								nom: ${ map.get("civilite") } ${ map.get("nom") }<br />
+								prenom: ${ map.get("prenom") }<br />
+								email: ${ map.get("email") }<br />
+								Date de naissance: ${ map.get("ddn") }<br />
 							</div>
 						</c:when>
 						<c:otherwise>
 							<div class="alert alert-danger" role="alert">
 								<strong>Erreur</strong><br>
-								${ map.get("msgNom") } <br>
-								${ map.get("msgPrenom") }<br>
-								${ map.get("msgEmail") }<br>
-		
+									${ map.get("msgNom") }
+									${ map.get("msgPrenom") }
+									${ map.get("msgEmail") }
+									${ map.get("msgDdn") }
+								<%-- </c:if> --%>
 							</div>
 						</c:otherwise>
 					</c:choose>
@@ -60,7 +62,7 @@
 					
 					<div class="form-group">
 						<label for="ddn">Date De Naissance: </label>
-						<input name="ddn" type="text" class="form-control" id="ddn" placeholder="Date de naissance du stagiaire format 05/06/1979">
+						<input name="ddn" type="text" class="form-control ${ map.get("classDdn") }" id="ddn" placeholder="Date de naissance du stagiaire format 05/06/1979" value="${ map.get("ddn") }">
 					</div>
 					
 					<button type="submit" class="btn btn-primary">Envoyer</button>					

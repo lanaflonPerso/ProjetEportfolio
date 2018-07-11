@@ -46,10 +46,14 @@ public class CreationStagiaire extends HttpServlet {
 		String nom= request.getParameter("nom");
 		String prenom= request.getParameter("prenom");
 		String email= request.getParameter("email");
+		String ddn= request.getParameter("ddn");
+		String civilite= request.getParameter("civilite");
 		
 		myHashMap.put("nom", nom);
 		myHashMap.put("prenom", prenom);
 		myHashMap.put("email", email);
+		myHashMap.put("ddn", ddn);
+		myHashMap.put("civilite", civilite);
 		
 		Stagiaire newStagiaire= new Stagiaire();
 		newStagiaire.setNom(nom);
@@ -77,7 +81,13 @@ public class CreationStagiaire extends HttpServlet {
 			myHashMap.put("classEmail", "is-valid");
 		}
 		
-		System.out.println(newStagiaire.getOk());
+		if (!newStagiaire.setDateNaissance(ddn)) {
+			myHashMap.put("classDdn", "is-invalid");
+			myHashMap.put("msgDdn", newStagiaire.getMsgErrDateNaissance());
+			request.setAttribute("erreur", true);
+		} else {
+			myHashMap.put("classDdn", "is-valid");
+		}
 			
 		request.setAttribute("post", true);
 		request.setAttribute("map", myHashMap);
@@ -99,4 +109,5 @@ public class CreationStagiaire extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
+	
 }
