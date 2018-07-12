@@ -5,3 +5,4 @@ build/
 lib/
 WebContent/WEB-INF/classes/
 WebContent/META-INF
+WebContent/WEB-INF/log/

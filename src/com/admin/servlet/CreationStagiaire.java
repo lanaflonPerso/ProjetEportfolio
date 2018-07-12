@@ -85,14 +85,9 @@ public class CreationStagiaire extends HttpServlet {
 		// TODO Auto-generated method stub
 		super.init();
 		
-		try {
-			logConnection= new LogConnection();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		logConnection= new LogConnection();
 	}
 
-	
 	@Override
 	public void destroy() {
 		super.destroy();
