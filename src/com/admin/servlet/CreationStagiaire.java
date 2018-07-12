@@ -1,14 +1,16 @@
-package com.admin;
+package com.admin.servlet;
 
 import java.io.IOException;
-import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.vianney.bean.Stagiaire;
+import com.admin.LogConnection;
+import com.vianney.beans.Stagiaire;
+import com.vianney.form.ControleNewStagiaire;
 
 /**
  * Servlet implementation class CreationStagiaire
@@ -16,6 +18,8 @@ import com.vianney.bean.Stagiaire;
 @WebServlet( urlPatterns = "/creationstagiaire/*" )
 public class CreationStagiaire extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private LogConnection logConnection;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -32,7 +36,6 @@ public class CreationStagiaire extends HttpServlet {
 		request.setAttribute("titlePage", "Création d'un stagiaire");
 		request.setAttribute("post", false);
 		request.getRequestDispatcher("/WEB-INF/FormCreateStagiaire.jsp").forward(request, response);
-		
 	}
 
 	/**
@@ -40,59 +43,25 @@ public class CreationStagiaire extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HashMap<String, String> myHashMap= new HashMap<String, String>();
-		
-		String nom= request.getParameter("nom");
-		String prenom= request.getParameter("prenom");
-		String email= request.getParameter("email");
-		String ddn= request.getParameter("ddn");
-		String civilite= request.getParameter("civilite");
-		
-		myHashMap.put("nom", nom);
-		myHashMap.put("prenom", prenom);
-		myHashMap.put("email", email);
-		myHashMap.put("ddn", ddn);
-		myHashMap.put("civilite", civilite);
-		
-		Stagiaire newStagiaire= new Stagiaire();
-		newStagiaire.setNom(nom);
-		if (!newStagiaire.setPrenom(prenom)) {
-			myHashMap.put("classPrenom", "is-invalid");
-			myHashMap.put("msgPrenom", newStagiaire.getMsgErrPrenom());
-			request.setAttribute("erreur", true);
-		} else {
-			myHashMap.put("classPrenom", "is-valid");
-		}
-		
-		if (!newStagiaire.setNom(nom)) {
-			myHashMap.put("classNom", "is-invalid");
-			myHashMap.put("msgNom", newStagiaire.getMsgErrNom());
-			request.setAttribute("erreur", true);
-		} else {
-			myHashMap.put("classNom", "is-valid");
-		}
-		
-		if (!newStagiaire.setEmail(email)) {
-			myHashMap.put("classEmail", "is-invalid");
-			myHashMap.put("msgEmail", newStagiaire.getMsgErrEmail());
-			request.setAttribute("erreur", true);
-		} else {
-			myHashMap.put("classEmail", "is-valid");
-		}
-		
-		if (!newStagiaire.setDateNaissance(ddn)) {
-			myHashMap.put("classDdn", "is-invalid");
-			myHashMap.put("msgDdn", newStagiaire.getMsgErrDateNaissance());
-			request.setAttribute("erreur", true);
-		} else {
-			myHashMap.put("classDdn", "is-valid");
-		}
-		
-		System.out.println(newStagiaire.getAge());
-			
+		ControleNewStagiaire n= new ControleNewStagiaire(request);
+		Stagiaire stagiaire= n.getStagiaire();
+		request.setAttribute("ok", n.getOk());
+		request.setAttribute("stagiaire", stagiaire);
+		request.setAttribute("nom", request.getParameter("nom"));
+		request.setAttribute("prenom",request.getParameter("prenom"));
+		request.setAttribute("email", request.getParameter("email"));
+		request.setAttribute("ddn", request.getParameter("ddn"));
 		request.setAttribute("post", true);
-		request.setAttribute("map", myHashMap);
-		request.setAttribute("ok", newStagiaire.getOk());
+		request.setAttribute("form", n);
+		
+		if (n.getOk()) {
+			String ligne= "";
+			ligne+= stagiaire.getNom()+";";
+			ligne+= stagiaire.getPrenom()+";";
+			ligne+= request.getRemoteAddr() +";";
+			ligne+= request.getRemoteHost();
+			logConnection.ecrireLigne(ligne);
+		}
 		
 		request.getRequestDispatcher("/WEB-INF/FormCreateStagiaire.jsp").forward(request, response);
 	}
@@ -110,4 +79,23 @@ public class CreationStagiaire extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
+
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+		
+		try {
+			logConnection= new LogConnection();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
+	@Override
+	public void destroy() {
+		super.destroy();
+		LogConnection.fermer();
+	}	
 }
