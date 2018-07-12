@@ -12,6 +12,7 @@ public class Stagiaire {
 	private LocalDate dateNaissance;
 	private Period age;
 	private String civilite;
+	private String adresse;
 	
 	public Long getId() {
 		return id;
@@ -54,5 +55,11 @@ public class Stagiaire {
 	}
 	public void setCivilite(String civilite) {
 		this.civilite = civilite;
+	}
+	public String getAdresse() {
+		return adresse;
+	}
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
 	}
 }

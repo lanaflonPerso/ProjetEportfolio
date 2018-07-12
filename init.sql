@@ -6,6 +6,7 @@ CREATE TABLE Utilisateurs (
 	Id					int(6)			PRIMARY KEY AUTO_INCREMENT,
 	Nom					VARCHAR(20)		NOT NULL,
 	Prenom				VARCHAR(20)		NOT NULL,
+	Email				VARCHAR(50)		NOT NULL,
 	Adresse				VARCHAR(150)	NULL,
 	DateNaissance		DATE 			NULL,
 	motDePasse			VARCHAR(56)		NULL,
@@ -13,16 +14,16 @@ CREATE TABLE Utilisateurs (
 	IsAdministrateur	TINYINT(1)		NULL
 ) ENGINE = InnoDB;
 
-INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur)
-				VALUES ("Vianney", "Bailleux", "31 Allée du gros chêne 59320 haubourdin", "1979-06-07", 0, 1);
-INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur)
-				VALUES ("Bruce", "Dickinson", "26 rue jean jaurés 59320 haubourdin", "1984-01-20", 1, 0);
-INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur)
-				VALUES ("Rob", "Halford", "72, rue du Château 97480 SAINT-JOSEPH", "1944-07-23", 1, 0);
-INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur)
-				VALUES ("Josette", "Allain", "26, rue des Chaligny 58000 NEVERS", "1967-06-16", 1, 0);
-INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur)
-				VALUES ("Emmanuel", "Lagrange", "88, Rue Joseph Vernet 92220 BAGNEUX", "1984-02-12", 1, 0);
+INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)
+				VALUES ("Vianney", "Bailleux", "31 Allée du gros chêne 59320 haubourdin", "1979-06-07", 0, 1, "via@free.fr");
+INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)
+				VALUES ("Bruce", "Dickinson", "26 rue jean jaurés 59320 haubourdin", "1984-01-20", 1, 0, "bruce@free.fr");
+INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)
+				VALUES ("Rob", "Halford", "72, rue du Château 97480 SAINT-JOSEPH", "1944-07-23", 1, 0, "rob@free.fr");
+INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)
+				VALUES ("Josette", "Allain", "26, rue des Chaligny 58000 NEVERS", "1967-06-16", 1, 0, "josette@free.fr");
+INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)
+				VALUES ("Emmanuel", "Lagrange", "88, Rue Joseph Vernet 92220 BAGNEUX", "1984-02-12", 1, 0, "manu@free.fr");
 
 CREATE TABLE Entreprises (
 	Id					int(6)			PRIMARY KEY AUTO_INCREMENT,
@@ -69,8 +70,3 @@ CREATE TABLE Formations (
 	IntituleFormation	VARCHAR(50)	NOT NULL,
 	IdCompetence	int(6)	REFERENCES Compretences(Id)
 ) ENGINE = InnoDB;
-
-CREATE TABLE Competences (
-	Id					int(6)	PRIMARY KEY AUTO_INCREMENT,
-	IntituleCompetence	VARCHAR(50) NOT NULL,
-

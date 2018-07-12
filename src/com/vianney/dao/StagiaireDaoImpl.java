@@ -2,16 +2,11 @@ package com.vianney.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import com.vianney.beans.Stagiaire;
 
-import com.vianney.bean.Stagiaire;
 
-public class StagiaireDaoImpl implements StagiaireDao {
+public class StagiaireDaoImpl {
  
-	private DAOFactory daoFactory;
-
-	StagiaireDaoImpl( DAOFactory daoFactory ) {
-		this.daoFactory = daoFactory;
-	}
 	
 	@Override
 	public void creer(Stagiaire stagiaire) throws DAOException {
