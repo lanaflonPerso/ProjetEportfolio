@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Index
  */
-//@WebServlet( urlPatterns = "/" )
+@WebServlet( urlPatterns = "/" )
 public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -26,10 +27,6 @@ public class Index extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-<<<<<<< HEAD
-
-=======
->>>>>>> 1adf6a495cc5ba058073815ef548bcc5ab6c4910
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -49,11 +46,6 @@ public class Index extends HttpServlet {
 		doGet(request, response);
 	}
 	
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 1adf6a495cc5ba058073815ef548bcc5ab6c4910
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);

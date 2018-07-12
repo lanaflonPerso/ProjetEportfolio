@@ -1,11 +1,7 @@
 package com.admin;
 
 import java.io.IOException;
-<<<<<<< HEAD
-=======
 import java.util.HashMap;
->>>>>>> 1adf6a495cc5ba058073815ef548bcc5ab6c4910
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,12 +29,8 @@ public class CreationStagiaire extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-<<<<<<< HEAD
-		request.setAttribute("titlePage", "Création d'un stagiaire");
-=======
 		request.setAttribute("titlePage", "CrÃ©ation d'un stagiaire");
 		request.setAttribute("post", false);
->>>>>>> 1adf6a495cc5ba058073815ef548bcc5ab6c4910
 		request.getRequestDispatcher("/WEB-INF/FormCreateStagiaire.jsp").forward(request, response);
 		
 	}
@@ -48,24 +40,6 @@ public class CreationStagiaire extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-<<<<<<< HEAD
-		String erreur= "";
-		
-		String nom= request.getParameter("nom");
-		System.out.println(nom);
-		String prenom= request.getParameter("prenom");
-		String email= request.getParameter("email");
-		
-		Stagiaire newStagiaire= new Stagiaire();
-		if(!newStagiaire.setNom(nom))
-			erreur+= "Le nom n'est pas valide (6 caractéres minimum<br>";
-		if(!newStagiaire.setPrenom(prenom))
-			erreur+= "Le prénom n'est pas valide (6 caractéres minimum<br>";
-		if(!newStagiaire.setEmail(email))
-			erreur+= "Le email n'est pas valide<br>";
-				
-		request.setAttribute("erreur", erreur);
-=======
 		HashMap<String, String> myHashMap= new HashMap<String, String>();
 		
 		String nom= request.getParameter("nom");
@@ -113,11 +87,12 @@ public class CreationStagiaire extends HttpServlet {
 		} else {
 			myHashMap.put("classDdn", "is-valid");
 		}
+		
+		System.out.println(newStagiaire.getAge());
 			
 		request.setAttribute("post", true);
 		request.setAttribute("map", myHashMap);
 		request.setAttribute("ok", newStagiaire.getOk());
->>>>>>> 1adf6a495cc5ba058073815ef548bcc5ab6c4910
 		
 		request.getRequestDispatcher("/WEB-INF/FormCreateStagiaire.jsp").forward(request, response);
 	}
@@ -135,8 +110,4 @@ public class CreationStagiaire extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> 1adf6a495cc5ba058073815ef548bcc5ab6c4910
 }
