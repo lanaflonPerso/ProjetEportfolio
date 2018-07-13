@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,18 +12,14 @@ import com.vianney.beans.Stagiaire;
 import com.vianney.dao.MyConnection;
 import com.vianney.dao.StagiaireDao;
 
-/**
- * Servlet implementation class SearchStudent
- */
-@WebServlet("/Stagiaire")
-public class SearchStudentServlet extends HttpServlet {
+public class ListStudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private List<Stagiaire> stagiaires;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchStudentServlet() {
+    public ListStudentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,8 +31,9 @@ public class SearchStudentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		test();
+		request.setAttribute("page", 4);
 		request.setAttribute("stagiaires", stagiaires);
-		request.getRequestDispatcher("/WEB-INF/vueStagiaires.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
 
 	/**

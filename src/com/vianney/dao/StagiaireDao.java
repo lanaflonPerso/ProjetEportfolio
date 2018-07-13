@@ -16,37 +16,28 @@ public class StagiaireDao {
 	
 	private Connection connection;
 	List<Stagiaire> rows = new ArrayList<Stagiaire>();
+	private Stagiaire stagaire;
 
 	
 	public StagiaireDao(Connection connection) {
 		this.connection = connection;
 	}
 	
-	public List<Stagiaire> searchByMail(String email) {
+	public ResultSet SelectByMail(String email) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		
 		String sql= "SELECT * FROM Utilisateurs WHERE Email= ?";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			preparedStatement.setString( 1, email );
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			resultSet= preparedStatement.executeQuery();
+			createList(resultSet, false);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		createList(resultSet);
-		return rows;	
+		return stagaire;	
 	}
 	
 	public List<Stagiaire> searchAll() {
@@ -56,30 +47,34 @@ public class StagiaireDao {
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet resultSet= statement.executeQuery(sql);
-			createList(resultSet);
+			createList(resultSet, true);
 		} catch (SQLException e) {
 			System.out.println("Problème de base de donnée");
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-
+		
 		return rows;	
 	}
 	
-	private void createList(ResultSet resultSet) {
+	private void createList(ResultSet resultSet, Boolean bool) {
 		try {
 			while (resultSet.next()) {
-			    Stagiaire stagiaire = new Stagiaire();
-			    stagiaire.setNom(resultSet.getString("Nom"));
-			    stagiaire.setPrenom(resultSet.getString("Prenom"));
-			    stagiaire.setEmail(resultSet.getString("Email"));
-			    stagiaire.setAdresse(resultSet.getString("Adresse"));
+			    Stagiaire NewStagiaire = new Stagiaire();
+			    NewStagiaire.setNom(resultSet.getString("Nom"));
+			    NewStagiaire.setPrenom(resultSet.getString("Prenom"));
+			    NewStagiaire.setEmail(resultSet.getString("Email"));
+			    NewStagiaire.setAdresse(resultSet.getString("Adresse"));
 			    
 			    String[] part= resultSet.getString("DateNaissance").split("-");
 			    LocalDate localDate = LocalDate.of(Integer.parseInt(part[0]), Integer.parseInt(part[1]), Integer.parseInt(part[2]));
-			    stagiaire.setDateNaissance(localDate);
+			    NewStagiaire.setDateNaissance(localDate);
 			    
-			    rows.add(stagiaire);
+			    if (bool) {
+			    	rows.add(stagiaire);
+			    } else {
+			    	stagaire= NewStagiaire
+			    }
 			}
 		} catch (NumberFormatException | SQLException e) {
 			e.printStackTrace();

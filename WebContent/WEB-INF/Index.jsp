@@ -14,7 +14,13 @@
 					<%@ include file="/WEB-INF/form/FormCreateStagiaire.jsp" %>	
 				</c:when>
 				<c:when test="${ page == 2 }">
-					<%@ include file="/WEB-INF/vue/ShowStagiaire.jsp" %>
+					<%@ include file="/WEB-INF/vue/ShowStudent.jsp" %>
+				</c:when>
+				<c:when test="${ page == 4 }">
+					<%@ include file="/WEB-INF/vue/ListStagiaires.jsp" %>
+				</c:when>
+				<c:when test="${ page == 5 }">
+					<%@ include file="/WEB-INF/vue/ViewStudent.jsp" %>
 				</c:when>
 				<c:otherwise></c:otherwise>
 			</c:choose>

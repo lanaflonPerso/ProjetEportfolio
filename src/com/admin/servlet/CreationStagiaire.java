@@ -68,7 +68,6 @@ public class CreationStagiaire extends HttpServlet {
 			request.setAttribute("url", response.encodeURL ("/ProjetEportfolio/stagiaire"));
 	        session.setAttribute("sessionNom", stagiaire.getNom());
 	        session.setAttribute("sessionPrenom", stagiaire.getPrenom());
-			
 		}
 		request.setAttribute("page", 3);
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);

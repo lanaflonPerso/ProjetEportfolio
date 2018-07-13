@@ -9,6 +9,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+<!--            Index                            -->
   <servlet>
     <servlet-name>Index</servlet-name>
     <servlet-class>com.vianney.servlet.Index</servlet-class>
@@ -22,9 +23,36 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
+<!--            ListStudentServlet                           -->
+  <servlet>
+    <servlet-name>ListStudentServlet</servlet-name>
+    <servlet-class>com.vianney.servlet.ListStudentServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+ <!--            VueStudentServlet                          -->
+<servlet>
+    <servlet-name>VueStudentServlet</servlet-name>
+    <servlet-class>com.vianney.servlet.VueStudentServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+<!--                                                  -->
+<!--          Mapping                                 -->
+<!--                                                  --> 
+ <!--            Index                           -->
   <servlet-mapping>
     <servlet-name>Index</servlet-name>
-    <url-pattern>/coco</url-pattern>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <!--            ListStudentServlet                           -->
+  <servlet-mapping>
+    <servlet-name>ListStudentServlet</servlet-name>
+    <url-pattern>/stagiaires</url-pattern>
+  </servlet-mapping>
+<!--            ListStudentServlet                           -->
+<servlet-mapping>
+    <servlet-name>VueStudentServlet</servlet-name>
+    <url-pattern>/student</url-pattern>
   </servlet-mapping>
   <error-page>
     <error-code>404</error-code>
