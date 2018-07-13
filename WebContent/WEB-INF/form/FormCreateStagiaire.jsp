@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 			
 <div class="col-md-5 offset-md-3">
 	<h1>Création d'un stagiaire</h1>
@@ -15,7 +14,7 @@
 					prenom: ${ stagiaire.prenom }<br />
 					email: ${ stagiaire.email }<br />
 					Age: ${ stagiaire.age }<br />
-					<a href="${ response.encodeURL ("/stagiaire") }">Confirmer</a>
+					<a href="/ProjetEportfolio/stagiaire">Confirmer</a>
 				</div>
 			</c:when>
 			<c:otherwise>

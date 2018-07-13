@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.admin.LogConnection;
 import com.vianney.beans.Stagiaire;
@@ -33,9 +34,10 @@ public class CreationStagiaire extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("titlePage", "CrÃ©ation d'un stagiaire");
+		request.setAttribute("titlePage", "Création d'un stagiaire");
 		request.setAttribute("post", false);
-		request.getRequestDispatcher("/WEB-INF/FormCreateStagiaire.jsp").forward(request, response);
+		request.setAttribute("page", 3);
+		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
 
 	/**
@@ -61,9 +63,15 @@ public class CreationStagiaire extends HttpServlet {
 			ligne+= request.getRemoteAddr() +";";
 			ligne+= request.getRemoteHost();
 			logConnection.ecrireLigne(ligne);
+			
+			HttpSession session = request.getSession();
+			request.setAttribute("url", response.encodeURL ("/ProjetEportfolio/stagiaire"));
+	        session.setAttribute("sessionNom", stagiaire.getNom());
+	        session.setAttribute("sessionPrenom", stagiaire.getPrenom());
+			
 		}
-		
-		request.getRequestDispatcher("/WEB-INF/FormCreateStagiaire.jsp").forward(request, response);
+		request.setAttribute("page", 3);
+		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
 
 	/**

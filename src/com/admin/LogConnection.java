@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 public class LogConnection {
 	private String chemin= "C:\\Users\\59013-17-09\\workspace\\ProjetEportfolio\\WebContent\\WEB-INF\\log\\";
@@ -19,7 +21,11 @@ public class LogConnection {
 	}
 	
 	public void ecrireLigne(String ligne) {
-		out.println(ligne);
+		SimpleDateFormat format;
+		Date d= new Date();
+		format = new SimpleDateFormat("h:mm");
+		String output = format.format(d);
+		out.println(output+";"+ligne);
 		out.flush();
 	}
 	
@@ -28,8 +34,8 @@ public class LogConnection {
 	}
 	
 	private String dateJour() {
-		LocalDate today = LocalDate.now();
-		String ligne= today.getDayOfMonth() +"-"+ today.getMonthValue() +"-"+today.getYear()+".log";
+		LocalDate dateDuJour = LocalDate.now();
+		String ligne= dateDuJour.getDayOfMonth() +"-"+ dateDuJour.getMonthValue() +"-"+dateDuJour.getYear()+".log";
 		
 		 return ligne;
 	}

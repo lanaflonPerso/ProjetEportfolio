@@ -26,8 +26,8 @@ public class DAOFactory {
     }
 
     /*
-     * Méthode chargée de récupérer les informations de connexion à la base de
-     * données, charger le driver JDBC et retourner une instance de la Factory
+     *
+     *
      */
     public static DAOFactory getInstance() throws DAOConfigurationException {
         Properties properties = new Properties();

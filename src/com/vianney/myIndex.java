@@ -12,7 +12,6 @@ public class myIndex {
 		StagiaireDao newConnect= new StagiaireDao(new MyConnection().getConnection());
 		
 		List<Stagiaire> r= newConnect.searchAll();
-		
 		for (Stagiaire stagiaire : r) {
 			System.out.printf("nom= %s, prenom= %s, emal= %s\n", stagiaire.getNom(), stagiaire.getPrenom(), stagiaire.getEmail());
 		}

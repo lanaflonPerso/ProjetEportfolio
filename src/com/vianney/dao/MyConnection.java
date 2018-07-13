@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class MyConnection {
-
+	
 	private String url;
 	private String user;
 	private String password;
@@ -30,7 +30,7 @@ public class MyConnection {
 	private void lireProperties() {
 		
 		Properties props = new Properties();
-		try (FileInputStream fis= new FileInputStream("/home/vianney/eclipse-workspace/ProjetEportfolio/dao.properties")) {
+		try (FileInputStream fis= new FileInputStream("C:\\Users\\59013-17-09\\workspace\\ProjetEportfolio\\dao.properties")) {
 			props.load(fis);
 		} catch (FileNotFoundException e) {
 			System.out.println("Le fichier 'dao.properties' ne peut etre lu");
