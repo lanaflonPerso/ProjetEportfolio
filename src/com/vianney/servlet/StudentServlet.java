@@ -37,10 +37,6 @@ public class StudentServlet extends HttpServlet {
 			int i= Integer.parseInt(pathInfo[1]);
 			try {
 				test(i);
-				System.out.printf("%s %s %s", stagiaire.getNom(), stagiaire.getPrenom(), stagiaire.getEmail());
-				for (Entreprise en : stagiaire.getEntreprises()) {
-					System.out.println(en.getNom());
-				}
 				request.setAttribute("stagiaire", stagiaire);
 				request.getRequestDispatcher("/WEB-INF/vue/Student.jsp").forward(request, response);
 			} catch (Exception e) {
