@@ -36,7 +36,7 @@ public class ControleNewStagiaire {
 			stagiaire.setNom(nom);
 			classeNom= classe(true);
 		} else {
-			msgErrNom= "Le nom doit comprendre plus de 6 caracteres!";
+			msgErrNom= "Le nom doit comprendre plus de 6 caract√®res!";
 			ok= false;
 			classeNom= classe(false);
 		}
@@ -47,7 +47,7 @@ public class ControleNewStagiaire {
 			stagiaire.setPrenom(prenom);
 			classePrenom= classe(true);
 		} else {
-			msgErrPrenom= "Le prÈnom doit comprendre plus de 6 caractËres!";
+			msgErrPrenom= "Le pr√©nom doit comprendre plus de 6 caract√®res!";
 			ok= false;
 			classePrenom= classe(false);
 		}

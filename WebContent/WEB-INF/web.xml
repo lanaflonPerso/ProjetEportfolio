@@ -31,8 +31,8 @@
   </servlet>
  <!--            VueStudentServlet                          -->
 <servlet>
-    <servlet-name>VueStudentServlet</servlet-name>
-    <servlet-class>com.vianney.servlet.VueStudentServlet</servlet-class>
+    <servlet-name>StudentServlet</servlet-name>
+    <servlet-class>com.vianney.servlet.StudentServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   
@@ -51,8 +51,8 @@
   </servlet-mapping>
 <!--            ListStudentServlet                           -->
 <servlet-mapping>
-    <servlet-name>VueStudentServlet</servlet-name>
-    <url-pattern>/student</url-pattern>
+    <servlet-name>StudentServlet</servlet-name>
+    <url-pattern>/student/*</url-pattern>
   </servlet-mapping>
   <error-page>
     <error-code>404</error-code>

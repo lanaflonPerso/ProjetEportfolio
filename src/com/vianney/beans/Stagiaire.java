@@ -2,6 +2,8 @@ package com.vianney.beans;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Stagiaire {
 
@@ -13,6 +15,7 @@ public class Stagiaire {
 	private Period age;
 	private String civilite;
 	private String adresse;
+	List<Entreprise> entreprises = new ArrayList<Entreprise>();
 	
 	public Long getId() {
 		return id;
@@ -41,8 +44,11 @@ public class Stagiaire {
 	public LocalDate getDateNaissance() {
 		return dateNaissance;
 	}
-	public void setDateNaissance(LocalDate dateNaissance) {
-		this.dateNaissance = dateNaissance;
+	public void setDateNaissance(LocalDate ddn) {
+		this.dateNaissance = ddn;
+		LocalDate today = LocalDate.now();
+		Period age= Period.between(ddn, today);
+		setAge(age);
 	}
 	public int getAge() {
 		return age.getYears();
@@ -61,5 +67,12 @@ public class Stagiaire {
 	}
 	public void setAdresse(String adresse) {
 		this.adresse = adresse;
+	}
+	
+	public List<Entreprise> getEntreprises() {
+		return entreprises;
+	}
+	public void setEntreprises(List<Entreprise> entreprises) {
+		this.entreprises = entreprises;
 	}
 }

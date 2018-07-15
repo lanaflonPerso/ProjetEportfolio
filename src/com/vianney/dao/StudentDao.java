@@ -9,21 +9,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vianney.beans.Entreprise;
 import com.vianney.beans.Stagiaire;
 
-
-public class StagiaireDao {
+public class StudentDao {
 	
 	private Connection connection;
 	List<Stagiaire> rows = new ArrayList<Stagiaire>();
+	List<Entreprise> rowsEntreprise = new ArrayList<Entreprise>();
 	private Stagiaire stagaire;
 
 	
-	public StagiaireDao(Connection connection) {
+	public StudentDao(Connection connection) {
 		this.connection = connection;
 	}
 	
-	public ResultSet SelectByMail(String email) {
+	public Stagiaire SelectByMail(String email) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		
@@ -36,6 +37,27 @@ public class StagiaireDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return stagaire;	
+	}
+	
+	public Stagiaire SelectById(Integer id) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		String sql= "SELECT * FROM Utilisateurs WHERE id= ?";
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt( 1, id );
+			resultSet= preparedStatement.executeQuery();
+			createList(resultSet, false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		EntrepriseDao listEntreprises= new EntrepriseDao(connection);
+		List<Entreprise> entreprises= listEntreprises.SelectByStudent(id);
+		stagaire.setEntreprises(entreprises);
 		
 		return stagaire;	
 	}
@@ -53,10 +75,13 @@ public class StagiaireDao {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-		
 		return rows;	
 	}
 	
+	/**
+	 * False renvoie un stagiaire
+	 * True un une liste de stagaire
+	 */
 	private void createList(ResultSet resultSet, Boolean bool) {
 		try {
 			while (resultSet.next()) {
@@ -71,9 +96,9 @@ public class StagiaireDao {
 			    NewStagiaire.setDateNaissance(localDate);
 			    
 			    if (bool) {
-			    	rows.add(stagiaire);
+			    	rows.add(NewStagiaire);
 			    } else {
-			    	stagaire= NewStagiaire
+			    	stagaire= NewStagiaire;
 			    }
 			}
 		} catch (NumberFormatException | SQLException e) {

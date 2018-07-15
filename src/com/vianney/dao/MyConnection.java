@@ -14,7 +14,7 @@ public class MyConnection {
 	private String user;
 	private String password;
 	private Connection connection;
-	
+	private String properties= "/home/vianney/eclipse-workspace/dao.properties";
 	
 	public MyConnection() {
 		lireProperties();
@@ -30,7 +30,7 @@ public class MyConnection {
 	private void lireProperties() {
 		
 		Properties props = new Properties();
-		try (FileInputStream fis= new FileInputStream("C:\\Users\\59013-17-09\\workspace\\ProjetEportfolio\\dao.properties")) {
+		try (FileInputStream fis= new FileInputStream(properties)) {
 			props.load(fis);
 		} catch (FileNotFoundException e) {
 			System.out.println("Le fichier 'dao.properties' ne peut etre lu");
