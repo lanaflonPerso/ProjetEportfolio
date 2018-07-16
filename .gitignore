@@ -6,3 +6,4 @@ lib/
 WebContent/WEB-INF/classes/
 WebContent/META-INF
 WebContent/WEB-INF/log/
+src/com/vianney/dao/MyConnection.java

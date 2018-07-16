@@ -73,10 +73,6 @@ import java.util.Date;
 
 public class Entreprise {
 
-	private String adresse;
-	private String ville;
-	private String nom;
-	private int id;
 	private Date dateEntree;
 	private Date dateSortie;
 	

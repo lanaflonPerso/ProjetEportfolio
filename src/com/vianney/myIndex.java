@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.vianney.beans.Stagiaire;
 import com.vianney.dao.MyConnection;
-import com.vianney.dao.StagiaireDao;
+import com.vianney.dao.StagiairesDao;
 
 public class myIndex {
 
 	public static void main(String[] args) throws Exception {
-		StagiaireDao newConnect= new StagiaireDao(new MyConnection().getConnection());
+		StagiairesDao newConnect= new StagiairesDao(new MyConnection().getConnection());
 		
 		List<Stagiaire> r= newConnect.searchAll();
 		for (Stagiaire stagiaire : r) {

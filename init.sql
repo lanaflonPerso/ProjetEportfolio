@@ -2,71 +2,236 @@ DROP DATABASE IF EXISTS ProjetEportfolio;
 CREATE DATABASE ProjetEportfolio;
 USE ProjetEportfolio;
 
-CREATE TABLE Utilisateurs (
+CREATE TABLE Stagiaires (
 	Id					int(6)			PRIMARY KEY AUTO_INCREMENT,
 	Nom					VARCHAR(20)		NOT NULL,
 	Prenom				VARCHAR(20)		NOT NULL,
 	Email				VARCHAR(50)		NOT NULL,
 	Adresse				VARCHAR(150)	NULL,
 	DateNaissance		DATE 			NULL,
-	motDePasse			VARCHAR(56)		NULL,
+	MotDePasse			VARCHAR(56)		NULL,
 	IsStagiaire 		TINYINT(1)		NULL,
 	IsAdministrateur	TINYINT(1)		NULL
 ) ENGINE = InnoDB;
 
-INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)
-				VALUES ("Vianney", "Bailleux", "31 Allée du gros chêne 59320 haubourdin", "1979-06-07", 0, 1, "via@free.fr");
-INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)
-				VALUES ("Bruce", "Dickinson", "26 rue jean jaurés 59320 haubourdin", "1984-01-20", 1, 0, "bruce@free.fr");
-INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)
-				VALUES ("Rob", "Halford", "72, rue du Château 97480 SAINT-JOSEPH", "1944-07-23", 1, 0, "rob@free.fr");
-INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)
-				VALUES ("Josette", "Allain", "26, rue des Chaligny 58000 NEVERS", "1967-06-16", 1, 0, "josette@free.fr");
-INSERT INTO Utilisateurs(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)
-				VALUES ("Emmanuel", "Lagrange", "88, Rue Joseph Vernet 92220 BAGNEUX", "1984-02-12", 1, 0, "manu@free.fr");
+INSERT INTO Stagiaires (Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)
+	VALUES 
+		("Vianney", "Bailleux", "31 Allée du gros chêne 59320 haubourdin", "1979-06-07", 0, 1, "via@free.fr"),
+		("Bruce", "Dickinson", "26 rue jean jaurés 59320 haubourdin", "1984-01-20", 1, 0, "bruce@free.fr"),
+		("Rob", "Halford", "72, rue du Château 97480 SAINT-JOSEPH", "1944-07-23", 1, 0, "rob@free.fr"),
+		("Josette", "Allain", "26, rue des Chaligny 58000 NEVERS", "1967-06-16", 1, 0, "josette@free.fr"),
+		("Emmanuel", "Lagrange", "88, Rue Joseph Vernet 92220 BAGNEUX", "1984-02-12", 1, 0, "manu@free.fr");
 
 CREATE TABLE Entreprises (
 	Id					int(6)			PRIMARY KEY AUTO_INCREMENT,
 	Adresse				VARCHAR(150)	NOT NULL,
 	Ville				VARCHAR(25)		NOT NULL,
 	Nom					VARCHAR(50)		NOT NULL,
-	DateEntree			Date			NOT NULL,
-	DateSortie			Date			NOT NULL,
-	IdUtilisateur		int(6)			REFERENCES Utilisateur(Id)
+	CodePostal			int(5)			NOT NULL
 ) ENGINE = InnoDB;
 
-INSERT INTO Entreprises(Nom, Adresse, Ville, DateEntree, DateSortie, IdUtilisateur)
-				VALUES ("Quinton Hazell", "94, rue de Geneve", "80000 AMIENS", "2001-01-01", "2005-06-01", 1);
-INSERT INTO Entreprises(Nom, Adresse, Ville, DateEntree, DateSortie, IdUtilisateur)
-				VALUES ("Lab Photo pro", "15, place Stanislas", "92000 NANTERRE", "2005-08-01", "2010-03-08", 1);
-INSERT INTO Entreprises(Nom, Adresse, Ville, DateEntree, DateSortie, IdUtilisateur)
-				VALUES ("Food Giant", "42, rue de Geneve", "80000 AMIENS", "2001-01-01", "2009-06-01", 2);
-INSERT INTO Entreprises(Nom, Adresse, Ville, DateEntree, DateSortie, IdUtilisateur)
-				VALUES ("Pantry Pride", "15, place Stanislas", "92000 NANTERRE", "2010-05-02", "2014-07-09", 2);
-INSERT INTO Entreprises(Nom, Adresse, Ville, DateEntree, DateSortie, IdUtilisateur)
-				VALUES ("Record Town", "61, rue des six frères Ruellan", "57200 SARREGUEMINES", "2001-01-01", "2005-06-01", 3);
-INSERT INTO Entreprises(Nom, Adresse, Ville, DateEntree, DateSortie, IdUtilisateur)
-				VALUES ("Magna Gases", "95, Rue Hubert de Lisle", "39000 LONS-LE-SAUNIER", "2005-09-01", "2008-08-25", 3);
-INSERT INTO Entreprises(Nom, Adresse, Ville, DateEntree, DateSortie, IdUtilisateur)
-				VALUES ("Mr Fables", "49, avenue du Marechal Juin", "50000 SAINT-LÔ", "2009-06-15", "2012-03-06", 3);
-INSERT INTO Entreprises(Nom, Adresse, Ville, DateEntree, DateSortie, IdUtilisateur)
-				VALUES ("Dynatronics Accessories", "19, Avenue Millies Lacroix", "78990 ÉLANCOURT", "2013-01-08", "2016-04-20", 3);
-INSERT INTO Entreprises(Nom, Adresse, Ville, DateEntree, DateSortie, IdUtilisateur)
-				VALUES ("Titania", "93, rue du Faubourg National", "94320 THIAIS", "2001-01-01", "2005-06-01", 4);
-INSERT INTO Entreprises(Nom, Adresse, Ville, DateEntree, DateSortie, IdUtilisateur)
-				VALUES ("Liberal", "99, Chemin Des Bateliers", "49000 ANGERS", "2012-12-10", "2016-08-08", 4);
+INSERT INTO Entreprises(Nom, Adresse, Ville, CodePostal)
+	VALUES 
+		("Quinton Hazell", "94, rue de Geneve", "AMIENS", "8000"),
+		("Lab Photo pro", "15, place Stanislas", "NANTERRE", "9200"),
+		("Food Giant", "42, rue de Geneve", "AMIENS", "8000"),
+		("Pantry Pride", "15, place Stanislas", "NANTERRE", "9200"),
+		("Record Town", "61, rue des six frères Ruellan", "SARREGUEMINES", "57200"),
+		("Magna Gases", "95, Rue Hubert de Lisle", "LONS-LE-SAUNIER", "3900"),
+		("Mr Fables", "49, avenue du Marechal Juin", "SAINT-LÔ", "5000"),
+		("Dynatronics Accessories", "19, Avenue Millies Lacroix", "ÉLANCOURT", "78990"),
+		("Titania", "93, rue du Faubourg National", "THIAIS", "94320"),
+		("Liberal", "99, Chemin Des Bateliers", "ANGERS", "4900");
+
+CREATE TABLE Metiers (
+	Id 				int(6)		PRIMARY	KEY	AUTO_INCREMENT,
+	Fonction		VARCHAR(50)	NOT NULL
+) ENGINE = InnoDB;
+
+INSERT INTO Metiers (Fonction)
+	VALUES
+		("développeur Java"),
+		("développeur Python"),
+		("développeur JavaScript"),
+		("développeur Ruby"),
+		("développeur C++"),
+		("développeur C"),
+		("développeur Go"),
+		("Intégrateur Web"),
+		("Photographe"),
+		("Présentateur TV");
+
+CREATE TABLE Metier_Entreprise (
+	Id 				int(6)	PRIMARY KEY AUTO_INCREMENT,
+	IdMetier		int(6)	REFERENCES Metiers(Id),
+	IdEntreprise	int(6)	REFERENCES Entreprises(Id)
+) ENGINE = InnoDB;
+
+INSERT INTO Metier_Entreprise (IdMetier, IdEntreprise)
+	VALUES
+		(0, 2),
+		(0, 1),
+		(1, 3),
+		(1, 5),
+		(2, 0),
+		(2, 3),
+		(3, 4),
+		(3, 2),
+		(4, 0),
+		(4, 1),
+		(4, 3);
+
+CREATE TABLE Metier_Competence (
+	Id 				int(6)	PRIMARY KEY AUTO_INCREMENT,
+	IdMetier		int(6)	REFERENCES Metiers(Id),
+	IdCompetence	int(6)	REFERENCES Competences(Id)
+) ENGINE = InnoDB;
+
+INSERT INTO Metier_Competence (IdMetier, IdCompetence)
+	VALUES
+		(0, 0),
+		(0, 2),
+		(0, 4),
+		(0, 6),
+		(1, 1),
+		(1, 3),
+		(1, 7),
+		(2, 1),
+		(2, 2),
+		(2, 3),
+		(2, 4),
+		(2, 5),
+		(3, 1),
+		(3, 2),
+		(3, 5);
+
+CREATE TABLE Stagiaire_Metier(
+	Id				int(6)			PRIMARY KEY AUTO_INCREMENT,
+	DateEntree		Date			NOT NULL,
+	DateSortie		Date			NOT NULL,
+	Description		VARCHAR(200)	NULL,
+	IdMetier		int(6)			REFERENCES Metiers(Id),
+	IdStagiaire		int(6)			REFERENCES Stagiaires(Id)
+) ENGINE = InnoDB;
+
+INSERT INTO Stagiaire_Metier(DateEntree, DateSortie, Description, IdStagiaire, IdMetier)
+	VALUES
+		("1999-01-01", "2005-10-20", "Création de la maquette du site en HTML5", 0, 2),
+		("2006-05-09", "2009-11-05", "Mise en place du code en Python 3.6", 1, 1),
+		("1997-08-15", "1999-08-03", "Création de la partie DAO", 2, 3);
+		("2000-08-01", "2010-01-15", "Maintenance Partie DAO", 2, 4);
+
+CREATE TABLE Stagiaire_Formation (
+	Id 				int(6)	PRIMARY KEY	AUTO_INCREMENT,
+	IdStagiaire		int(6)	REFERENCES Stagiaires(Id),
+	IdFormation		int(6)	REFERENCES Formations(Id)
+) ENGINE = InnoDB;
+
+INSERT INTO Stagiaire_Formation(IdStagiaire, IdFormation)
+	VALUES
+		(0, 0),
+		(0, 2),
+		(1, 4),
+		(1, 5),
+		(2, 3),
+		(2, 5),
+		(3, 0),
+		(3, 1),
+		(3, 2);
+
+CREATE TABLE Certification_Competence (
+	Id				int(6)	PRIMARY KEY AUTO_INCREMENT,
+	IdCertification int(6)	REFERENCES Certifications(Id),
+	IdCompetence	int(6)	REFERENCES Competences(Id)
+) ENGINE = InnoDB;
+
+INSERT INTO Certification_Competence (IdCertification, IdCompetence)
+	VALUES
+		(0, 0),
+		(0, 1),
+		(0, 2),
+		(1, 3),
+		(1, 5),
+		(2, 0),
+		(2, 3),
+		(2, 6),
+		(3, 2),
+		(3, 5),
+		(4, 2),
+		(4, 3),
+		(4, 6),
+		(4, 0);
+
+CREATE TABLE Competences(
+	Id				int(6)		PRIMARY KEY AUTO_INCREMENT,
+	Nom				VARCHAR(60)	NOT NULL
+) ENGINE = InnoDB;
+
+INSERT INTO Competences(Nom)
+	VALUES
+		("Crée un squelette HTML5"),
+		("Crée Script JS"),
+		("Compétence 3"),
+		("Compétence 4"),
+		("Compétence 5"),
+		("Compétence 6"),
+		("Compétence 7"),
+		("Compétence 8"),
+		("Compétence 9"),
+		("Compétence 10");
 
 CREATE TABLE Certifications (
-	Id				int(6)	PRIMARY KEY AUTO_INCREMENT,
-	IdCompetence	int(6)	REFERENCES Compretences(Id),
-	IdFormation		int(6)	REFERENCES Formations(Id),
-	IdMetier		int(6)	REFERENCES Metiers(Id)
+	Id				int(6)		PRIMARY KEY AUTO_INCREMENT,
+	Nom				VARCHAR(50)	NOT NULL,
+	Niveau			int(1)		NOT NULL
 ) ENGINE = InnoDB;
 
-
+INSERT INTO Certifications(Nom, Niveau)
+	VALUES
+		("Certification AXELOS", 1),
+		("Certification AXELOS", 2),
+		("Certification AXELOS", 3),
+		("certification Voltaire", 1),
+		("certification Voltaire", 2),
+		("certification Voltaire", 3),
+		("certification TOEIC", 1),
+		("certification TOEIC", 2),
+		("certification TOEIC", 3),
+		("certification Bulats", 1),
+		("certification Bulats", 2),
+		("certification Bulats", 3);
 
 CREATE TABLE Formations (
-	Id					int(6)	PRIMARY KEY AUTO_INCREMENT,
+	Id					int(6)		PRIMARY KEY AUTO_INCREMENT,
 	IntituleFormation	VARCHAR(50)	NOT NULL,
-	IdCompetence	int(6)	REFERENCES Compretences(Id)
+	IdCertification		int(6)		REFERENCES Formations(Id)
 ) ENGINE = InnoDB;
+
+INSERT INTO Formations (IntituleFormation, IdCertification)
+	VALUES
+		("Windows débutant", 11),
+		("Internet débutant", 8),
+		("Windows débutant", 6),
+		("Technicien maintenance informatique", 4),
+		("Technique de développement web", 6),
+		("réseaux et télécommunications", 3),
+		("Assistance en informatique", 4);
+
+
+-- Info Stagiaire_Metier:
+-- SELECT	SM.IdMetier, SM.DateEntree, SM.DateSortie, SM.Description,
+-- 	S.Id, S.Nom, S.Prenom, S.Email, S.Adresse, S.DateNaissance, 
+-- 	M.Fonction
+-- FROM 	Stagiaire_Metier AS SM,
+-- 	Stagiaires AS S,
+-- 	Metiers AS M
+-- WHERE S.Id= 2 AND SM.IdStagiaire= 2;
+
+-- Info Metier_Entreprise_Competence:
+-- SELECT	MC.IdCompetence,
+-- 	M.Fonction,
+-- 	ME.IdEntreprise
+-- FROM 	Metier_Competence AS MC, 
+-- 	Metiers AS M,
+-- 	Metier_Entreprise AS ME
+-- WHERE	ME.IdMetier= 3 AND M.Id= 3 AND MC.IdMetier= 3;
