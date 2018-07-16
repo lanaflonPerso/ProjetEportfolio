@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.vianney.beans.Stagiaire;
-import com.vianney.dao.MyConnection;
 import com.vianney.dao.StagiairesDao;
 
 /**

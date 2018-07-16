@@ -1,6 +1,7 @@
 package com.admin.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.vianney.beans.Stagiaire;
+import com.vianney.dao.StagiairesDao;
 import com.vianney.form.ControleNewStagiaire;
 
 /**
@@ -49,10 +51,13 @@ public class CreateStagiaire extends HttpServlet {
 		
 		if (n.getOk()) {			
 			HttpSession session = request.getSession();
-			request.setAttribute("url", response.encodeURL ("/ProjetEportfolio/stagiaire"));
 	        session.setAttribute("sessionNom", stagiaire.getNom());
 	        session.setAttribute("sessionPrenom", stagiaire.getPrenom());
-//	        newStagiaire(Stagiaire stagiaire)
+	        StagiairesDao newConnect= new StagiairesDao((Connection) request.getAttribute("connection"));
+	        long id= newConnect.newStagiaire(stagiaire);
+	        
+	        String url= "/ProjetEportfolio/stagiaire/"+ id;
+	        request.setAttribute("url", response.encodeURL (url));
 		}
 		request.setAttribute("page", 3);
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);

@@ -15,7 +15,7 @@
 					prenom: ${ stagiaire.prenom }<br />
 					email: ${ stagiaire.email }<br />
 					Age: ${ stagiaire.age }<br />
-					<a href="/ProjetEportfolio/stagiaire">Confirmer</a>
+					<a href="${ url }">Confirmer</a>
 				</div>
 			</c:when>
 			<c:otherwise>

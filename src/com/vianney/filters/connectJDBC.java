@@ -37,7 +37,6 @@ public class connectJDBC implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		if (request.getAttribute("connection") instanceof Connection == false) {
-			System.out.println("connection a la base");
 			MyConnection connection= new MyConnection();
 			request.setAttribute("connection", connection.getConnection());
 		}

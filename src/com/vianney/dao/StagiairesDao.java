@@ -80,24 +80,36 @@ public class StagiairesDao {
 		return rows;	
 	}
 	
-	public void newStagiaire(Stagiaire stagiaire) {
-		String sql= "INSERT INTO Stagiaires ";
-		sql+= 			"(Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)";
-		sql+= "VALUES    (?,   ?,      '',       ?,             0,           0,                ?);";
+	public long newStagiaire(Stagiaire stagiaire) {
+		
+		long id = 0;
+				
+		String sql= "INSERT INTO "+ NOM_TABLE;
+		sql+= 			" (Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)";
+		sql+= " VALUES    (?,   ?,      '',       ?,             0,           0,                ?);";
+		
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql);
+			PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); 
+			
 			ps.setString(1, stagiaire.getNom());
 			ps.setString(2, stagiaire.getPrenom());
 			String d= formatDate (stagiaire.getDateNaissance());
 			ps.setString(3, d);
 			ps.setString(4, stagiaire.getEmail());
 			ps.executeUpdate();
+			ResultSet rs=ps.getGeneratedKeys();
+			if(rs.next()) {
+				id=rs.getInt(1);
+				return id;
+			} 
 			
 		} catch (SQLException e) {
 			System.out.println("Problème de base de donnée");
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
+		
+		return id;
 	}
 	
 	/**
