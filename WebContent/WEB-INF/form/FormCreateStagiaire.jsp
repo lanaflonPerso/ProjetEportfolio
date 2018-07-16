@@ -1,6 +1,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-			
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
 <div class="col-md-5 offset-md-3">
 	<h1>Création d'un stagiaire</h1>
 	
@@ -43,28 +44,30 @@
 			<label for="nom">Nom: </label>
 
 			<input name="nom" type="text" class="form-control ${ form.classeNom }" id="nom" placeholder="Nom du stagiaire"
-				<c:if test="${ !ok }" >value="${ nom }"</c:if> require />
+				<c:if test="${ !ok }" >value="${ stagiaire.nom }"</c:if>  required/>
 		</div>
 		 
 		<div class="form-group">
 			<label for="prenom">Prénom: </label>
 
 			<input name="prenom" type="text" class="form-control ${ form.classePrenom }" id="prenom" placeholder="Prénom du stagiaire" 
-				<c:if test="${ !ok }" >value="${ prenom }"</c:if> require />
+				<c:if test="${ !ok }" >value="${ stagiaire.prenom }"</c:if> required/>
 		</div>
 		
 		<div class="form-group">
 			<label for="email">Email: </label>
 
-			<input name="email" type="text" class="form-control ${ form.classeEmail }" id="email" placeholder="Email du stagiaire"  
-				<c:if test="${ !ok }" >value="${ email }"</c:if> require>
+			<input name="email" type="email" class="form-control ${ form.classeEmail }" id="email" placeholder="Email du stagiaire"  
+				<c:if test="${ !ok }" >value="${ stagiaire.email }"</c:if> required/>
 		</div>
 		
 		<div class="form-group">
 			<label for="ddn">Date De Naissance: </label>
 
 			<input name="ddn" type="text" class="form-control ${ form.classeDdn }" id="ddn" placeholder="Date de naissance du stagiaire format 05/06/1979" 
-				<c:if test="${ !ok }" >value="${ ddn }"</c:if> pattern="[0-9]{2}/[0-9]{2}/[1-2][0-9]{3}">
+				<c:if test="${ !ok }" >
+					value="<tags:localDate date="${ stagiaire.dateNaissance }"/>"
+				</c:if> pattern="[0-9]{2}/[0-9]{2}/[1-2][0-9]{3}"  required/>
 		</div>
 		
 		<button type="submit" class="btn btn-primary">Envoyer</button>					

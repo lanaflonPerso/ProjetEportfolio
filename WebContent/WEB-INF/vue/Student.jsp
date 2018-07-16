@@ -11,8 +11,12 @@
 	${ stagiaire.getNom() } ${ stagiaire.getPrenom() }  ${ stagiaire.getAge() } 
 	
 	<p>Listes D'entreprise</p>
-	<c:forEach items="${ stagiaire.getEntreprises() }" var="titre" varStatus="entreprise">
-    	<p>N°<c:out value="${ entreprise.count }" /> : <c:out value="${ titre.getNom() }" />  <c:out value="${ titre.getAdresse() }" />!</p>
-	</c:forEach>
+	
+	<ul class="list-group">
+	
+		<c:forEach items="${ stagiaire.getEntreprises() }" var="entreprise" varStatus="boucle">
+	    	<li class="list-group-item"> ${ entreprise.nom } à ${ entreprise.ville }</li>
+		</c:forEach>
+	</ul>
 </body>
 </html>

@@ -3,29 +3,24 @@ package com.admin.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.admin.LogConnection;
 import com.vianney.beans.Stagiaire;
 import com.vianney.form.ControleNewStagiaire;
 
 /**
  * Servlet implementation class CreationStagiaire
  */
-@WebServlet( urlPatterns = "/creationstagiaire/*" )
-public class CreationStagiaire extends HttpServlet {
+public class CreateStagiaire extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private LogConnection logConnection;
-       
+	       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreationStagiaire() {
+    public CreateStagiaire() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +29,7 @@ public class CreationStagiaire extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("titlePage", "Création d'un stagiaire");
+		request.setAttribute("titlePage", "CrÃ©ation d'un stagiaire");
 		request.setAttribute("post", false);
 		request.setAttribute("page", 3);
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
@@ -49,25 +44,15 @@ public class CreationStagiaire extends HttpServlet {
 		Stagiaire stagiaire= n.getStagiaire();
 		request.setAttribute("ok", n.getOk());
 		request.setAttribute("stagiaire", stagiaire);
-		request.setAttribute("nom", request.getParameter("nom"));
-		request.setAttribute("prenom",request.getParameter("prenom"));
-		request.setAttribute("email", request.getParameter("email"));
-		request.setAttribute("ddn", request.getParameter("ddn"));
 		request.setAttribute("post", true);
 		request.setAttribute("form", n);
 		
-		if (n.getOk()) {
-			String ligne= "";
-			ligne+= stagiaire.getNom()+";";
-			ligne+= stagiaire.getPrenom()+";";
-			ligne+= request.getRemoteAddr() +";";
-			ligne+= request.getRemoteHost();
-			logConnection.ecrireLigne(ligne);
-			
+		if (n.getOk()) {			
 			HttpSession session = request.getSession();
 			request.setAttribute("url", response.encodeURL ("/ProjetEportfolio/stagiaire"));
 	        session.setAttribute("sessionNom", stagiaire.getNom());
 	        session.setAttribute("sessionPrenom", stagiaire.getPrenom());
+//	        newStagiaire(Stagiaire stagiaire)
 		}
 		request.setAttribute("page", 3);
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
@@ -86,18 +71,4 @@ public class CreationStagiaire extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
-
-	@Override
-	public void init() throws ServletException {
-		// TODO Auto-generated method stub
-		super.init();
-		
-		logConnection= new LogConnection();
-	}
-
-	@Override
-	public void destroy() {
-		super.destroy();
-		LogConnection.fermer();
-	}	
 }

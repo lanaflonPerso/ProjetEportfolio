@@ -11,6 +11,8 @@ import java.util.List;
 import com.vianney.beans.Entreprise;
 
 public class EntrepriseDao {
+	
+	private final String NOM_TABLE= "Entreprises";
 	private Connection connection;
 	List<Entreprise> rows = new ArrayList<Entreprise>();
 	private Entreprise entreprise;
@@ -23,7 +25,7 @@ public class EntrepriseDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		
-		String sql= "SELECT * FROM Entreprises WHERE IdUtilisateur = ?";
+		String sql= "SELECT * FROM "+ NOM_TABLE +" WHERE IdStagiaire = ?";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt( 1, id );

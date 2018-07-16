@@ -32,8 +32,8 @@ public class ControleNewStagiaire {
 	}
 	
 	private void controleNom(String nom) {
+		stagiaire.setNom(nom);
 		if (!(nom.length() < 5) ) { 
-			stagiaire.setNom(nom);
 			classeNom= classe(true);
 		} else {
 			msgErrNom= "Le nom doit comprendre plus de 6 caractères!";
@@ -43,8 +43,8 @@ public class ControleNewStagiaire {
 	}
 	
 	private void controlePrenom(String prenom) {
+		stagiaire.setPrenom(prenom);
 		if (!(prenom.length() < 5) ) { 
-			stagiaire.setPrenom(prenom);
 			classePrenom= classe(true);
 		} else {
 			msgErrPrenom= "Le prénom doit comprendre plus de 6 caractères!";
@@ -54,10 +54,10 @@ public class ControleNewStagiaire {
 	}
 	
 	private void controleEmail(String email) {
+		stagiaire.setEmail(email);
 		Pattern regexMail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 		Matcher m = regexMail.matcher(email);
 		if (m.find()) {
-			stagiaire.setEmail(email);
 			classeEmail= classe(true);
 		} else {
 			msgErrEmail= "L'adresse email n'est pas valide!";

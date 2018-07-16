@@ -14,7 +14,7 @@ public class MyConnection {
 	private String user;
 	private String password;
 	private Connection connection;
-	private String properties= "/home/vianney/eclipse-workspace/dao.properties";
+	private String properties= "c:\\dao.properties";
 	
 	public MyConnection() {
 		lireProperties();

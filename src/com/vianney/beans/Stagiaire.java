@@ -44,6 +44,7 @@ public class Stagiaire {
 	public LocalDate getDateNaissance() {
 		return dateNaissance;
 	}
+	
 	public void setDateNaissance(LocalDate ddn) {
 		this.dateNaissance = ddn;
 		LocalDate today = LocalDate.now();

@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
   <display-name>ProjetEportfolio</display-name>
+  
+    <filter>
+        <filter-name>connectJDBC</filter-name>
+        <filter-class>com.vianney.filters.connectJDBC</filter-class>
+    </filter>
+   <filter-mapping>
+        <filter-name>connectJDBC</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+  
+  <filter>
+        <filter-name>LogCreateStagiaire</filter-name>
+        <filter-class>com.vianney.filters.LogCreateStagiaire</filter-class>
+    </filter>
+   <filter-mapping>
+        <filter-name>LogCreateStagiaire</filter-name>
+        <url-pattern>/creationstagiaire/</url-pattern>
+    </filter-mapping>
+    
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -9,7 +29,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-<!--            Index                            -->
   <servlet>
     <servlet-name>Index</servlet-name>
     <servlet-class>com.vianney.servlet.Index</servlet-class>
@@ -23,36 +42,27 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
-<!--            ListStudentServlet                           -->
+   <servlet>
+    <servlet-name>CreateStagiaireServlet</servlet-name>
+    <servlet-class>com.admin.servlet.CreateStagiaire</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
   <servlet>
-    <servlet-name>ListStudentServlet</servlet-name>
-    <servlet-class>com.vianney.servlet.ListStudentServlet</servlet-class>
+    <servlet-name>StagiaireServlet</servlet-name>
+    <servlet-class>com.vianney.servlet.StagiaireServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
- <!--            VueStudentServlet                          -->
-<servlet>
-    <servlet-name>StudentServlet</servlet-name>
-    <servlet-class>com.vianney.servlet.StudentServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  
-<!--                                                  -->
-<!--          Mapping                                 -->
-<!--                                                  --> 
- <!--            Index                           -->
+    <servlet-mapping>
+    <servlet-name>CreateStagiaireServlet</servlet-name>
+    <url-pattern>/creationstagiaire/</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Index</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-  <!--            ListStudentServlet                           -->
   <servlet-mapping>
-    <servlet-name>ListStudentServlet</servlet-name>
-    <url-pattern>/stagiaires</url-pattern>
-  </servlet-mapping>
-<!--            ListStudentServlet                           -->
-<servlet-mapping>
-    <servlet-name>StudentServlet</servlet-name>
-    <url-pattern>/student/*</url-pattern>
+    <servlet-name>StagiaireServlet</servlet-name>
+    <url-pattern>/stagiaire/*</url-pattern>
   </servlet-mapping>
   <error-page>
     <error-code>404</error-code>
