@@ -1,11 +1,15 @@
 package com.vianney.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.vianney.beans.Stagiaire;
+import com.vianney.dao.StagiairesDao;
 
 /**
  * Servlet implementation class Index
@@ -26,7 +30,14 @@ public class Index extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setAttribute("page", 1);
+		
+		StagiairesDao newConnect= new StagiairesDao((Connection) request.getAttribute("connection"));
+		newConnect.CarriereStagaire(2);	
+		
+		Stagiaire stagiaire= newConnect.getStagiaire();
+				
+		request.setAttribute("stagiaire", stagiaire);
+		request.setAttribute("page", 10);
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
 

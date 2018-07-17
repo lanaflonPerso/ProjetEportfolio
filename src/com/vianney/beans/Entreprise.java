@@ -1,14 +1,17 @@
 package com.vianney.beans;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Entreprise {
+	
 	private long id;
 	private String adresse;
 	private String ville;
 	private String nom;
-	private LocalDate dateEntree;
-	private LocalDate dateSortie;
+	private int codePostal;
+	private List<Metier> metier= new ArrayList<Metier>();
+	
 	public long getId() {
 		return id;
 	}
@@ -33,16 +36,16 @@ public class Entreprise {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public LocalDate getDateEntree() {
-		return dateEntree;
+	public List<Metier> getMetier() {
+		return metier;
 	}
-	public void setDateEntree(LocalDate dateEntree) {
-		this.dateEntree = dateEntree;
+	public void setMetier(Metier metier) {
+		this.metier.add(metier);
 	}
-	public LocalDate getDateSortie() {
-		return dateSortie;
+	public int getCodePostal() {
+		return codePostal;
 	}
-	public void setDateSortie(LocalDate dateSortie) {
-		this.dateSortie = dateSortie;
+	public void setCodePostal(int codePostal) {
+		this.codePostal = codePostal;
 	}
 }

@@ -22,6 +22,9 @@
 				<c:when test="${ page == 5 }">
 					<%@ include file="/WEB-INF/vue/ViewStudent.jsp" %>
 				</c:when>
+				<c:when test="${ page == 10 }">
+					<%@ include file="/WEB-INF/Test.jsp" %>
+				</c:when>
 				<c:otherwise></c:otherwise>
 			</c:choose>
 		</div>

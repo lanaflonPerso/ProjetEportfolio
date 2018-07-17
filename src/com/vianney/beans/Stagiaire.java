@@ -45,10 +45,12 @@ public class Stagiaire {
 		return dateNaissance;
 	}
 	
-	public void setDateNaissance(LocalDate ddn) {
-		this.dateNaissance = ddn;
+	public void setDateNaissance(String ddn) {
+		String[] part= ddn.split("-");
+	    LocalDate localDate = LocalDate.of(Integer.parseInt(part[0]), Integer.parseInt(part[1]), Integer.parseInt(part[2]));		
+		this.dateNaissance = localDate;
 		LocalDate today = LocalDate.now();
-		Period age= Period.between(ddn, today);
+		Period age= Period.between(localDate, today);
 		setAge(age);
 	}
 	public int getAge() {
@@ -73,7 +75,7 @@ public class Stagiaire {
 	public List<Entreprise> getEntreprises() {
 		return entreprises;
 	}
-	public void setEntreprises(List<Entreprise> entreprises) {
-		this.entreprises = entreprises;
+	public void setEntreprises(Entreprise entreprises) {
+		this.entreprises.add(entreprises);
 	}
 }
