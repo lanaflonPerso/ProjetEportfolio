@@ -32,7 +32,7 @@ CREATE TABLE Entreprises (
 
 INSERT INTO Entreprises(Nom, Adresse, Ville, CodePostal)
 	VALUES 
-		("Quinton Hazell", "94, rue de Geneve", "AMIENS", "8000"),
+		("Quinton Hazell", "94, rue de Lesquin", "LILLE", "5900"),
 		("Lab Photo pro", "15, place Stanislas", "NANTERRE", "9200"),
 		("Food Giant", "42, rue de Geneve", "AMIENS", "8000"),
 		("Pantry Pride", "15, place Stanislas", "NANTERRE", "9200"),

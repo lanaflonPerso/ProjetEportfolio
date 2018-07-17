@@ -1,21 +1,9 @@
-<%@ page pageEncoding="UTF-8" %>
-
 <div class="col-md-5 offset-md-3">
 	<h1>Connection</h1>
-    
-	<c:if test="${ !ok }" >			
-		<div class="alert alert-danger" role="alert">
-			<strong>Erreur</strong><br>
-				<c:if test="${not empty form.msgErrNom}">${ form.msgErrNom }<br></c:if>
-				<c:if test="${not empty form.msgErrPrenom}">${ form.msgErrPrenom }<br></c:if>
-				<c:if test="${not empty form.msgErrEmail}">${ form.msgErrEmail }<br></c:if>
-				<c:if test="${not empty form.msgErrDdn}">${ form.msgErrDdn }</c:if>
-		</div>
-	</c:if>
-			
-	<form class="formCreateStagiaire" method="post" action="/ProjetEportfolio/creationstagiaire/">
+   			
+	<form method="post" action="/ProjetEportfolio/connection">
 
-		<div class="form-group formCreateStagiaire">
+		<div class="form-group">
 			<select name="civilite" class="form-control" id="civilite">
 				<option>Monsieur</option>
 				<option>Madame</option>

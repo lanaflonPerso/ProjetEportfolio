@@ -26,7 +26,7 @@ public class Index extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setAttribute("page", 1);
+		request.setAttribute("page", "index");
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
 
