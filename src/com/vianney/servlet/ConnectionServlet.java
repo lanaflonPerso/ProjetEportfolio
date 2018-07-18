@@ -24,7 +24,6 @@ public class ConnectionServlet extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection connection= (Connection) request.getAttribute("connection");
 		String mdp= (String) request.getParameter("mdp");
@@ -35,7 +34,7 @@ public class ConnectionServlet extends HttpServlet {
 		if(cc.isOk()) {
 			request.setAttribute("page", "index");
 		} else {
-			request.setAttribute("var", cc);
+			request.setAttribute("var", cc);			
 			request.setAttribute("page", "connection");
 		}
 		

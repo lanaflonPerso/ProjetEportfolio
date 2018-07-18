@@ -110,11 +110,12 @@ public class StagiairesDao {
 			ps.setString(1, email);
 			ps.setString(2, mdp);
 			ResultSet r= ps.executeQuery();
+						
 			if (!r.next()) {
 				return stagiaire;
 			}
-			createList(r);
-			
+			r.beforeFirst();
+			createList(r);		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

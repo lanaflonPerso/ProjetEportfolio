@@ -1,7 +1,6 @@
 package com.vianney.form;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,6 +15,7 @@ public class ControleConnection {
 	private String msgMdp;
 	private String msgEmail;
 	private Connection connection;
+	private String email;
 	
 	public ControleConnection(Connection uConnection, String uMdp, String uEmail) {
 		connection= uConnection;
@@ -26,8 +26,6 @@ public class ControleConnection {
 	
 	private boolean verifMdp(String mdp) {
 		if(mdp.equals("")) {
-			msgMdp= "Vous devez saisir un mot de passe";
-			System.out.println("mot de passe vide");
 			ok = false;
 			return false;
 		} else {
@@ -41,7 +39,6 @@ public class ControleConnection {
 		if (m.find()) {
 			return true;
 		} else {
-			System.out.println("mail invalie");
 			msgEmail="Le Mail n'est pas valide";
 			ok= false;
 			return false;
@@ -49,11 +46,11 @@ public class ControleConnection {
 	}
 	
 	private boolean verif(String uEmail, String uMdp) {
+		email= uEmail;
 		StagiairesDao conStagiaire= new StagiairesDao(connection);
 		stagiaire= conStagiaire.SelectByEmailMdp(uMdp, uEmail);
-		if(stagiaire.getEmail().equals("")) {
+		if(stagiaire.getEmail() == null) {
 			msgErreur= "Email ou mot de passe invalide";
-			System.out.println("l'utilisateur n'existe pas");
 			ok= false;
 			return false;
 		} else {
@@ -79,5 +76,9 @@ public class ControleConnection {
 
 	public String getMsgEmail() {
 		return msgEmail;
+	}
+
+	public String getEmail() {
+		return email;
 	}
 }
