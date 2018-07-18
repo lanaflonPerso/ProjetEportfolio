@@ -59,7 +59,7 @@ public class CreateStagiaire extends HttpServlet {
 	        String url= "/ProjetEportfolio/stagiaire/"+ id;
 	        request.setAttribute("url", response.encodeURL (url));
 		}
-		request.setAttribute("page", 3);
+		request.setAttribute("page", "createStagiaire");
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
 

@@ -1,16 +1,14 @@
-<%@ page pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 <div class="col-md-5 offset-md-3">
-	<h1>CrÃ©ation d'un stagiaire</h1>
+	<h1>Création d'un stagiaire</h1>
 	
 	<c:if test="${ post }" >
 	
 		<c:choose>
 			<c:when test="${ ok }">
 				<div class="alert alert-success" role="alert">
-					<strong>Ok</strong> utilisateur crÃ©e.<br />
+					<strong>Ok</strong> utilisateur crée.<br />
 					nom: ${ stagiaire.civilite } ${ stagiaire.nom }<br />
 					prenom: ${ stagiaire.prenom }<br />
 					email: ${ stagiaire.email }<br />
@@ -48,9 +46,9 @@
 		</div>
 		 
 		<div class="form-group">
-			<label for="prenom">PrÃ©nom: </label>
+			<label for="prenom">Prénom: </label>
 
-			<input name="prenom" type="text" class="form-control ${ form.classePrenom }" id="prenom" placeholder="PrÃ©nom du stagiaire" 
+			<input name="prenom" type="text" class="form-control ${ form.classePrenom }" id="prenom" placeholder="Prénom du stagiaire" 
 				<c:if test="${ !ok }" >value="${ stagiaire.prenom }"</c:if> required/>
 		</div>
 		
