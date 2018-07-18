@@ -26,9 +26,11 @@ public class StagiaireServlet extends HttpServlet {
 		try {
 			long id= Integer.parseInt(pathInfo[1]);
 			try {
-				StagiairesDao newConnect= new StagiairesDao((Connection) request.getAttribute("connection"));
-				stagiaire= newConnect.SelectById(id);
-				request.setAttribute("stagiaire", stagiaire);
+				StagiairesDao conStagiaire= new StagiairesDao((Connection) request.getAttribute("connection"));
+				stagiaire= conStagiaire.CarriereStagaire(id);
+				
+				
+				request.setAttribute("stagiaire", stagiaire);	
 				request.setAttribute("page", "stagiaire");
 				request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 			} catch (Exception e) {

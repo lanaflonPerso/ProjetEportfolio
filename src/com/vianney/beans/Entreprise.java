@@ -10,7 +10,7 @@ public class Entreprise {
 	private String ville;
 	private String nom;
 	private int codePostal;
-	private List<Metier> metier= new ArrayList<Metier>();
+	private List<Metier> metiers= new ArrayList<Metier>();
 	
 	public long getId() {
 		return id;
@@ -37,10 +37,13 @@ public class Entreprise {
 		this.nom = nom;
 	}
 	public List<Metier> getMetier() {
-		return metier;
+		return metiers;
 	}
-	public void setMetier(Metier metier) {
-		this.metier.add(metier);
+	public void setMetiers(List<Metier> metiers) {
+		this.metiers= metiers;
+	}
+	public void setListMetier(Metier metier) {
+		this.metiers.add(metier);
 	}
 	public int getCodePostal() {
 		return codePostal;

@@ -20,7 +20,6 @@ public class MetierDao {
 	
 	public void SelectByStagiaire(long id) {
 
-		
 		String sql= "SELECT M.Id AS IdMetier, SM.DateEntree, SM.DateSortie, SM.Description, M.Fonction ";
 		sql+= "FROM Stagiaire_Metier AS SM, Metiers AS M ";
 		sql+= "WHERE SM.IdStagiaire= ? AND M.Id= SM.IdMetier";
@@ -42,6 +41,10 @@ public class MetierDao {
 			    Metier metier = new Metier();
 			    metier.setId(r.getLong("IdMetier"));
 			    metier.setFonction(r.getString("Fonction"));
+			    metier.setDateEntree(r.getString("DateEntree"));
+			    metier.setDateSortie(r.getString("DateSortie"));
+//			    metier.setCompetence();
+			    metier.setDescription(r.getString("Description"));
 			    
 			    metiers.add(metier);    
 			}
@@ -53,6 +56,4 @@ public class MetierDao {
 	public List<Metier> getMetiers() {
 		return metiers;
 	}
-	
-	
 }

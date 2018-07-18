@@ -21,14 +21,19 @@ public class Metier {
 	public LocalDate getDateEntree() {
 		return dateEntree;
 	}
-	public void setDateEntree(LocalDate dateEntree) {
-		this.dateEntree = dateEntree;
+	public void setDateEntree(String de) {
+		String[] part= de.split("-");
+	    LocalDate localDate = LocalDate.of(Integer.parseInt(part[0]), Integer.parseInt(part[1]), Integer.parseInt(part[2]));		
+		this.dateEntree = localDate;
 	}
 	public LocalDate getDateSortie() {
+		
 		return dateSortie;
 	}
-	public void setDateSortie(LocalDate dateSortie) {
-		this.dateSortie = dateSortie;
+	public void setDateSortie(String ds) {
+		String[] part= ds.split("-");
+	    LocalDate localDate = LocalDate.of(Integer.parseInt(part[0]), Integer.parseInt(part[1]), Integer.parseInt(part[2]));		
+		this.dateSortie = localDate;
 	}
 	public String getFonction() {
 		return fonction;
@@ -47,5 +52,9 @@ public class Metier {
 	}
 	public void setCompetence(List<Competence> competence) {
 		this.competence = competence;
+	}
+	
+	public void setListCompetence(Competence c) {
+		competence.add(c);
 	}
 }

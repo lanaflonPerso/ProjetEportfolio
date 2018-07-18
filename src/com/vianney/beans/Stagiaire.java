@@ -75,7 +75,10 @@ public class Stagiaire {
 	public List<Entreprise> getEntreprises() {
 		return entreprises;
 	}
-	public void setEntreprises(Entreprise entreprises) {
+	public void setListEntreprises(Entreprise entreprises) {
 		this.entreprises.add(entreprises);
+	}
+	public void setEntreprises(List<Entreprise> entreprises) {
+		this.entreprises= entreprises;
 	}
 }

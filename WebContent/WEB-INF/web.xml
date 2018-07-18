@@ -30,6 +30,11 @@
 	</welcome-file-list>
 	
 	<servlet>
+		<servlet-name>AjouterEntreprise</servlet-name>
+		<servlet-class>com.vianney.servlet.AjouterEntrepriseServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>Connection</servlet-name>
 		<servlet-class>com.vianney.servlet.ConnectionServlet</servlet-class>
 	</servlet>
@@ -74,6 +79,11 @@
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>/img/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AjouterEntreprise</servlet-name>
+		<url-pattern>/entreprise/ajouter</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
