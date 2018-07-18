@@ -33,7 +33,7 @@ public class CreateStagiaire extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("titlePage", "Création d'un stagiaire");
 		request.setAttribute("post", false);
-		request.setAttribute("page", 3);
+		request.setAttribute("page", "createStagiaire");
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
 
@@ -59,7 +59,7 @@ public class CreateStagiaire extends HttpServlet {
 	        String url= "/ProjetEportfolio/stagiaire/"+ id;
 	        request.setAttribute("url", response.encodeURL (url));
 		}
-		request.setAttribute("page", 3);
+		request.setAttribute("page", "createStagiaire");
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
 

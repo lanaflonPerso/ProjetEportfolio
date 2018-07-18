@@ -11,34 +11,26 @@ import javax.servlet.http.HttpServletResponse;
 import com.vianney.beans.Stagiaire;
 import com.vianney.dao.StagiairesDao;
 
-/**
- * Servlet implementation class VueStudent
- */
 public class StagiaireServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Stagiaire stagiaire;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public StagiaireServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+				
 		String[] pathInfo= request.getPathInfo().split("/");
 		try {
-			int i= Integer.parseInt(pathInfo[1]);
+			long id= Integer.parseInt(pathInfo[1]);
 			try {
 				StagiairesDao newConnect= new StagiairesDao((Connection) request.getAttribute("connection"));
-				stagiaire= newConnect.SelectById(i);
+				stagiaire= newConnect.SelectById(id);
 				request.setAttribute("stagiaire", stagiaire);
-				request.getRequestDispatcher("/WEB-INF/vue/Student.jsp").forward(request, response);
+				request.setAttribute("page", "stagiaire");
+				request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 			} catch (Exception e) {
 				System.out.println("n'existe pas");
 			}

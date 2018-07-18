@@ -12,6 +12,12 @@ public class Metier {
 	private String description;
 	private List<Competence> competence= new ArrayList<Competence>();
 	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public LocalDate getDateEntree() {
 		return dateEntree;
 	}
@@ -36,17 +42,10 @@ public class Metier {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
 	public List<Competence> getCompetence() {
 		return competence;
 	}
-	public void setCompetence(Competence competence) {
-		this.competence.add(competence);
+	public void setCompetence(List<Competence> competence) {
+		this.competence = competence;
 	}
-	
 }
