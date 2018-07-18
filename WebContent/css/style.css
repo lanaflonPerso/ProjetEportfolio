@@ -11,3 +11,11 @@ h1 {
 .container {
 	margin: 20px 0px 20px 0px;
 }
+
+.rouge {
+	background: red;
+}
+
+.jaune {
+	background: yellow;
+}

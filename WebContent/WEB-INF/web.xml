@@ -38,6 +38,11 @@
 		<servlet-name>Connection</servlet-name>
 		<servlet-class>com.vianney.servlet.ConnectionServlet</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>Deconnection</servlet-name>
+		<servlet-class>com.vianney.servlet.DeconnectionServlet</servlet-class>
+	</servlet>
 		
 	<servlet>
 		<servlet-name>Index</servlet-name>
@@ -89,6 +94,11 @@
 	<servlet-mapping>
 		<servlet-name>Connection</servlet-name>
 		<url-pattern>/connection</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Deconnection</servlet-name>
+		<url-pattern>/deconnection</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

@@ -28,7 +28,7 @@
 		</c:choose>
 	</c:if>
 	
-	<form class="formCreateStagiaire" method="post" action="/ProjetEportfolio/creationstagiaire/">
+	<form class="formCreateStagiaire" method="post" action="/ProjetEportfolio/creationstagiaire">
 	
 		<div class="form-group formCreateStagiaire">
 			<select name="civilite" class="form-control" id="civilite">

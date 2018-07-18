@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.vianney.form.ControleConnection;
 
@@ -32,6 +33,9 @@ public class ConnectionServlet extends HttpServlet {
 
 		ControleConnection cc= new ControleConnection(connection, mdp, email);
 		if(cc.isOk()) {
+			cc.getStagiaire();
+			HttpSession session = request.getSession();
+			session.setAttribute("user", cc.getStagiaire());
 			request.setAttribute("page", "index");
 		} else {
 			request.setAttribute("var", cc);			

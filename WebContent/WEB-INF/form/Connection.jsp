@@ -16,7 +16,7 @@
 			<div class="form-group">
 				<label for="email">Email: </label>
 		
-				<input name="email" type="text" class="form-control ${ form.classeEmail }" id="email" placeholder="Email stagiaire"
+				<input name="email" type="text" class="form-control" id="email" placeholder="Email stagiaire"
 					<c:if test="${ not empty var.ok && !var.ok }" >value="${ var.email }"</c:if> require />
 			</div>
 			 
