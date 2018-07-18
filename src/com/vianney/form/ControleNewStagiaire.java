@@ -41,7 +41,7 @@ public class ControleNewStagiaire {
 			classeNom= classe(false);
 		}
 	}
-	
+		
 	private void controlePrenom(String prenom) {
 		stagiaire.setPrenom(prenom);
 		if (!(prenom.length() < 5) ) { 
@@ -72,12 +72,10 @@ public class ControleNewStagiaire {
 		
 		if (m.find()) {
 			String[] my = date.split("/");
-			int jour= Integer.parseInt(my[0]);		
-			int mois= Integer.parseInt(my[1]);	
-			int annee= Integer.parseInt(my[2]);
 			
-			if (jour <= 31 && mois <= 12 && annee <= 2005) {
-				stagiaire.setDateNaissance(LocalDate.of(annee, mois, jour));
+			if (Integer.parseInt(my[0]) <= 31 && Integer.parseInt(my[1]) <= 12 && Integer.parseInt(my[2]) <= 2005) {
+				String d= my[2]+my[1]+my[0];
+				stagiaire.setDateNaissance(d);
 				LocalDate today = LocalDate.now();
 				Period age= Period.between(stagiaire.getDateNaissance(), today);
 				stagiaire.setAge(age);

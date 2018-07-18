@@ -16,13 +16,13 @@ CREATE TABLE Stagiaires (
 	IsAdministrateur	TINYINT(1)		NULL
 ) ENGINE = InnoDB;
 
-INSERT INTO Stagiaires (Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)
+INSERT INTO Stagiaires (Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email, MotDePasse)
 	VALUES 
-		("Vianney", "Bailleux", "31 Allée du gros chêne 59320 haubourdin", "1979-06-07", 0, 1, "via@free.fr"),
-		("Bruce", "Dickinson", "26 rue jean jaurés 59320 haubourdin", "1984-01-20", 1, 0, "bruce@free.fr"),
-		("Rob", "Halford", "72, rue du Château 97480 SAINT-JOSEPH", "1944-07-23", 1, 0, "rob@free.fr"),
-		("Josette", "Allain", "26, rue des Chaligny 58000 NEVERS", "1967-06-16", 1, 0, "josette@free.fr"),
-		("Emmanuel", "Lagrange", "88, Rue Joseph Vernet 92220 BAGNEUX", "1984-02-12", 1, 0, "manu@free.fr");
+		("Vianney", "Bailleux", "31 Allée du gros chêne 59320 haubourdin", "1979-06-07", 0, 1, "via@free.fr", "AZERTY"),
+		("Bruce", "Dickinson", "26 rue jean jaurés 59320 haubourdin", "1984-01-20", 1, 0, "bruce@free.fr", "AZERTY"),
+		("Rob", "Halford", "72, rue du Château 97480 SAINT-JOSEPH", "1944-07-23", 1, 0, "rob@free.fr", "AZERTY"),
+		("Josette", "Allain", "26, rue des Chaligny 58000 NEVERS", "1967-06-16", 1, 0, "josette@free.fr", "AZERTY"),
+		("Emmanuel", "Lagrange", "88, Rue Joseph Vernet 92220 BAGNEUX", "1984-02-12", 1, 0, "manu@free.fr", "AZERTY");
 
 CREATE TABLE Entreprises (
 	Id					int(6)			PRIMARY KEY AUTO_INCREMENT,
@@ -209,3 +209,22 @@ INSERT INTO Metier_Entreprise (IdMetier, IdEntreprise)
 	VALUES
 		(4, 3),
 		(3, 1);
+
+
+SELECT	SM.DateEntree, SM.DateSortie, SM.Description AS MetierDesc, 
+S.Id AS Id_Stagiare, S.Nom, S.Prenom, S.Email, S.Adresse, S.DateNaissance, 
+E.Id AS Id_Entreprise, E.Adresse AS EntrepriseAdresse, E.Ville AS EntrepriseVille, 
+E.Nom AS EntrepriseNom, E.CodePostal AS EntrepriseCP, 
+C.Id AS Id_Competence, C.Nom AS CompetenceNom 
+FROM Stagiaire_Metier AS SM, 
+Stagiaires AS S, 
+Metiers AS M, 
+Entreprises AS E, 
+Metier_Competence AS MC, 
+Competences AS C, 
+metier_entreprise AS ME 
+WHERE S.Id= 2 AND SM.IdStagiaire= 2 
+AND M.Id= SM.IdMetier 
+AND MC.IdMetier= M.Id
+AND C.Id= MC.IdCompetence 
+AND ME.IdMetier= M.Id AND ME.IdEntreprise= E.Id;

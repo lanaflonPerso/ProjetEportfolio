@@ -3,6 +3,10 @@
 	  			
 	<form method="post" action="/ProjetEportfolio/connection">
 		
+		<div>
+			<p>${ var. msgErreur }
+		</div>
+		
 		<div class="form-group">
 			<label for="email">Email: </label>
 	
@@ -11,7 +15,7 @@
 		</div>
 		 
 		<div class="form-group">
-			<label for="prenom">Password: </label>
+			<label for="mdp">Password: </label>
 	
 			<input name="mdp" type="password" class="form-control" id="mdp" placeholder="Mot de passe"  require />
 		</div>

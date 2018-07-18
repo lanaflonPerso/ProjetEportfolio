@@ -4,10 +4,18 @@
 
 <ul class="list-group">
 	<c:forEach items="${ stagiaire.getEntreprises() }" var="entreprise">
-    	<li class="list-group-item"> ${ entreprise.nom }</li>
+    	<li class="list-group-item">${ entreprise.nom } (${ entreprise.id })</li>
     	<ul>
     	<c:forEach items="${ entreprise.getMetier() }" var="metier">
-    		<li> ${ metier.fonction }</li>
+    		<li>
+    			<p>${ metier.fonction } (${ metier.id })</p>
+    			<p>${ metier.description }</p>
+    		</li>
+    		<ul>
+    			<c:forEach items="${ metier.getCompetence() }" var="competence">
+    				<li>${ competence.nom } (${ competence.id })</li>
+    			</c:forEach>
+    		</ul>
     	</c:forEach>
     	</ul>
 	</c:forEach>

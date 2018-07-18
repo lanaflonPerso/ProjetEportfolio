@@ -23,21 +23,33 @@ public class StagiaireServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
 		String[] pathInfo= request.getPathInfo().split("/");
+		
 		try {
-			long id= Integer.parseInt(pathInfo[1]);
-			try {
-				StagiairesDao conStagiaire= new StagiairesDao((Connection) request.getAttribute("connection"));
-				stagiaire= conStagiaire.CarriereStagaire(id);
-				
-				
-				request.setAttribute("stagiaire", stagiaire);	
-				request.setAttribute("page", "stagiaire");
-				request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
-			} catch (Exception e) {
-				System.out.println("n'existe pas");
-			}
+			StagiairesDao conStagiaire= new StagiairesDao((Connection) request.getAttribute("connection"));
+			stagiaire= conStagiaire.SelectByMail(pathInfo[1]);
 		} catch (Exception e) {
-			System.out.println("integer");
+			stagiaire= new Stagiaire();
 		}
+		
+		request.setAttribute("page", "test");
+		request.setAttribute("stagiaire", stagiaire);
+		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
+		
+//		try {
+//			long id= Integer.parseInt(pathInfo[1]);
+//			try {
+//				StagiairesDao conStagiaire= new StagiairesDao((Connection) request.getAttribute("connection"));
+//				stagiaire= conStagiaire.CarriereStagaire(id);
+//				
+//				
+//				request.setAttribute("stagiaire", stagiaire);	
+//				request.setAttribute("page", "stagiaire");
+//				request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
+//			} catch (Exception e) {
+//				System.out.println("n'existe pas");
+//			}
+//		} catch (Exception e) {
+//			System.out.println("integer");
+//		}
 	}
 }

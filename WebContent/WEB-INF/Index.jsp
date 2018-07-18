@@ -30,6 +30,9 @@
 				<c:when test="${ page  == 'ajouterEntreprise' }">
 					<%@ include file="/WEB-INF/form/Connection.jsp" %>
 				</c:when>
+				<c:when test="${ page  == 'test' }">
+					<%@ include file="/TestVu.jsp" %>
+				</c:when>
 				<c:otherwise></c:otherwise>
 			</c:choose>
 		</div>

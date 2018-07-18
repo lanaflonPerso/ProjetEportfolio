@@ -19,6 +19,7 @@ public class StagiairesDao {
 	
 	private Connection connection;
 	List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+	Stagiaire stagiaire = new Stagiaire();
 	
 	public StagiairesDao(Connection connection) {
 		this.connection = connection;
@@ -34,6 +35,20 @@ public class StagiairesDao {
 			preparedStatement.setLong( 1, id );
 			resultSet= preparedStatement.executeQuery();
 			createList(resultSet);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return stagiaires.get(0);
+	}
+	
+	public Stagiaire SelectByMail(String email) {
+		String sql= "SELECT * FROM Stagiaires WHERE email= ?";
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql); 
+			ps.setString(1, email);
+			ResultSet r= ps.executeQuery();
+			createList(r);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -88,6 +103,25 @@ public class StagiairesDao {
 		return id;
 	}
 	
+	public Stagiaire SelectByEmailMdp(String mdp, String email) {
+		String sql= "SELECT * FROM Stagiaires WHERE email= ? AND MotDePasse= ?";
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql); 
+			ps.setString(1, email);
+			ps.setString(2, mdp);
+			ResultSet r= ps.executeQuery();
+			if (!r.next()) {
+				return stagiaire;
+			}
+			createList(r);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return stagiaires.get(0);
+	}
+	
 	public Stagiaire CarriereStagaire(long id) {
 		
 		Stagiaire stagiaire = null;
@@ -110,7 +144,8 @@ public class StagiairesDao {
 		sql+= "AND M.Id= SM.IdMetier ";
 		sql+= "AND MC.IdMetier= M.Id ";
 		sql+= "	AND C.Id= MC.IdCompetence ";
-		sql+= "AND ME.IdMetier= M.Id AND ME.IdEntreprise= E.Id;";
+		sql+= "AND ME.IdMetier= M.Id AND ME.IdEntreprise= E.Id ";
+		sql+= "ORDER BY M.Id, E.Id, C.Id;";
 		
 		try {
 			PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); 
@@ -122,6 +157,7 @@ public class StagiairesDao {
 			long idMetier= -1;
 			long idEntreprise= -1;
 			List<Entreprise> entreprises= new ArrayList<>();
+			List<Competence> competences= new ArrayList<>();
 			
 			while (r.next()) {
 				
@@ -130,6 +166,8 @@ public class StagiairesDao {
 					competence.setId(r.getLong("Id_Competence"));
 					competence.setNom(r.getString("CompetenceNom"));
 					
+					System.out.println("J'ajoute la competence "+ r.getString("CompetenceNom"));
+					competences.add(competence);
 					idCompetence= r.getLong("Id_Competence");
 					
 					if(idMetier != r.getLong("Id_Metier")) {
@@ -140,7 +178,9 @@ public class StagiairesDao {
 						metier.setFonction(r.getString("Fonction"));
 						metier.setDescription(r.getString("MetierDesc"));
 						
-						metier.setListCompetence(competence);
+						metier.setCompetence(competences);
+						competences.clear();
+						System.out.println("j'fface mon tableau");
 						idMetier= r.getLong("Id_Metier");
 						
 						if(idEntreprise != r.getLong("Id_Entreprise")) {
@@ -180,7 +220,6 @@ public class StagiairesDao {
 	private void createList(ResultSet r) {
 		try {
 			while (r.next()) {
-			    Stagiaire stagiaire = new Stagiaire();
 			    stagiaire.setId(r.getLong("Id"));
 			    stagiaire.setNom(r.getString("Nom"));
 			    stagiaire.setPrenom(r.getString("Prenom"));
@@ -189,11 +228,11 @@ public class StagiairesDao {
 			    stagiaire.setDateNaissance(r.getString("DateNaissance"));
 			    
 			    stagiaires.add(stagiaire); 
-			}
+			}    			
 		} catch (NumberFormatException | SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}	
 	
 	private String formatDate (LocalDate date) { 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
