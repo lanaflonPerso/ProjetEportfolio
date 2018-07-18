@@ -1,5 +1,7 @@
 DROP DATABASE IF EXISTS ProjetEportfolio;
-CREATE DATABASE ProjetEportfolio;
+CREATE DATABASE ProjetEportfolio
+	CHARACTER SET utf8
+	COLLATE utf8_general_ci;
 USE ProjetEportfolio;
 
 CREATE TABLE Stagiaires (
@@ -61,26 +63,6 @@ INSERT INTO Metiers (Fonction)
 		("Photographe"),
 		("Présentateur TV");
 
-CREATE TABLE Metier_Entreprise (
-	Id 				int(6)	PRIMARY KEY AUTO_INCREMENT,
-	IdMetier		int(6)	REFERENCES Metiers(Id),
-	IdEntreprise	int(6)	REFERENCES Entreprises(Id)
-) ENGINE = InnoDB;
-
-INSERT INTO Metier_Entreprise (IdMetier, IdEntreprise)
-	VALUES
-		(0, 2),
-		(0, 1),
-		(1, 3),
-		(1, 5),
-		(2, 0),
-		(2, 3),
-		(3, 4),
-		(3, 2),
-		(4, 0),
-		(4, 1),
-		(4, 3);
-
 CREATE TABLE Metier_Competence (
 	Id 				int(6)	PRIMARY KEY AUTO_INCREMENT,
 	IdMetier		int(6)	REFERENCES Metiers(Id),
@@ -89,10 +71,10 @@ CREATE TABLE Metier_Competence (
 
 INSERT INTO Metier_Competence (IdMetier, IdCompetence)
 	VALUES
-		(0, 0),
-		(0, 2),
-		(0, 4),
-		(0, 6),
+		(4, 1),
+		(4, 2),
+		(4, 4),
+		(4, 6),
 		(1, 1),
 		(1, 3),
 		(1, 7),
@@ -118,7 +100,7 @@ INSERT INTO Stagiaire_Metier(DateEntree, DateSortie, Description, IdStagiaire, I
 	VALUES
 		("1999-01-01", "2005-10-20", "Création de la maquette du site en HTML5", 0, 2),
 		("2006-05-09", "2009-11-05", "Mise en place du code en Python 3.6", 1, 1),
-		("1997-08-15", "1999-08-03", "Création de la partie DAO", 2, 3);
+		("1997-08-15", "1999-08-03", "Création de la partie DAO", 2, 3),
 		("2000-08-01", "2010-01-15", "Maintenance Partie DAO", 2, 4);
 
 CREATE TABLE Stagiaire_Formation (
@@ -129,8 +111,8 @@ CREATE TABLE Stagiaire_Formation (
 
 INSERT INTO Stagiaire_Formation(IdStagiaire, IdFormation)
 	VALUES
-		(0, 0),
-		(0, 2),
+		(4, 1),
+		(4, 2),
 		(1, 4),
 		(1, 5),
 		(2, 3),
@@ -147,9 +129,9 @@ CREATE TABLE Certification_Competence (
 
 INSERT INTO Certification_Competence (IdCertification, IdCompetence)
 	VALUES
-		(0, 0),
-		(0, 1),
-		(0, 2),
+		(5, 3),
+		(5, 1),
+		(5, 2),
 		(1, 3),
 		(1, 5),
 		(2, 0),
@@ -217,21 +199,13 @@ INSERT INTO Formations (IntituleFormation, IdCertification)
 		("réseaux et télécommunications", 3),
 		("Assistance en informatique", 4);
 
+CREATE TABLE Metier_Entreprise (
+	Id  			int(6)		PRIMARY KEY AUTO_INCREMENT,
+	IdMetier		int(6)		REFERENCES Metiers(Id),
+	IdEntreprise	int(6)		REFERENCES Entreprises(Id)
+) ENGINE = InnoDB;
 
--- Info Stagiaire_Metier:
--- SELECT	SM.IdMetier, SM.DateEntree, SM.DateSortie, SM.Description,
--- 	S.Id, S.Nom, S.Prenom, S.Email, S.Adresse, S.DateNaissance, 
--- 	M.Fonction
--- FROM 	Stagiaire_Metier AS SM,
--- 	Stagiaires AS S,
--- 	Metiers AS M
--- WHERE S.Id= 2 AND SM.IdStagiaire= 2;
-
--- Info Metier_Entreprise_Competence:
--- SELECT	MC.IdCompetence,
--- 	M.Fonction,
--- 	ME.IdEntreprise
--- FROM 	Metier_Competence AS MC, 
--- 	Metiers AS M,
--- 	Metier_Entreprise AS ME
--- WHERE	ME.IdMetier= 3 AND M.Id= 3 AND MC.IdMetier= 3;
+INSERT INTO Metier_Entreprise (IdMetier, IdEntreprise)
+	VALUES
+		(4, 3),
+		(3, 1);

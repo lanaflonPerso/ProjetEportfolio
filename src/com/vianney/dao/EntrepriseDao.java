@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,20 +11,21 @@ import com.vianney.beans.Entreprise;
 
 public class EntrepriseDao {
 	
-	private final String NOM_TABLE= "Entreprises";
 	private Connection connection;
-	List<Entreprise> rows = new ArrayList<Entreprise>();
-	private Entreprise entreprise;
+	List<Entreprise> entreprises = new ArrayList<Entreprise>();
 	
 	public EntrepriseDao(Connection connection) {
 		this.connection = connection;
 	}
 	
-	public List<Entreprise> SelectByStudent(int id) {
+	public void SelectByStudent(int id) { //id = id_metier
+			
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		
-		String sql= "SELECT * FROM "+ NOM_TABLE +" WHERE IdStagiaire = ?";
+		String sql= "SELECT * ";
+		sql+= "FROM Entreprises AS E, Metier_Entreprise AS ME";
+		sql+= "WHERE ME.IdMetier= ? AND E.ID= ME.IdEntreprise";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt( 1, id );
@@ -34,35 +34,26 @@ public class EntrepriseDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		return rows;	
 	}
 	
 	private void createList(ResultSet resultSet, Boolean bool) {
 		try {
 			while (resultSet.next()) {
-			    Entreprise newEntreprise = new Entreprise();
-			    newEntreprise.setNom(resultSet.getString("Id"));
-			    newEntreprise.setAdresse(resultSet.getString("Adresse"));
-			    newEntreprise.setVille(resultSet.getString("Ville"));
-			    newEntreprise.setNom(resultSet.getString("Nom"));
+			    Entreprise entreprise = new Entreprise();
+			    entreprise.setNom(resultSet.getString("Id"));
+			    entreprise.setAdresse(resultSet.getString("Adresse"));
+			    entreprise.setVille(resultSet.getString("Ville"));
+			    entreprise.setNom(resultSet.getString("Nom"));
+			    entreprise.setNom(resultSet.getString("CodePostal"));
 			    
-			    String[] partDE= resultSet.getString("DateEntree").split("-");
-			    LocalDate localDateDE = LocalDate.of(Integer.parseInt(partDE[0]), Integer.parseInt(partDE[1]), Integer.parseInt(partDE[2]));
-			    newEntreprise.setDateEntree(localDateDE);
-			    
-			    String[] partDS= resultSet.getString("DateEntree").split("-");
-			    LocalDate localDateDS = LocalDate.of(Integer.parseInt(partDS[0]), Integer.parseInt(partDS[1]), Integer.parseInt(partDS[2]));
-			    newEntreprise.setDateSortie(localDateDS);
-			    
-			    if (bool) {
-			    	rows.add(newEntreprise);
-			    } else {
-			    	entreprise = newEntreprise;
-			    }
+			    entreprises.add(entreprise);
 			}
 		} catch (NumberFormatException | SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public List<Entreprise> getEntreprises() {
+		return entreprises;
 	}
 }

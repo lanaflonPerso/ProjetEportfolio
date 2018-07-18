@@ -66,6 +66,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
   
+<<<<<<< HEAD
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>/css/*</url-pattern>
@@ -112,4 +113,58 @@
 			<include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
 		</jsp-property-group>
 	</jsp-config>
+=======
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>Index</servlet-name>
+    <servlet-class>com.vianney.servlet.Index</servlet-class>
+    <init-param>
+      <param-name>Projet</param-name>
+      <param-value>Projet Fil Rouge</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Utilisateur</param-name>
+      <param-value>Vianney Bailleux</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+   <servlet>
+    <servlet-name>CreateStagiaireServlet</servlet-name>
+    <servlet-class>com.admin.servlet.CreateStagiaire</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>StagiaireServlet</servlet-name>
+    <servlet-class>com.vianney.servlet.StagiaireServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+    <servlet-mapping>
+    <servlet-name>CreateStagiaireServlet</servlet-name>
+    <url-pattern>/creationstagiaire/</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Index</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>Index</servlet-name>
+    <url-pattern>/coco</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>StagiaireServlet</servlet-name>
+    <url-pattern>/stagiaire/*</url-pattern>
+  </servlet-mapping>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error/404.html</location>
+  </error-page>
+>>>>>>> b52f73ee2321e34ce59a23d67a9381c2b1ad9e31
 </web-app>

@@ -27,6 +27,9 @@
 				<c:when test="${ page  == 'connection' }">
 					<%@ include file="/WEB-INF/form/Connection.jsp" %>
 				</c:when>
+				<c:when test="${ page == 10 }">
+					<%@ include file="/WEB-INF/Test.jsp" %>
+				</c:when>
 				<c:otherwise></c:otherwise>
 			</c:choose>
 		</div>
