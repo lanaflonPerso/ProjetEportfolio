@@ -69,20 +69,21 @@ public class StagiaireServlet extends HttpServlet {
 					Stagiaire st= (Stagiaire) session.getAttribute("user");
 					long id= st.getId();
 					if(cs.ctrlMdpVd(id, request.getParameter("mdp1"), request.getParameter("mdp2"))) {
-						request.getRequestDispatcher("/ProjetEportfolio/index").forward(request, response);
-//						response.sendRedirect("/ProjetEportfolio/index");
-					} else {
+						System.out.println("JJJJJJJJJJJeEEEEEEEEEEEEEEEEEEE");
+						request.setAttribute("page", "index");
 						
+					} else {
 						request.setAttribute("info", cs);
+						request.setAttribute("page", "modifierStagiaire");
 					}
 				} catch (Exception e) {
-					response.sendRedirect("/ProjetEportfolio/connection");
+					request.setAttribute("page", "modifierStagiaire");
 				}
 			} else {
 				System.out.println("Stagiaire");
+				request.setAttribute("page", "modifierStagiaire");
 			}
-			request.setAttribute("page", "modifierStagiaire");
-			request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 		}
+		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
 }

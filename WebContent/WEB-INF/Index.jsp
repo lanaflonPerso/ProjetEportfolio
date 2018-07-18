@@ -12,7 +12,7 @@
 		<div class="container">
 		
 			<div class="row">
-				<div class="col-md-3 rouge">
+				<div class="col-md-2 rouge">
 					<c:if test="${!empty sessionScope.user }">
 						<ul>
 							<li><a href="/ProjetEportfolio/stagiaire/modifier">modifier</a></li>
