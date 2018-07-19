@@ -19,7 +19,7 @@
 						</ul>
 					</c:if>
 				</div> 
-				
+
 				<div class="col-md-9 jaune">
 					<c:choose>
 						<c:when test="${ page == 'index' }">
@@ -38,13 +38,13 @@
 							<%@ include file="/WEB-INF/form/Connection.jsp" %>
 						</c:when>
 						<c:when test="${ page  == 'ajouterEntreprise' }">
-							<%@ include file="/WEB-INF/form/Connection.jsp" %>
+							<%@ include file="/WEB-INF/form/AjouterEntreprise.jsp" %>
 						</c:when>
 						<c:when test="${ page  == 'modifierStagiaire' }">
 							<%@ include file="/WEB-INF/form/ModifierStagiaire.jsp" %>
 						</c:when>
-						<c:when test="${ page  == 'test' }">
-							<%@ include file="/TestVu.jsp" %>
+						<c:when test="${ page  == 'voirEntreprise' }">
+							<%@ include file="/WEB-INF/vue/VoirEntreprise.jsp" %>
 						</c:when>
 						<c:otherwise>
 							<%@ include file="/WEB-INF/vue/Home.jsp" %>	

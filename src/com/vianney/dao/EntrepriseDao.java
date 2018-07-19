@@ -50,6 +50,48 @@ public class EntrepriseDao {
 		}
 	}
 	
+	public boolean SelectByNom(String nom) {
+		String sql= "SELECT Id FROM Entreprises WHERE Nom= ?";
+		try {
+			PreparedStatement ps= initPs(sql, nom);
+			ResultSet r= ps.executeQuery();
+			if (r.next()) {
+				r.first();
+				unique(r);
+				return true;
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean InsertEntMetier(long idEntreprise, long idMetier) {
+		String sql= "INSERT INTO  Metier_Entreprise";
+		sql+= " (IdMetier, IdEntreprise)";
+		sql+= " VALUES (?, ?);";
+		PreparedStatement ps= initPs(sql, idMetier, idEntreprise);
+		try {
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	public boolean InsertEntreprise(Entreprise ent) {
+		String sql= "INSERT INTO  Entreprises";
+		sql+= " (Nom, Adresse, Ville, CodePostal)";
+		sql+= " VALUES (?, ?, ?, ?);";
+		PreparedStatement ps= initPs(sql, ent.getNom(), ent.getAdresse(), ent.getVille(), ent.getCodePostal());
+		try {
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
 	private void unique(ResultSet r) {
 		try {
 			

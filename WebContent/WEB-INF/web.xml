@@ -28,10 +28,15 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-	
+<!-- ================== Servlet ================== -->
 	<servlet>
 		<servlet-name>AjouterEntreprise</servlet-name>
 		<servlet-class>com.vianney.servlet.AjouterEntrepriseServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>VoirEntreprise</servlet-name>
+		<servlet-class>com.vianney.servlet.VoirEntrepriseServlet</servlet-class>
 	</servlet>
 	
 	<servlet>
@@ -75,7 +80,7 @@
 		<servlet-class>com.vianney.servlet.StagiairesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-  
+<!-- ================== Servlet Mapping ================== -->
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>/css/*</url-pattern>
@@ -89,6 +94,11 @@
 	<servlet-mapping>
 		<servlet-name>AjouterEntreprise</servlet-name>
 		<url-pattern>/entreprise/ajouter</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>VoirEntreprise</servlet-name>
+		<url-pattern>/entreprise/id</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
@@ -120,19 +130,19 @@
 		<servlet-name>StagiairesServlet</servlet-name>
 		<url-pattern>/stagiaires/*</url-pattern>
 	</servlet-mapping>
-	
+<!-- ================== Error Page ================== -->
 	<error-page>
 		<error-code>404</error-code>
 		<location>/error/404.html</location>
 	</error-page>
-	
+<!-- ================== JSP Config ================== -->	
 	<jsp-config>
 		<jsp-property-group>
 			<url-pattern>*.jsp</url-pattern>
 			<include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
 		</jsp-property-group>
 	</jsp-config>
-	
+<!-- ================== Security Constraint ================== -->
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Partie admin</web-resource-name>

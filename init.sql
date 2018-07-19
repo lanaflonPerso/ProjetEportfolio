@@ -36,16 +36,16 @@ CREATE TABLE Entreprises (
 
 INSERT INTO Entreprises(Nom, Adresse, Ville, CodePostal)
 	VALUES 
-		("Quinton Hazell", "94, rue de Lesquin", "LILLE", "5900"),
-		("Lab Photo pro", "15, place Stanislas", "NANTERRE", "9200"),
-		("Food Giant", "42, rue de Geneve", "AMIENS", "8000"),
-		("Pantry Pride", "15, place Stanislas", "NANTERRE", "9200"),
+		("Quinton Hazell", "94, rue de Lesquin", "LILLE", "59000"),
+		("Lab Photo pro", "15, place Stanislas", "NANTERRE", "92000"),
+		("Food Giant", "42, rue de Geneve", "AMIENS", "80000"),
+		("Pantry Pride", "15, place Stanislas", "NANTERRE", "92000"),
 		("Record Town", "61, rue des six frères Ruellan", "SARREGUEMINES", "57200"),
-		("Magna Gases", "95, Rue Hubert de Lisle", "LONS-LE-SAUNIER", "3900"),
-		("Mr Fables", "49, avenue du Marechal Juin", "SAINT-LÔ", "5000"),
+		("Magna Gases", "95, Rue Hubert de Lisle", "LONS-LE-SAUNIER", "39000"),
+		("Mr Fables", "49, avenue du Marechal Juin", "SAINT-LÔ", "50000"),
 		("Dynatronics Accessories", "19, Avenue Millies Lacroix", "ÉLANCOURT", "78990"),
 		("Titania", "93, rue du Faubourg National", "THIAIS", "94320"),
-		("Liberal", "99, Chemin Des Bateliers", "ANGERS", "4900");
+		("Liberal", "99, Chemin Des Bateliers", "ANGERS", "49000");
 
 CREATE TABLE Metiers (
 	Id 				int(6)		PRIMARY	KEY	AUTO_INCREMENT,
