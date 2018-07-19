@@ -19,6 +19,18 @@ public class EntrepriseDao {
 		this.connection = connection;
 	}
 	
+	public void selectById(long id) {
+		String sql= "SELECT Id AS IdEntreprise, Nom AS NomEntreprise, Adresse, Ville, CodePostal FROM Entreprises WHERE Id= ?";
+		
+		try {
+			PreparedStatement ps= initPs(sql, id);
+			ResultSet r= ps.executeQuery();
+			unique(r);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public Entreprise selectByMetier(long idMetier) {
 
 		String sql= "SELECT E.Id AS IdEntreprise, E.Nom AS NomEntreprise, E.Adresse, ";
@@ -94,19 +106,14 @@ public class EntrepriseDao {
 	
 	private void unique(ResultSet r) {
 		try {
-			
-			if(r.next()) {	
-				r.first();
-				while(r.next()) {
-					entreprise= new Entreprise();
-					entreprise.setId(r.getLong("IdEntreprise"));
-					entreprise.setNom(r.getString("NomEntreprise"));
-					entreprise.setAdresse(r.getString("Adresse"));
-					entreprise.setVille(r.getString("Ville"));
-					entreprise.setCodePostal(r.getInt("CodePostal"));
-				}
+			while(r.next()) {
+				entreprise= new Entreprise();
+				entreprise.setId(r.getLong("IdEntreprise"));
+				entreprise.setNom(r.getString("NomEntreprise"));
+				entreprise.setAdresse(r.getString("Adresse"));
+				entreprise.setVille(r.getString("Ville"));
+				entreprise.setCodePostal(r.getInt("CodePostal"));
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

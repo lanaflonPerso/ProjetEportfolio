@@ -33,7 +33,6 @@ public class AjouterEntrepriseServlet extends HttpServlet {
 		ctrlE.ctrlCp(request.getParameter("cp"));
 
 		if (ctrlE.getOk()) {
-			String nom= ctrlE.getEntreprise().getNom();
 			EntrepriseDao eDao= new EntrepriseDao((Connection) request.getAttribute("connection"));
 			eDao.InsertEntreprise(ctrlE.getEntreprise());
 			request.setAttribute("page", "voirEntreprise");
@@ -45,5 +44,4 @@ public class AjouterEntrepriseServlet extends HttpServlet {
 		
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
-
 }

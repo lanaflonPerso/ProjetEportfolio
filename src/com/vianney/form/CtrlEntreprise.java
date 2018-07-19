@@ -54,6 +54,7 @@ public class CtrlEntreprise {
 		} else {
 			msgErrAdresse= "l'adresse doit comporter plus de 10 caractéres";
 		}
+		ok= false;
 		classeAdresse= classe(false);
 		return false;
 	}
@@ -66,6 +67,7 @@ public class CtrlEntreprise {
 		} else {
 			msgErrVille= "la ville doit comporter plus de 3 caractéres";
 		}
+		ok= false;
 		classeVille= classe(false);
 		return false;
 	}
@@ -85,6 +87,7 @@ public class CtrlEntreprise {
 		} else {
 			msgErrCp= "Le code postal n'est pas correct";
 		}
+		ok= false;
 		classeCp= classe(false);
 		return false;
 	}
@@ -139,6 +142,5 @@ public class CtrlEntreprise {
 	
 	public boolean getOk() {
 		return ok;
-	}
-	
+	}	
 }

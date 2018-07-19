@@ -98,7 +98,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>VoirEntreprise</servlet-name>
-		<url-pattern>/entreprise/id</url-pattern>
+		<url-pattern>/entreprise/id/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

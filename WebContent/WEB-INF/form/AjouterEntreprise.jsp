@@ -1,16 +1,18 @@
-<h1>Ajouter Entreprise</h1>
+<h1>Ajouter Entreprisem</h1>
  
 <form method="post" action="${ url }">
 	<div class="row">
 		<div class="col-md-5 col-sm-12">
-			<ul>
-				<c:if test="${ not empty info.ok && !info.ok }" >
-					<c:if test="${ info.msgErrNom }" >${ info.msgErrNom }</li></c:if>
-					<c:if test="${ info.msgErrAdresse }" >${ info.msgErrAdresse }</li></c:if>
-					<c:if test="${ info.msgErrVille }" >${ info.msgErrVille }</li></c:if>
-					<c:if test="${ info.msgErrCp }" >${ info.msgErrCp }</li></c:if>
-				</c:if>
-			</ul>	
+			<c:if test="${ not empty info.ok && !info.ok }" >
+				<div class="alert alert-danger" role="alert">
+					<ul>
+						<c:if test="${ not empty info.msgErrNom }" ><li>${ info.msgErrNom }</li></c:if> 
+						<c:if test="${ not empty info.msgErrAdresse }" ><li>${ info.msgErrAdresse }</li></c:if>
+						<c:if test="${ not empty info.msgErrVille }" ><li>${ info.msgErrVille }</li></c:if>
+						<c:if test="${ not empty info.msgErrCp }" ><li>${ info.msgErrCp }</li></c:if>
+					</ul>
+				</div>
+			</c:if>	
 		</div>
 		<div class="col-md-7 col-sm-12">
 			<fieldset class="form-group">
