@@ -38,6 +38,11 @@
 		<servlet-name>Connection</servlet-name>
 		<servlet-class>com.vianney.servlet.ConnectionServlet</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>Deconnection</servlet-name>
+		<servlet-class>com.vianney.servlet.DeconnectionServlet</servlet-class>
+	</servlet>
 		
 	<servlet>
 		<servlet-name>Index</servlet-name>
@@ -92,6 +97,11 @@
 	</servlet-mapping>
 	
 	<servlet-mapping>
+		<servlet-name>Deconnection</servlet-name>
+		<url-pattern>/deconnection</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
 		<servlet-name>CreateStagiaireServlet</servlet-name>
 		<url-pattern>/creationstagiaire</url-pattern>
 	</servlet-mapping>
@@ -122,4 +132,24 @@
 			<include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
 		</jsp-property-group>
 	</jsp-config>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Partie admin</web-resource-name>
+			<url-pattern>/creationstagiaire</url-pattern>
+			
+		</web-resource-collection>
+		
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+		
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>	
+	</security-constraint>
+	
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
 </web-app>

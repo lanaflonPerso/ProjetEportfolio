@@ -7,34 +7,50 @@
  		<%@ include file="/WEB-INF/layout/Head.jsp" %>
 
 	<body>
-		
 		<%@ include file="/WEB-INF/layout/Menu.jsp" %>
 		
 		<div class="container">
-			<c:choose>
-				<c:when test="${ page == 'index' }">
-					<%@ include file="/WEB-INF/vue/Home.jsp" %>	
-				</c:when>
-				<c:when test="${ page == 'createStagiaire' }">
-					<%@ include file="/WEB-INF/form/FormCreateStagiaire.jsp" %>	
-				</c:when>
-				<c:when test="${ page == 'stagiaire' }">
-					<%@ include file="/WEB-INF/vue/Stagiaire.jsp" %>
-				</c:when>
-				<c:when test="${ page == 'stagiaires' }">
-					<%@ include file="/WEB-INF/vue/Stagiaires.jsp" %>
-				</c:when>
-				<c:when test="${ page  == 'connection' }">
-					<%@ include file="/WEB-INF/form/Connection.jsp" %>
-				</c:when>
-				<c:when test="${ page  == 'ajouterEntreprise' }">
-					<%@ include file="/WEB-INF/form/Connection.jsp" %>
-				</c:when>
-				<c:when test="${ page  == 'test' }">
-					<%@ include file="/TestVu.jsp" %>
-				</c:when>
-				<c:otherwise></c:otherwise>
-			</c:choose>
+			<div class="row">
+				<div class="col-md-2 rouge">
+					<c:if test="${!empty sessionScope.user }">
+						<ul>
+							<li><a href="/ProjetEportfolio/stagiaire/modifier">modifier</a></li>
+						</ul>
+					</c:if>
+				</div> 
+				
+				<div class="col-md-9 jaune">
+					<c:choose>
+						<c:when test="${ page == 'index' }">
+							<%@ include file="/WEB-INF/vue/Home.jsp" %>	
+						</c:when>
+						<c:when test="${ page == 'createStagiaire' }">
+							<%@ include file="/WEB-INF/form/FormCreateStagiaire.jsp" %>	
+						</c:when>
+						<c:when test="${ page == 'stagiaire' }">
+							<%@ include file="/WEB-INF/vue/Stagiaire.jsp" %>
+						</c:when>
+						<c:when test="${ page == 'stagiaires' }">
+							<%@ include file="/WEB-INF/vue/Stagiaires.jsp" %>
+						</c:when>
+						<c:when test="${ page  == 'connection' }">
+							<%@ include file="/WEB-INF/form/Connection.jsp" %>
+						</c:when>
+						<c:when test="${ page  == 'ajouterEntreprise' }">
+							<%@ include file="/WEB-INF/form/Connection.jsp" %>
+						</c:when>
+						<c:when test="${ page  == 'modifierStagiaire' }">
+							<%@ include file="/WEB-INF/form/ModifierStagiaire.jsp" %>
+						</c:when>
+						<c:when test="${ page  == 'test' }">
+							<%@ include file="/TestVu.jsp" %>
+						</c:when>
+						<c:otherwise>
+							<%@ include file="/WEB-INF/vue/Home.jsp" %>	
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</div>
 		</div>
 		
 		<%@ include file="/WEB-INF/layout/Footer.jsp" %>

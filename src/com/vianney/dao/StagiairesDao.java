@@ -18,13 +18,33 @@ import com.vianney.beans.Stagiaire;
 public class StagiairesDao {
 	
 	private Connection connection;
-	List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
-	Stagiaire stagiaire = new Stagiaire();
+	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
+	private Stagiaire stagiaire = new Stagiaire();
+	private boolean ok= true;;
 	
 	public StagiairesDao(Connection connection) {
 		this.connection = connection;
 	}
+	
+	public boolean VerifMail(String email) {
+		String sql= "SELECT * FROM Stagiaires WHERE email= ?";
+		try {
+			PreparedStatement ps = connection.prepareStatement(sql); 
+			ps.setString(1, email);
+			ResultSet r= ps.executeQuery();
+			
+			if (!r.next()) {
+				return false;
+			}
+			r.beforeFirst();
+			createList(r);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
+		return true;
+	}
+	
 	public Stagiaire SelectById(long id) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -110,16 +130,40 @@ public class StagiairesDao {
 			ps.setString(1, email);
 			ps.setString(2, mdp);
 			ResultSet r= ps.executeQuery();
+						
 			if (!r.next()) {
 				return stagiaire;
 			}
-			createList(r);
-			
+			r.beforeFirst();
+			createList(r);		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		return stagiaires.get(0);
+	}
+	
+	public boolean updateStagiaire(Stagiaire stagiaire) {
+		String sql= "UPDATE Stagiaires ";
+		sql+= "SET Nom= ?, Prenom= ?, Email= ?, Adresse= ?, DateNaissance= ? ";
+		sql+= "WHERE Id= ?";
+		
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, stagiaire.getNom());
+			ps.setString(2, stagiaire.getPrenom());
+			ps.setString(3, stagiaire.getEmail());
+			ps.setString(4, stagiaire.getAdresse());
+			String d= formatDate (stagiaire.getDateNaissance());
+			ps.setString(5, d);
+			ps.setLong(6, stagiaire.getId());
+			ps.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return true;
 	}
 	
 	public Stagiaire CarriereStagaire(long id) {
@@ -217,6 +261,21 @@ public class StagiairesDao {
 		return stagiaire;
 	}
 	
+	public void changeMdp(long id, String mdp) {
+	
+		String sql= "UPDATE Stagiaires SET MotDePasse = ? WHERE id= ?";
+		
+		PreparedStatement ps;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, mdp);
+			ps.setLong(2, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void createList(ResultSet r) {
 		try {
 			while (r.next()) {
@@ -233,11 +292,16 @@ public class StagiairesDao {
 			e.printStackTrace();
 		}
 	}	
-	
+
 	private String formatDate (LocalDate date) { 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String formattedDate = date.format(formatter);
 		
 		return formattedDate;
 	}
+
+	public boolean isOk() {
+		return ok;
+	}
+
 }

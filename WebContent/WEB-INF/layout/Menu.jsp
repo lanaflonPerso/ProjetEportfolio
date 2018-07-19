@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<a class="navbar-brand" href="/ProjetEportfolio/">Portfolio</a>
+	<a class="navbar-brand" href="/ProjetEportfolio/index">Portfolio</a>
 	
 	<div class="collapse navbar-collapse" id="navbarColor01">
 		<ul class="navbar-nav mr-auto">
@@ -12,10 +12,18 @@
 			</li>
 		</ul>
 		
-		
+		<span>${ sessionScope.user.nom }</span>
+		<hr />
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
-				<a class="nav-link" href="/ProjetEportfolio/connection">Connection</a>
+				<c:choose>
+					<c:when test="${ empty sessionScope.user }">
+						<a class="nav-link" href="/ProjetEportfolio/connection">Connection</a>
+					</c:when>
+					<c:otherwise>
+					<a class="nav-link" href="/ProjetEportfolio/deconnection">Déconnection</a>
+					</c:otherwise>
+				</c:choose>
 			</li>
 		</ul>
 	</div>

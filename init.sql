@@ -24,6 +24,8 @@ INSERT INTO Stagiaires (Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdmi
 		("Josette", "Allain", "26, rue des Chaligny 58000 NEVERS", "1967-06-16", 1, 0, "josette@free.fr", "AZERTY"),
 		("Emmanuel", "Lagrange", "88, Rue Joseph Vernet 92220 BAGNEUX", "1984-02-12", 1, 0, "manu@free.fr", "AZERTY");
 
+UPDATE Stagiaires SET MotDePasse= "a" WHERE Email="via@free.fr";
+
 CREATE TABLE Entreprises (
 	Id					int(6)			PRIMARY KEY AUTO_INCREMENT,
 	Adresse				VARCHAR(150)	NOT NULL,
@@ -34,7 +36,7 @@ CREATE TABLE Entreprises (
 
 INSERT INTO Entreprises(Nom, Adresse, Ville, CodePostal)
 	VALUES 
-		("Quinton Hazell", "94, rue de Geneve", "AMIENS", "8000"),
+		("Quinton Hazell", "94, rue de Lesquin", "LILLE", "5900"),
 		("Lab Photo pro", "15, place Stanislas", "NANTERRE", "9200"),
 		("Food Giant", "42, rue de Geneve", "AMIENS", "8000"),
 		("Pantry Pride", "15, place Stanislas", "NANTERRE", "9200"),

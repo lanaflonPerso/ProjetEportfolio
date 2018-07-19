@@ -1,6 +1,6 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
-<div class="col-md-5 offset-md-3">
+<!-- <div class="col-md-5 offset-md-3"> -->
 	<h1>Création d'un stagiaire</h1>
 	
 	<c:if test="${ post }" >
@@ -28,7 +28,7 @@
 		</c:choose>
 	</c:if>
 	
-	<form class="formCreateStagiaire" method="post" action="/ProjetEportfolio/creationstagiaire/">
+	<form class="formCreateStagiaire" method="post" action="/ProjetEportfolio/creationstagiaire">
 	
 		<div class="form-group formCreateStagiaire">
 			<select name="civilite" class="form-control" id="civilite">
@@ -70,4 +70,4 @@
 		
 		<button type="submit" class="btn btn-primary">Envoyer</button>					
 	</form>
-</div>
+<!-- </div> -->
