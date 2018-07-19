@@ -223,7 +223,7 @@ public class StagiairesDao {
 						metier.setFonction(r.getString("Fonction"));
 						metier.setDescription(r.getString("MetierDesc"));
 						
-						metier.setCompetence(competences);
+						metier.setCompetences(competences);
 						competences.clear();
 						System.out.println("j'fface mon tableau");
 						idMetier= r.getLong("Id_Metier");
@@ -248,7 +248,7 @@ public class StagiairesDao {
 								stagiaire.setNom(r.getString("Nom"));
 								stagiaire.setPrenom(r.getString("Prenom"));
 							
-								stagiaire.setEntreprises(entreprises);
+//								stagiaire.setEntreprises(entreprises);
 								idStagiaire= r.getLong("Id_Stagiaire");
 							}
 						}

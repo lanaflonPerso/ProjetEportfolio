@@ -16,7 +16,7 @@ public class Stagiaire {
 	private Period age;
 	private String civilite;
 	private String adresse;
-	List<Entreprise> entreprises = new ArrayList<Entreprise>();
+	List<Metier> metiers = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -78,13 +78,13 @@ public class Stagiaire {
 		this.adresse = adresse;
 	}
 	
-	public List<Entreprise> getEntreprises() {
-		return entreprises;
+	public List<Metier> getMetiers() {
+		return metiers;
 	}
-	public void setListEntreprises(Entreprise entreprises) {
-		this.entreprises.add(entreprises);
+	public void setListMetiers(Metier metiers) {
+		this.metiers.add(metiers);
 	}
-	public void setEntreprises(List<Entreprise> entreprises) {
-		this.entreprises= entreprises;
+	public void setMetiers(List<Metier> metiers) {
+		this.metiers= metiers;
 	}
 }

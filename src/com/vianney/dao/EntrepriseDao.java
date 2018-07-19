@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.vianney.beans.Entreprise;
-import com.vianney.beans.Metier;
 
 public class EntrepriseDao {
 	
@@ -19,7 +18,8 @@ public class EntrepriseDao {
 	public EntrepriseDao(Connection connection) {
 		this.connection = connection;
 	}
-	public Entreprise selectByMetier(long idMetier, Metier metier) {
+	
+	public Entreprise selectByMetier(long idMetier) {
 
 		String sql= "SELECT E.Id AS IdEntreprise, E.Nom AS NomEntreprise, E.Adresse, ";
 		sql+= "E.Ville, E.CodePostal ";
@@ -28,7 +28,7 @@ public class EntrepriseDao {
 		try {
 			PreparedStatement ps= initPs(sql, idMetier);
 			ResultSet r= ps.executeQuery();
-			unique(r, metier);
+			unique(r);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -36,37 +36,46 @@ public class EntrepriseDao {
 		return entreprise;
 	}
 	
-	private void selectByStagaire(long idStagaire, Metier metier) {
+	public void selectByStagaire(long idStagiaire) {
 		String sql= "SELECT E.Id AS IdEntreprise, E.Nom AS NomEntreprise, E.Adresse, ";
 		sql+= "E.Ville, E.CodePostal, M.Id AS IdMetier, M.Function, ";
 		sql+= "FROM Entreprises AS E, Metier_Entreprise AS ME, Metiers AS M, Stagiaire_Metier AS SM ";
 		sql+= "WHERE SM.IdStagiaire= ? AND ME.IdMetier= SM.IdMetier AND ME.IdEntreprise= E.Id AND SM.IdMetier= M.Id";
 		try {
-			PreparedStatement ps= initPs(sql);
+			PreparedStatement ps= initPs(sql, idStagiaire);
 			ResultSet r= ps.executeQuery();
-			unique(r, metier);
+			unique(r);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void unique(ResultSet r, Metier metier) {
+	private void unique(ResultSet r) {
 		try {
-			if(r.next()) {
-				entreprise= new Entreprise();
-				entreprise.setId(r.getLong("IdEntreprise"));
-				entreprise.setNom(r.getString("NomEntreprise"));
-				entreprise.setAdresse(r.getString("Adresse"));
-				entreprise.setVille(r.getString("Ville"));
-				entreprise.setCodePostal(r.getInt("CodePostal"));
-				entreprise.setListMetier(metier);
+			
+			if(r.next()) {	
+				r.first();
+				while(r.next()) {
+					entreprise= new Entreprise();
+					entreprise.setId(r.getLong("IdEntreprise"));
+					entreprise.setNom(r.getString("NomEntreprise"));
+					entreprise.setAdresse(r.getString("Adresse"));
+					entreprise.setVille(r.getString("Ville"));
+					entreprise.setCodePostal(r.getInt("CodePostal"));
+				}
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
- 	private PreparedStatement initPs(String sql, Object... objects) {
+ 	public List<Entreprise> getEntreprises() {
+		return entreprises;
+	}
+	public Entreprise getEntreprise() {
+		return entreprise;
+	}
+	private PreparedStatement initPs(String sql, Object... objects) {
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(sql);

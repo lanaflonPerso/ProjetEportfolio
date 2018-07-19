@@ -47,8 +47,8 @@ public class MetierDao {
 			    metier.setDateSortie(r.getString("DateSortie"));
 			    metier.setDescription(r.getString("Description"));
 			    
-			    EntrepriseDao eDao= new EntrepriseDao(connection);
-			    eDao.selectByMetier(r.getLong("IdMetier"), metier);
+//			    EntrepriseDao eDao= new EntrepriseDao(connection);
+//			    eDao.selectByMetier(r.getLong("IdMetier"));
 			    
 			    metiers.add(metier);    
 			}

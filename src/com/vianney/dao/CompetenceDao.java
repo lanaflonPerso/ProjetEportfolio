@@ -4,24 +4,27 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.vianney.beans.Competence;
-import com.vianney.beans.Entreprise;
-import com.vianney.beans.Metier;
 
 public class CompetenceDao {
 	
 	private Connection connection;
+	private List<Competence> competences= new ArrayList<>();
 	private Competence competence;
 	
 	public CompetenceDao(Connection connection) {
 		this.connection = connection;
 	}
 	
-	public void selectCompetenceByMetier(String idMetier) {
-		String sql= "C.Nom ";
-		sql+= "FROM Metier_Comptence AS MC, Competence AS C ";
+	public void selectCompetenceByMetier(long idMetier) {
+		System.out.println("id=========================="+idMetier+"==========================metier");
+		String sql= "SELECT C.Nom ";
+		sql+= "FROM Metier_Competence AS MC, Competences AS C ";
 		sql+= "WHERE MC.IdMetier= ? AND C.Id= MC.IdCompetence;";
+		
 		try {
 			PreparedStatement ps= initPs(sql, idMetier);
 			ResultSet r= ps.executeQuery();
@@ -29,27 +32,32 @@ public class CompetenceDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-//		return Competence;
-	}
 	}
 	
-	private void unique(ResultSet r, Metier metier) {
+	private void unique(ResultSet r) {
 		try {
-			if(r.next()) {
+			while(r.next()) {
 				competence= new Competence();
-				competence.setId(r.getString("Nom"));
-				entreprise.setNom(r.getString("NomEntreprise"));
-				entreprise.setAdresse(r.getString("Adresse"));
-				entreprise.setVille(r.getString("Ville"));
-				entreprise.setCodePostal(r.getInt("CodePostal"));
-				entreprise.setListMetier(metier);
+				competence.setNom(r.getString("Nom"));
+				
+				System.out.println("=========================="+r.getString("Nom")+"==========================");
+				
+				competences.add(competence);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
- 	private PreparedStatement initPs(String sql, Object... objects) {
+ 	public List<Competence> getCompetences() {
+		return competences;
+	}
+ 	
+ 	public Competence getCompetence() {
+ 		return competence;
+ 	}
+
+	private PreparedStatement initPs(String sql, Object... objects) {
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(sql);

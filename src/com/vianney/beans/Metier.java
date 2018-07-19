@@ -10,7 +10,8 @@ public class Metier {
 	private LocalDate dateSortie;
 	private String fonction;
 	private String description;
-	private List<Competence> competence= new ArrayList<Competence>();
+	private List<Entreprise> entreprises= new ArrayList<>();
+	private List<Competence> competences= new ArrayList<>();
 	
 	public long getId() {
 		return id;
@@ -47,14 +48,23 @@ public class Metier {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public List<Competence> getCompetence() {
-		return competence;
+	public List<Competence> getCompetences() {
+		return competences;
 	}
-	public void setCompetence(List<Competence> competence) {
-		this.competence = competence;
+	public void setCompetences(List<Competence> competence) {
+		this.competences = competence;
 	}
 	
 	public void setListCompetence(Competence c) {
-		competence.add(c);
+		competences.add(c);
+	}
+	public List<Entreprise> getEntreprises() {
+		return entreprises;
+	}
+	public void setEntreprises(List<Entreprise> entreprises) {
+		this.entreprises = entreprises;
+	}
+	public void setListEntreprises(Entreprise entreprise) {
+		entreprises.add(entreprise);
 	}
 }

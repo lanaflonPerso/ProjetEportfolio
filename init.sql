@@ -211,22 +211,3 @@ INSERT INTO Metier_Entreprise (IdMetier, IdEntreprise)
 	VALUES
 		(4, 3),
 		(3, 1);
-
-
-SELECT	SM.DateEntree, SM.DateSortie, SM.Description AS MetierDesc, 
-S.Id AS Id_Stagiare, S.Nom, S.Prenom, S.Email, S.Adresse, S.DateNaissance, 
-E.Id AS Id_Entreprise, E.Adresse AS EntrepriseAdresse, E.Ville AS EntrepriseVille, 
-E.Nom AS EntrepriseNom, E.CodePostal AS EntrepriseCP, 
-C.Id AS Id_Competence, C.Nom AS CompetenceNom 
-FROM Stagiaire_Metier AS SM, 
-Stagiaires AS S, 
-Metiers AS M, 
-Entreprises AS E, 
-Metier_Competence AS MC, 
-Competences AS C, 
-metier_entreprise AS ME 
-WHERE S.Id= 2 AND SM.IdStagiaire= 2 
-AND M.Id= SM.IdMetier 
-AND MC.IdMetier= M.Id
-AND C.Id= MC.IdCompetence 
-AND ME.IdMetier= M.Id AND ME.IdEntreprise= E.Id;
