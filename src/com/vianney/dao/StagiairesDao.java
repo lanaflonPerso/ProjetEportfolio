@@ -20,7 +20,7 @@ public class StagiairesDao {
 	private Connection connection;
 	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
 	private Stagiaire stagiaire = new Stagiaire();
-	private boolean ok= true;;
+	private boolean ok= true;
 	
 	public StagiairesDao(Connection connection) {
 		this.connection = connection;
@@ -62,6 +62,7 @@ public class StagiairesDao {
 		return stagiaires.get(0);
 	}
 	
+
 	public Stagiaire SelectByMail(String email) {
 		String sql= "SELECT * FROM Stagiaires WHERE email= ?";
 		try {

@@ -37,7 +37,6 @@ public class StagiaireServlet extends HttpServlet {
 					
 					request.setAttribute("stagiaire", stagiaire);	
 					request.setAttribute("page", "stagiaire");
-					request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 				} catch (Exception e) {
 					System.out.println("n'existe pas");
 				}

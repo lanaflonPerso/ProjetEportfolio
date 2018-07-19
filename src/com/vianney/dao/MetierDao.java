@@ -18,7 +18,7 @@ public class MetierDao {
 		this.connection = connection;
 	}
 	
-	public void SelectByStagiaire(long id) {
+	public List<Metier> SelectByStagiaire(long id) {
 
 		String sql= "SELECT M.Id AS IdMetier, SM.DateEntree, SM.DateSortie, SM.Description, M.Fonction ";
 		sql+= "FROM Stagiaire_Metier AS SM, Metiers AS M ";
@@ -27,12 +27,14 @@ public class MetierDao {
 			ResultSet r;
 			PreparedStatement preparedStatement;
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setLong( 1, id );
+			preparedStatement.setLong( 1, id);
 			r= preparedStatement.executeQuery();
 			createList(r);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return metiers;
 	}
 	
 	private void createList(ResultSet r) {
@@ -43,8 +45,10 @@ public class MetierDao {
 			    metier.setFonction(r.getString("Fonction"));
 			    metier.setDateEntree(r.getString("DateEntree"));
 			    metier.setDateSortie(r.getString("DateSortie"));
-//			    metier.setCompetence();
 			    metier.setDescription(r.getString("Description"));
+			    
+			    EntrepriseDao eDao= new EntrepriseDao(connection);
+			    eDao.selectByMetier(r.getLong("IdMetier"), metier);
 			    
 			    metiers.add(metier);    
 			}

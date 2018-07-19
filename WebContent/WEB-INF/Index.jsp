@@ -15,6 +15,7 @@
 					<c:if test="${!empty sessionScope.user }">
 						<ul>
 							<li><a href="/ProjetEportfolio/stagiaire/modifier">modifier</a></li>
+							<li><a href="/ProjetEportfolio/metier/ajouter">Ajouter Métier</a></li>
 						</ul>
 					</c:if>
 				</div> 
