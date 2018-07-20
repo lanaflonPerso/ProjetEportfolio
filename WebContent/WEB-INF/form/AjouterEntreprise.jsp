@@ -1,4 +1,4 @@
-<h1>Ajouter Entreprisem</h1>
+<h1>Ajouter Entreprise</h1>
  
 <form method="post" action="${ url }">
 	<div class="row">

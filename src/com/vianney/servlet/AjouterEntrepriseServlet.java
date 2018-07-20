@@ -19,7 +19,6 @@ public class AjouterEntrepriseServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		request.setAttribute("url", "/ProjetEportfolio/entreprise/ajouter");
 		request.setAttribute("page", "ajouterEntreprise");
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);

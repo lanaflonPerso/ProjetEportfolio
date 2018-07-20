@@ -22,9 +22,11 @@ public class Index extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		long id= Long.parseLong(request.getParameter("stagiaire"));
-		
+
 		PortfolioDAO pf= new PortfolioDAO((Connection) request.getAttribute("connection"), id);
 		Stagiaire stagiaire= pf.getStagiaire();
+		
+//		System.out.println("Nom= "+stagiaire.getNom());
 	
 		request.setAttribute("stagiaire", stagiaire);
 		request.setAttribute("page", "stagiaire");
