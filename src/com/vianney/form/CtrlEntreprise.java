@@ -139,8 +139,4 @@ public class CtrlEntreprise {
 	public Entreprise getEntreprise() {
 		return entreprise;
 	}
-	
-	public boolean getOk() {
-		return ok;
-	}	
 }
