@@ -14,6 +14,8 @@ import com.vianney.dao.StagiairesDao;
 
 public class StagiairesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	public final String page= "/WEB-INF/vue/Stagiaires.jsp";
 	private List<Stagiaire> stagiaires;
        
     public StagiairesServlet() {
@@ -24,7 +26,9 @@ public class StagiairesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		StagiairesDao newConnect= new StagiairesDao(new MyConnection().getConnection());
 		stagiaires= newConnect.searchAll();
-		request.setAttribute("page", "stagiaires");
+		
+		request.setAttribute("titlePage", "Vue des stagiaires");
+		request.setAttribute("page", page);
 		request.setAttribute("stagiaires", stagiaires);
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}

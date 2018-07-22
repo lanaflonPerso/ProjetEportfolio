@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import com.vianney.beans.Stagiaire;
 import com.vianney.dao.StagiairesDao;
 
-public class ControleConnection {
+public class CtrlConnection {
 
 	private boolean ok= true;
 	private Stagiaire stagiaire;
@@ -17,7 +17,7 @@ public class ControleConnection {
 	private Connection connection;
 	private String email;
 	
-	public ControleConnection(Connection uConnection, String uMdp, String uEmail) {
+	public CtrlConnection(Connection uConnection, String uMdp, String uEmail) {
 		connection= uConnection;
 		verifMdp(uMdp);
 		verifmail(uEmail);
@@ -47,9 +47,9 @@ public class ControleConnection {
 	
 	private boolean verif(String uEmail, String uMdp) {
 		email= uEmail;
-		StagiairesDao conStagiaire= new StagiairesDao(connection);
-		stagiaire= conStagiaire.SelectByEmailMdp(uMdp, uEmail);
-		if(stagiaire.getEmail() == null) {
+		StagiairesDao sDao= new StagiairesDao(connection);
+		System.out.println("l'user existe: "+sDao.SelectByEmailMdp(uMdp, uEmail));
+		if(!sDao.SelectByEmailMdp(uMdp, uEmail)) {
 			msgErreur= "Email ou mot de passe invalide";
 			ok= false;
 			return false;

@@ -23,7 +23,7 @@
     <welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>Index.jsp</welcome-file>
 		<welcome-file>default.html</welcome-file>
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
@@ -32,6 +32,11 @@
 	<servlet>
 		<servlet-name>AjouterEntreprise</servlet-name>
 		<servlet-class>com.vianney.servlet.AjouterEntrepriseServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ModifierStagaire</servlet-name>
+		<servlet-class>com.vianney.servlet.ModifierStagiaireServlet</servlet-class>
 	</servlet>
 	
 	<servlet>
@@ -97,6 +102,11 @@
 	</servlet-mapping>
 	
 	<servlet-mapping>
+		<servlet-name>ModifierStagaire</servlet-name>
+		<url-pattern>/stagiaire/modifier</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
 		<servlet-name>VoirEntreprise</servlet-name>
 		<url-pattern>/entreprise/id/*</url-pattern>
 	</servlet-mapping>
@@ -123,7 +133,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>StagiaireServlet</servlet-name>
-		<url-pattern>/stagiaire/*</url-pattern>
+		<url-pattern>/stagiaire/id/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

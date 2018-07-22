@@ -22,7 +22,7 @@ public class DeconnectionServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		
-		response.sendRedirect("/ProjetEportfolio/index");
+		response.sendRedirect("/ProjetEportfolio/");
 		return;	
 	}
 

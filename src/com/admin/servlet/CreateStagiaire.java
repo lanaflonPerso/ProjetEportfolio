@@ -18,6 +18,9 @@ import com.vianney.form.ControleNewStagiaire;
  */
 public class CreateStagiaire extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	public final String page= 		"/WEB-INF/form/FormCreateStagiaire.jsp";
+	public final String titrePage= 	"Création d'un stagiaire";
 	       
     /**
      * @see HttpServlet#HttpServlet()
@@ -31,9 +34,9 @@ public class CreateStagiaire extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("titlePage", "Création d'un stagiaire");
+		request.setAttribute("titlePage", titrePage);
 		request.setAttribute("post", false);
-		request.setAttribute("page", "createStagiaire");
+		request.setAttribute("page", page);
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
 
@@ -59,7 +62,8 @@ public class CreateStagiaire extends HttpServlet {
 	        String url= "/ProjetEportfolio/stagiaire/"+ id;
 	        request.setAttribute("url", response.encodeURL (url));
 		}
-		request.setAttribute("page", "createStagiaire");
+		request.setAttribute("page", page);
+		request.setAttribute("titlePage", titrePage);
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
 

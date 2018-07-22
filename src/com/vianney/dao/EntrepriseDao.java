@@ -9,14 +9,13 @@ import java.util.List;
 
 import com.vianney.beans.Entreprise;
 
-public class EntrepriseDao {
+public class EntrepriseDao extends Dao {
 	
-	private Connection connection;
 	private List<Entreprise> entreprises= new ArrayList<>();
 	private Entreprise entreprise;
 
-	public EntrepriseDao(Connection connection) {
-		this.connection = connection;
+	public EntrepriseDao(Connection uConnection) {
+		super(uConnection);
 	}
 	
 	public void selectById(long id) {
@@ -123,17 +122,5 @@ public class EntrepriseDao {
 	}
 	public Entreprise getEntreprise() {
 		return entreprise;
-	}
-	private PreparedStatement initPs(String sql, Object... objects) {
-		PreparedStatement ps = null;
-		try {
-			ps = connection.prepareStatement(sql);
-			for ( int i = 0; i < objects.length; i++ ) {
-				ps.setObject( i + 1, objects[i] );
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return ps;
 	}
 }

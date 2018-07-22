@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import com.vianney.beans.Stagiaire;
 import com.vianney.dao.StagiairesDao;
 
-public class ControleStagiaire {
+public class CtrlStagiaire {
 	
 	private Stagiaire stagiaire;
 	private Connection connection;
@@ -26,7 +26,7 @@ public class ControleStagiaire {
 	private String classeAdresse;
 	private String msgErrAdresse;
 	
-	public ControleStagiaire(Connection uConnection) {
+	public CtrlStagiaire(Connection uConnection) {
 		connection= uConnection;
 		stagiaire= new Stagiaire();
 	}
@@ -70,27 +70,26 @@ public class ControleStagiaire {
 			classePrenom= classe(false);
 		}
 	}
-	public void ctrlEmail(String email, String emailUser) {
+	public void ctrlEmail(String email) {
 		stagiaire.setEmail(email);
 		
-		if (!email.equals(emailUser)) {
-			Pattern regexMail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-			Matcher m = regexMail.matcher(email);
-			if (m.find()) {
-				StagiairesDao sd= new StagiairesDao(connection);
-				if(sd.VerifMail(email)) {
-					msgErrEmail= "L'adresse email existe déja";
-					ok= false;
-					classeEmail= classe(false);
-				}
-				classeEmail= classe(true);
-			} else {
-				msgErrEmail= "L'adresse email n'est pas valide!";
+		Pattern regexMail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+		Matcher m = regexMail.matcher(email);
+		if (m.find()) {
+			StagiairesDao sd= new StagiairesDao(connection);
+			if(sd.SelectByMail(email)) {
+				msgErrEmail= "L'adresse email existe déja";
 				ok= false;
 				classeEmail= classe(false);
 			}
 			classeEmail= classe(true);
+		} else {
+			msgErrEmail= "L'adresse email n'est pas valide!";
+			ok= false;
+			classeEmail= classe(false);
 		}
+		classeEmail= classe(true);
+
 	}
 	public void ctrlAdresse(String adresse) {
 		stagiaire.setAdresse(adresse);

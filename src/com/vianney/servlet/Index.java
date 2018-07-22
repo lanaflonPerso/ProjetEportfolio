@@ -13,6 +13,8 @@ import com.vianney.dao.PortfolioDAO;
 
 public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	public final String page= "/WEB-INF/vue/Home.jsp";
        
     public Index() {
         super();
@@ -29,7 +31,7 @@ public class Index extends HttpServlet {
 //		System.out.println("Nom= "+stagiaire.getNom());
 	
 		request.setAttribute("stagiaire", stagiaire);
-		request.setAttribute("page", "stagiaire");
+		request.setAttribute("page", page);
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
 
