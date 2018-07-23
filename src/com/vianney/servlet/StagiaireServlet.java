@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.vianney.beans.Stagiaire;
+import com.vianney.dao.PortfolioDAO;
 import com.vianney.dao.StagiairesDao;
 
 public class StagiaireServlet extends HttpServlet {
@@ -23,27 +24,23 @@ public class StagiaireServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String[] pathInfo= request.getPathInfo().split("/");
-		if(!pathInfo[1].equals("modifier")) {
-			System.out.println("Voir");	
-			try {
-				long id= Integer.parseInt(pathInfo[1]);
-				try {
-					StagiairesDao conStagiaire= new StagiairesDao((Connection) request.getAttribute("connection"));
-					stagiaire= conStagiaire.CarriereStagaire(id);
-					
-					request.setAttribute("stagiaire", stagiaire);	
-					request.setAttribute("page", page);
-				} catch (Exception e) {
-					System.out.println("n'existe pas");
-				}
-			} catch (Exception e) {
-				
-			}
-			request.getRequestDispatcher("Index.jsp").forward(request, response);
-		}
-		
+		System.out.println(pathInfo[1]);
+//		try {
+//			long id= Integer.parseInt(pathInfo[1]);
+//			try {
+//				PortfolioDAO pf= new PortfolioDAO((Connection) request.getAttribute("connection"), id);
+//				Stagiaire stagiaire= pf.getStagiaire();
+//				
+//				request.setAttribute("stagiaire", stagiaire);	
+//				request.setAttribute("page", page);
+//			} catch (Exception e) {
+//				System.out.println("n'existe pas");
+//			}
+//		} catch (Exception e) {
+//			
+//		}
+//		request.getRequestDispatcher("Index.jsp").forward(request, response);		
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

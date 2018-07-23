@@ -1,6 +1,7 @@
 package com.vianney.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.vianney.beans.Stagiaire;
-import com.vianney.dao.MyConnection;
 import com.vianney.dao.StagiairesDao;
 
 public class StagiairesServlet extends HttpServlet {
@@ -24,13 +24,14 @@ public class StagiairesServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		StagiairesDao newConnect= new StagiairesDao(new MyConnection().getConnection());
-		stagiaires= newConnect.searchAll();
+		StagiairesDao sDao= new StagiairesDao((Connection) request.getAttribute("connection"));
+		sDao.searchAll();
+		stagiaires= sDao.getStagiaires();
 		
 		request.setAttribute("titlePage", "Vue des stagiaires");
 		request.setAttribute("page", page);
 		request.setAttribute("stagiaires", stagiaires);
-		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
+		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -16,6 +16,4 @@
 		<td><c:out value="${ stagiaire.adresse }" /></td>
 	</tr>
 	</c:forEach>
-	<c:if test="${not empty error}">Error: ${error}</c:if>
-
 </table>

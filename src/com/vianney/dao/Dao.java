@@ -16,7 +16,7 @@ public class Dao {
 		this.connection = uConnection;
 	}
 	
-	protected String formatDate (LocalDate date) { 
+	protected String formatDate(LocalDate date) { 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String formattedDate = date.format(formatter);
 		

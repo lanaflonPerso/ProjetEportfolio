@@ -56,19 +56,15 @@ public class StagiairesDao extends Dao {
 		return false;
 	}
 	
-	public List<Stagiaire> searchAll() {
-		ResultSet resultSet = null;
-		
+	public void searchAll() {
 		String sql= "SELECT * FROM Stagiaires";
 		try {
-			Statement statement= connection.createStatement();
-			resultSet= statement.executeQuery(sql);
-			createList(resultSet);
+			PreparedStatement ps= initPs(sql);
+			ResultSet result= ps.executeQuery();
+			createList(result);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		return stagiaires;
 	}
 	
 	public long newStagiaire(Stagiaire stagiaire) {
@@ -150,14 +146,15 @@ public class StagiairesDao extends Dao {
 	private void createList(ResultSet r) {
 		try {
 			while (r.next()) {
-			    stagiaire.setId(r.getLong("Id"));
-			    stagiaire.setNom(r.getString("Nom"));
-			    stagiaire.setPrenom(r.getString("Prenom"));
-			    stagiaire.setEmail(r.getString("Email"));
-			    stagiaire.setAdresse(r.getString("Adresse"));
-			    stagiaire.setDateNaissance(r.getString("DateNaissance"));
-			    
-			    stagiaires.add(stagiaire); 
+				Stagiaire newS= new Stagiaire();
+				newS.setId(r.getLong("Id"));
+				newS.setNom(r.getString("Nom"));
+				newS.setPrenom(r.getString("Prenom"));
+				newS.setEmail(r.getString("Email"));
+				newS.setAdresse(r.getString("Adresse"));
+				newS.setDateNaissance(r.getString("DateNaissance"));
+			    stagiaire= newS;
+			    stagiaires.add(newS); 
 			}    			
 		} catch (NumberFormatException | SQLException e) {
 			e.printStackTrace();
@@ -171,6 +168,4 @@ public class StagiairesDao extends Dao {
 	public List<Stagiaire> getStagiaires() {
 		return stagiaires;
 	}
-	
-
 }
