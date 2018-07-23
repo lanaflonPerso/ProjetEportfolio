@@ -16,7 +16,7 @@ import com.vianney.form.CtrlStagiaire;
 public class ConnectionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public final String page="/WEB-INF/form/Connection.jsp";
+	public final String page= 		"/WEB-INF/form/Connection.jsp";
 	public Stagiaire stagiaire;
 	public StagiairesDao info;
 

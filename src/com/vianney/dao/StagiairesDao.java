@@ -20,21 +20,22 @@ public class StagiairesDao extends Dao {
 		super(uConnection);
 	}
 	
-	public Stagiaire SelectById(long id) {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		
+	public boolean SelectById(long id) {
+
 		String sql= "SELECT * FROM Stagiaires WHERE id= ?";
+		PreparedStatement ps= initPs(sql, id);
+		ResultSet result;
 		try {
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setLong( 1, id );
-			resultSet= preparedStatement.executeQuery();
-			createList(resultSet);
+			result = ps.executeQuery();
+			if (testR(result)) {
+				createList(result);
+				return true;
+			}
+			createList(result);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		return stagiaires.get(0);
+		return false;
 	}
 	
 	public boolean SelectByMail(String email) {

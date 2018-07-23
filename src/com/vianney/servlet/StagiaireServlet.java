@@ -16,7 +16,6 @@ public class StagiaireServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public final String page= "/WEB-INF/vue/Stagiaire.jsp";
-	private Stagiaire stagiaire;
 
     public StagiaireServlet() {
         super();
@@ -25,22 +24,22 @@ public class StagiaireServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] pathInfo= request.getPathInfo().split("/");
-		System.out.println(pathInfo[1]);
-//		try {
-//			long id= Integer.parseInt(pathInfo[1]);
-//			try {
-//				PortfolioDAO pf= new PortfolioDAO((Connection) request.getAttribute("connection"), id);
-//				Stagiaire stagiaire= pf.getStagiaire();
-//				
-//				request.setAttribute("stagiaire", stagiaire);	
-//				request.setAttribute("page", page);
-//			} catch (Exception e) {
-//				System.out.println("n'existe pas");
-//			}
-//		} catch (Exception e) {
-//			
-//		}
-//		request.getRequestDispatcher("Index.jsp").forward(request, response);		
+		try {
+			long id= Integer.parseInt(pathInfo[1]);
+			try {
+				PortfolioDAO pf= new PortfolioDAO((Connection) request.getAttribute("connection"), id);
+				Stagiaire stagiaire= pf.getStagiaire();
+
+				request.setAttribute("stagiaire", stagiaire);	
+			} catch (Exception e) {
+				System.out.println("n'existe pas");
+			}
+		} catch (Exception e) {
+			
+		}
+		
+//		request.setAttribute("page", page);
+		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -9,48 +9,49 @@ import java.util.List;
 
 import com.vianney.beans.Metier;
 
-public class MetierDao {
+public class MetierDao extends Dao {
 	
-	private Connection connection;
 	private List<Metier> metiers= new ArrayList<Metier>();
+	private Metier metier= new Metier();
 
-	public MetierDao(Connection connection) {
-		this.connection = connection;
+	public MetierDao(Connection uConnection) {
+		super(uConnection);
 	}
 	
-	public List<Metier> SelectByStagiaire(long id) {
+	public boolean SelectByStagiaire(long id) {
 
 		String sql= "SELECT M.Id AS IdMetier, SM.DateEntree, SM.DateSortie, SM.Description, M.Fonction ";
 		sql+= "FROM Stagiaire_Metier AS SM, Metiers AS M ";
 		sql+= "WHERE SM.IdStagiaire= ? AND M.Id= SM.IdMetier";
+			
+		PreparedStatement ps= initPs(sql, id);
+		ResultSet result;
+		
 		try {
-			ResultSet r;
-			PreparedStatement preparedStatement;
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setLong( 1, id);
-			r= preparedStatement.executeQuery();
-			createList(r);
+			result= ps.executeQuery();
+			if (testR(result)) {
+				createList(result);
+				return true;
+			}
 		} catch (SQLException e) {
+
 			e.printStackTrace();
 		}
-		
-		return metiers;
+		return false;
 	}
 	
 	private void createList(ResultSet r) {
 		try {
 			while (r.next()) {
-			    Metier metier = new Metier();
-			    metier.setId(r.getLong("IdMetier"));
-			    metier.setFonction(r.getString("Fonction"));
-			    metier.setDateEntree(r.getString("DateEntree"));
-			    metier.setDateSortie(r.getString("DateSortie"));
-			    metier.setDescription(r.getString("Description"));
+			    Metier newM = new Metier();
+			    newM.setId(r.getLong("IdMetier"));
+			    newM.setFonction(r.getString("Fonction"));
+			    newM.setDateEntree(r.getString("DateEntree"));
+			    newM.setDateSortie(r.getString("DateSortie"));
+			    newM.setDescription(r.getString("Description"));
 			    
-//			    EntrepriseDao eDao= new EntrepriseDao(connection);
-//			    eDao.selectByMetier(r.getLong("IdMetier"));
-			    
-			    metiers.add(metier);    
+			    metier= newM;
+			    metiers.add(newM);    
 			}
 		} catch (NumberFormatException | SQLException e) {
 			e.printStackTrace();
@@ -59,5 +60,9 @@ public class MetierDao {
 	
 	public List<Metier> getMetiers() {
 		return metiers;
+	}
+	
+	public Metier getMetier() {
+		return metier;
 	}
 }

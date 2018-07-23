@@ -14,20 +14,25 @@ public class PortfolioDAO {
 
 	public PortfolioDAO(Connection connection, long id) {		
 		StagiairesDao sDao= new StagiairesDao(connection);
-		stagiaire= sDao.SelectById(id);
+		if (sDao.SelectById(id)) {
+			stagiaire= sDao.getStagiaire();
+			
+			System.out.println(stagiaire.getNom());
 		
-		MetierDao mDao= new MetierDao(connection);
-		metiers= mDao.SelectByStagiaire(id);
-		
-		EntrepriseDao eDao= new EntrepriseDao(connection);
-		
-		for (Metier metier : metiers) {
-			CompetenceDao cDao= new CompetenceDao(connection);
-			metier.setListEntreprises(eDao.selectByMetier(metier.getId()));
-			cDao.selectCompetenceByMetier(metier.getId());
-			metier.setCompetences(cDao.getCompetences());
-		
-			stagiaire.setListMetiers(metier);
+			MetierDao mDao= new MetierDao(connection);
+			mDao.SelectByStagiaire(stagiaire.getId());
+			metiers= mDao.getMetiers();
+			
+			EntrepriseDao eDao= new EntrepriseDao(connection);
+			
+			for (Metier metier : metiers) {
+				CompetenceDao cDao= new CompetenceDao(connection);
+				metier.setListEntreprises(eDao.selectByMetier(metier.getId()));
+				cDao.selectCompetenceByMetier(metier.getId());
+				metier.setCompetences(cDao.getCompetences());
+			
+				stagiaire.setListMetiers(metier);
+			}
 		}
 	}
 
