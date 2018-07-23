@@ -11,9 +11,7 @@ public class Ctrl {
 		connection= uConnection;
 	}
 	
-	
-
- 	private String classe(boolean b) {
+ 	protected String classe(boolean b) {
 		if (b) {
 			return "is-valid";
 		} else {

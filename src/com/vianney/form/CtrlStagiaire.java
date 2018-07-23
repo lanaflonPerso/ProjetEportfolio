@@ -9,11 +9,9 @@ import java.util.regex.Pattern;
 import com.vianney.beans.Stagiaire;
 import com.vianney.dao.StagiairesDao;
 
-public class CtrlStagiaire {
+public class CtrlStagiaire extends Ctrl {
 	
-	private Stagiaire stagiaire;
-	private Connection connection;
-	private boolean ok= true;
+	private Stagiaire stagiaire= new Stagiaire();
 	private String msgMdpVs;
 	private String msgErrNom;
 	private String classeNom;
@@ -25,13 +23,13 @@ public class CtrlStagiaire {
 	private String classeDdn;
 	private String classeAdresse;
 	private String msgErrAdresse;
-	
+	private String msgErreur;
+
 	public CtrlStagiaire(Connection uConnection) {
-		connection= uConnection;
-		stagiaire= new Stagiaire();
+		super(uConnection);
 	}
 	
-	public boolean ctrlMdpVd(long id, String mdp1, String mdp2) {
+	public boolean ctrlMdpVs(long id, String mdp1, String mdp2) {
 		if(mdp1.equals(mdp2)) {
 			if(mdp1.length() > 7) {
 								
@@ -60,6 +58,7 @@ public class CtrlStagiaire {
 			classeNom= classe(false);
 		}
 	}
+	
 	public void ctrlPrenom(String prenom) {
 		stagiaire.setPrenom(prenom);
 		if (!(prenom.length() < 5) ) { 
@@ -70,28 +69,42 @@ public class CtrlStagiaire {
 			classePrenom= classe(false);
 		}
 	}
-	public void ctrlEmail(String email) {
+	
+	public boolean ctrlEmail(String email, boolean EmailExist) {
 		stagiaire.setEmail(email);
 		
 		Pattern regexMail = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 		Matcher m = regexMail.matcher(email);
 		if (m.find()) {
-			StagiairesDao sd= new StagiairesDao(connection);
-			if(sd.SelectByMail(email)) {
-				msgErrEmail= "L'adresse email existe déja";
-				ok= false;
-				classeEmail= classe(false);
+			if (EmailExist) {
+				boolean ctrl= ctrlEmailExist(email);
+				classeEmail= classe(ctrl);
+				return ctrl;
+			} else {
+				classeEmail= classe(true);
+				return true;
 			}
-			classeEmail= classe(true);
 		} else {
 			msgErrEmail= "L'adresse email n'est pas valide!";
 			ok= false;
 			classeEmail= classe(false);
+			return false;
+		}
+	}
+	
+	private boolean ctrlEmailExist(String email) {
+		StagiairesDao sd= new StagiairesDao(connection);
+		if(sd.SelectByMail(email)) {
+			msgErrEmail= "L'adresse email existe déja";
+			ok= false;
+			classeEmail= classe(false);
+			return true;
 		}
 		classeEmail= classe(true);
-
+		return false;
 	}
-	public void ctrlAdresse(String adresse) {
+
+ 	public void ctrlAdresse(String adresse) {
 		stagiaire.setAdresse(adresse);
 		if (!(adresse.length() < 9)) {
 			classeAdresse= classe(true);
@@ -101,13 +114,7 @@ public class CtrlStagiaire {
 			classeAdresse= classe(false);
 		}
 	}
-	private String classe(boolean b) {
-		if (b) {
-			return "is-valid";
-		} else {
-			return "is-invalid";
-		}
-	}
+
 	public void ctrlDdn(String date) {
 		Pattern regexDate = Pattern.compile("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{2,4}$", Pattern.CASE_INSENSITIVE);
 		Matcher m = regexDate.matcher(date);
@@ -133,19 +140,25 @@ public class CtrlStagiaire {
 			classeDdn= classe(false);
 		}
 	}
-	public boolean isOk() {
-		return ok;
+
+	public boolean ctrlStagaireByEmailMdp(String email, String mdp) {
+		StagiairesDao sDao= new StagiairesDao(connection);
+		if(!sDao.SelectByEmailMdp(mdp, email)) {
+			msgErreur= "Email ou mot de passe invalide";
+			ok= false;
+			return false;
+		} else {
+			stagiaire= sDao.getStagiaire();
+			return true;
+		}
 	}
+	
 	public String getMsgMdpVs() {
 		return msgMdpVs;
 	}
 
 	public Stagiaire getStagiaire() {
 		return stagiaire;
-	}
-
-	public Connection getConnection() {
-		return connection;
 	}
 
 	public String getMsgErrNom() {
@@ -187,7 +200,12 @@ public class CtrlStagiaire {
 	public String getMsgErrAdresse() {
 		return msgErrAdresse;
 	}
-	public void setId(long id) {
+	
+	public String getMsgErreur() {
+		return msgErreur;
+	}
+
+ 	public void setId(long id) {
 		stagiaire.setId(id);
 	}
 }

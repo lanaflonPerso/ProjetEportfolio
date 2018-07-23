@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import com.vianney.beans.Stagiaire;
 import com.vianney.dao.StagiairesDao;
-import com.vianney.form.CtrlConnection;
 import com.vianney.form.CtrlStagiaire;
 
 public class ConnectionServlet extends HttpServlet {
@@ -19,6 +18,7 @@ public class ConnectionServlet extends HttpServlet {
 	
 	public final String page="/WEB-INF/form/Connection.jsp";
 	public Stagiaire stagiaire;
+	public StagiairesDao info;
 
     public ConnectionServlet() {
         super();
@@ -34,27 +34,20 @@ public class ConnectionServlet extends HttpServlet {
 		String mdp= (String) request.getParameter("mdp");
 		String email= (String) request.getParameter("email");
 		Connection connection= (Connection) request.getAttribute("connection");
-
-		if(ctrl(connection, mdp, email)) {
+		
+		CtrlStagiaire ctrlS= new CtrlStagiaire(connection);
+		
+		if(ctrlS.ctrlEmail(email, false) && ctrlS.ctrlStagaireByEmailMdp(email, mdp)) {
 			HttpSession session = request.getSession();
+			
+			stagiaire= ctrlS.getStagiaire();
 			session.setAttribute("user", stagiaire);
 		} else {
-			request.setAttribute("var", cc);			
+			request.setAttribute("email", email);
+			request.setAttribute("info", ctrlS);			
 			request.setAttribute("page", page);
 		}
 		
 		request.getRequestDispatcher("Index.jsp").forward(request, response);		
 	}
-	
-	private boolean ctrl(Connection connection, String mdp, String email) {
-		StagiairesDao sDao= new StagiairesDao(connection);
-		
-		if(sDao.SelectByEmailMdp(mdp, email)) {
-			stagiaire= sDao.getStagiaire();
-			return true;
-		}
-		return false;
-		
-	}
-
 }

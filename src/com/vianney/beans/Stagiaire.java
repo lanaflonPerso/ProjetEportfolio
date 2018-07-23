@@ -87,4 +87,11 @@ public class Stagiaire {
 	public void setMetiers(List<Metier> metiers) {
 		this.metiers= metiers;
 	}
+	
+	public void test() {
+		System.out.printf("Id: %s\n", getId());
+		System.out.printf("Nom: %s\n", getNom());
+		System.out.printf("Prenom: %s\n", getPrenom());
+		System.out.printf("Adresse: %s\n", getAdresse());
+	}
 }
