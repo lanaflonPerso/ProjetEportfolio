@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.vianney.beans.Stagiaire;
 import com.vianney.dao.PortfolioDAO;
-import com.vianney.dao.StagiairesDao;
 
 public class StagiaireServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	public final String page2= "Stagiaire";
 	public final String page= "/WEB-INF/vue/Stagiaire.jsp";
 
     public StagiaireServlet() {
@@ -38,7 +38,7 @@ public class StagiaireServlet extends HttpServlet {
 			
 		}
 		
-//		request.setAttribute("page", page);
+		request.setAttribute("page", page);
 		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 	
