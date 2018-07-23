@@ -46,7 +46,7 @@ public class ModifierStagiaireServlet extends HttpServlet {
 				try {
 					Stagiaire st= (Stagiaire) session.getAttribute("user");
 					long id= st.getId();
-					if(cs.ctrlMdpVd(id, request.getParameter("mdp1"), request.getParameter("mdp2"))) {
+					if(cs.ctrlMdpVs(id, request.getParameter("mdp1"), request.getParameter("mdp2"))) {
 						request.setAttribute("page", pageS);
 						
 					} else {
@@ -61,8 +61,11 @@ public class ModifierStagiaireServlet extends HttpServlet {
 				cs.setId(userId);
 				cs.ctrlNom(request.getParameter("nom"));
 				cs.ctrlPrenom(request.getParameter("prenom"));
-				System.out.println(request.getParameter("email"));
-				cs.ctrlEmail(request.getParameter("email"), user.getEmail());
+				if (!user.getEmail().equals(request.getParameter("email"))) {
+					cs.ctrlEmail(request.getParameter("email"), true);
+				} else {
+					cs.ctrlEmail(request.getParameter("email"), false);
+				}
 				cs.ctrlAdresse(request.getParameter("adresse"));
 				cs.ctrlDdn(request.getParameter("ddn"));
 				

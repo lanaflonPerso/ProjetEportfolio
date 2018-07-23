@@ -1,8 +1,7 @@
-<%@ page pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
  
- <!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="fr">
 
  		<%@ include file="/WEB-INF/layout/Head.jsp" %>
 
@@ -15,7 +14,7 @@
 					<c:if test="${!empty sessionScope.user }">
 						<ul>
 							<li><a href="/ProjetEportfolio/stagiaire/modifier">modifier</a></li>
-							<li><a href="/ProjetEportfolio/metier/ajouter">Ajouter MÃ©tier</a></li>
+							<li><a href="/ProjetEportfolio/metier/ajouter">Ajouter Métier</a></li>
 						</ul>
 					</c:if>
 				</div> 
