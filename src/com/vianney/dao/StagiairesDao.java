@@ -138,14 +138,9 @@ public class StagiairesDao extends Dao {
 	}
 	
 	public void changeMdp(long id, String mdp) {
-	
 		String sql= "UPDATE Stagiaires SET MotDePasse = ? WHERE id= ?";
-		
-		PreparedStatement ps;
+		PreparedStatement ps= initPs(sql, mdp, id);
 		try {
-			ps = connection.prepareStatement(sql);
-			ps.setString(1, mdp);
-			ps.setLong(2, id);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

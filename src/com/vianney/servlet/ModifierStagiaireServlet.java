@@ -35,29 +35,28 @@ public class ModifierStagiaireServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-				
+		
+		request.setAttribute("page", page);
+		
 		if(session.getAttribute("user") != null || !session.getAttribute("user").equals("")) {
 						
 			Stagiaire user= (Stagiaire) session.getAttribute("user");
+			CtrlStagiaire cs= new CtrlStagiaire((Connection) request.getAttribute("connection"));
+			StagiairesDao sDao= new StagiairesDao((Connection) request.getAttribute("connection"));
 			long userId= user.getId();
 			
 			if(request.getParameter("save").equals("Changer")) {
-				CtrlStagiaire cs= new CtrlStagiaire((Connection) request.getAttribute("connection"));
 				try {
-					Stagiaire st= (Stagiaire) session.getAttribute("user");
-					long id= st.getId();
-					if(cs.ctrlMdpVs(id, request.getParameter("mdp1"), request.getParameter("mdp2"))) {
-						request.setAttribute("page", pageS);
+					if(cs.ctrlMdpVs(userId, request.getParameter("mdp1"), request.getParameter("mdp2"))) {
+						sDao.changeMdp(userId, request.getParameter("mdp1"));
 						
 					} else {
 						request.setAttribute("info", cs);
-						request.setAttribute("page", page);
 					}
 				} catch (Exception e) {
-					request.setAttribute("page", page);
+					
 				}
 			} else {				
-				CtrlStagiaire cs= new CtrlStagiaire((Connection) request.getAttribute("connection"));
 				cs.setId(userId);
 				cs.ctrlNom(request.getParameter("nom"));
 				cs.ctrlPrenom(request.getParameter("prenom"));
@@ -70,18 +69,14 @@ public class ModifierStagiaireServlet extends HttpServlet {
 				cs.ctrlDdn(request.getParameter("ddn"));
 				
 				if (cs.isOk()) {
-					StagiairesDao st= new StagiairesDao((Connection) request.getAttribute("connection"));
 					cs.setId(user.getId());
-					st.updateStagiaire(cs.getStagiaire());
+					sDao.updateStagiaire(cs.getStagiaire());
 					
 					session.setAttribute("user", cs.getStagiaire());
-					request.setAttribute("page", pageS);
 				}
 				request.setAttribute("msg", cs);
-				request.setAttribute("page", page);
 			}
 		} else {
-			System.out.println("je ne rentre pas");
 			request.setAttribute("page", pageC);
 		}
 		
