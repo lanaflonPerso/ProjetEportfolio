@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.List;
 
 import com.vianney.beans.Metier;
@@ -12,7 +13,7 @@ import com.vianney.beans.Metier;
 public class MetierDao extends Dao {
 	
 	private List<Metier> metiers= new ArrayList<Metier>();
-	private Metier metier= new Metier();
+	private Metier metier;
 
 	public MetierDao(Connection uConnection) {
 		super(uConnection);
@@ -49,40 +50,41 @@ public class MetierDao extends Dao {
 		sql2+= "VALUES (?, ?, ?, ?, ?) ";
 		
 		PreparedStatement ps= initPs(sql, true, metier.getFonction());
+		ResultSet idMetier = null;
 		try {
 			ps.executeUpdate();
-			ResultSet idMetier= ps.getGeneratedKeys();
-			
-			System.out.println("id metier= "+idMetier.getInt(1));
-			
-			ps= initPs(sql2, false, metier.getDateEntree(), metier.getDateSortie(), metier.getDescription(), idStagiaire, idMetier.getInt(1));
-			ps.executeUpdate();
-			
+			idMetier= ps.getGeneratedKeys();
+			if (idMetier.next()) {
+				PreparedStatement ps2= initPs(sql2, false, metier.getDateEntree(), metier.getDateSortie(), metier.getDescription(), idStagiaire, idMetier.getInt(1));
+				ps2.executeUpdate();
+			}			
 			return true;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		return false;
-		
+		} 
+		return false;	
 	}
 	
 	private void createList(ResultSet r) {
 		try {
 			while (r.next()) {
-			    Metier newM = new Metier();
-			    newM.setId(r.getLong("IdMetier"));
-			    newM.setFonction(r.getString("Fonction"));
+			    Metier metier= new Metier();
+			    metier.setId(r.getLong("IdMetier"));
+			    metier.setFonction(r.getString("Fonction"));
+			    System.out.println("Fonction "+metier.getFonction());
 			    
+			    System.out.println("Date Entree= "+r.getString("DateEntree"));
 			    String[] my= r.getString("DateEntree").split("-");
-			    newM.setDateEntree(Integer.parseInt(my[2]), Integer.parseInt(my[1]), Integer.parseInt(my[0]));
+			    metier.setDateEntree(Integer.parseInt(my[2]), Integer.parseInt(my[1]), Integer.parseInt(my[0]));
 			    
 			    my= r.getString("DateSortie").split("-");
-			    newM.setDateSortie(Integer.parseInt(my[2]), Integer.parseInt(my[1]), Integer.parseInt(my[0]));
-			    newM.setDescription(r.getString("Description"));
+			    metier.setDateSortie(Integer.parseInt(my[2]), Integer.parseInt(my[1]), Integer.parseInt(my[0]));
 			    
-			    metier= newM;
-			    metiers.add(newM);    
+			    metier.setDescription(r.getString("Description"));
+			    System.out.println("Description "+metier.getDescription());
+
+			    metiers.add(metier);    
 			}
 		} catch (NumberFormatException | SQLException e) {
 			e.printStackTrace();

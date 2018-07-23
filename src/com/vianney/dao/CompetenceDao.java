@@ -20,7 +20,6 @@ public class CompetenceDao {
 	}
 	
 	public void selectCompetenceByMetier(long idMetier) {
-		System.out.println("id=========================="+idMetier+"==========================metier");
 		String sql= "SELECT C.Nom ";
 		sql+= "FROM Metier_Competence AS MC, Competences AS C ";
 		sql+= "WHERE MC.IdMetier= ? AND C.Id= MC.IdCompetence;";
@@ -28,19 +27,17 @@ public class CompetenceDao {
 		try {
 			PreparedStatement ps= initPs(sql, idMetier);
 			ResultSet r= ps.executeQuery();
-			unique(r);
+			list(r);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void unique(ResultSet r) {
+	private void list(ResultSet r) {
 		try {
 			while(r.next()) {
 				competence= new Competence();
 				competence.setNom(r.getString("Nom"));
-				
-				System.out.println("=========================="+r.getString("Nom")+"==========================");
 				
 				competences.add(competence);
 			}

@@ -23,7 +23,8 @@ public class Metier {
 		return dateEntree;
 	}
 	public void setDateEntree(int jour, int mois, int annee) {
-	    LocalDate localDate = LocalDate.of(2012, 06, 05);
+		System.out.printf("%d %d %d\n", jour, mois, annee);
+	    LocalDate localDate = LocalDate.of(jour, mois, annee);
 	    dateEntree = localDate;
 	}
 	public LocalDate getDateSortie() {
@@ -31,7 +32,7 @@ public class Metier {
 		return dateSortie;
 	}
 	public void setDateSortie(int jour, int mois, int annee) {
-	    LocalDate localDate = LocalDate.of(2005, 12, 20);		
+	    LocalDate localDate = LocalDate.of(jour, mois, annee);		
 		dateSortie = localDate;
 	}
 	public String getFonction() {

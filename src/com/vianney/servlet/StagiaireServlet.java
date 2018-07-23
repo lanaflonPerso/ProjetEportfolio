@@ -25,8 +25,8 @@ public class StagiaireServlet extends HttpServlet {
 		try {
 			long id= Integer.parseInt(pathInfo[1]);
 			try {
-				PortfolioDAO pf= new PortfolioDAO((Connection) request.getAttribute("connection"), id);
-				Stagiaire stagiaire= pf.getStagiaire();
+				PortfolioDAO pDao= new PortfolioDAO((Connection) request.getAttribute("connection"), id);
+				Stagiaire stagiaire= pDao.getStagiaire();
 
 				request.setAttribute("stagiaire", stagiaire);	
 			} catch (Exception e) {

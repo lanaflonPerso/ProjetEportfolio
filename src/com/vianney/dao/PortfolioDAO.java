@@ -22,10 +22,11 @@ public class PortfolioDAO {
 			MetierDao mDao= new MetierDao(connection);
 			mDao.SelectByStagiaire(stagiaire.getId());
 			metiers= mDao.getMetiers();
-			
+						
 			EntrepriseDao eDao= new EntrepriseDao(connection);
 			
 			for (Metier metier : metiers) {
+				System.out.println(metier.getFonction());
 				CompetenceDao cDao= new CompetenceDao(connection);
 				metier.setListEntreprises(eDao.selectByMetier(metier.getId()));
 				cDao.selectCompetenceByMetier(metier.getId());
