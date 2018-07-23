@@ -30,6 +30,10 @@
     <servlet-class>com.vianney.servlet.AjouterEntrepriseServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>LierEntrepriseMetier</servlet-name>
+    <servlet-class>com.vianney.servlet.LierEntrepriseMetierServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>AjouterMetier</servlet-name>
     <servlet-class>com.vianney.servlet.AjouterMetierServlet</servlet-class>
   </servlet>
@@ -88,6 +92,10 @@
   <servlet-mapping>
     <servlet-name>AjouterEntreprise</servlet-name>
     <url-pattern>/entreprise/ajouter</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LierEntrepriseMetier</servlet-name>
+    <url-pattern>/metier/id/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AjouterMetier</servlet-name>

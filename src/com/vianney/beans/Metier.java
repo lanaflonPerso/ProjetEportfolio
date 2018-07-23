@@ -3,6 +3,7 @@ package com.vianney.beans;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import com.vianney.HelperDate;
 
 public class Metier {
 	private long id;
@@ -22,17 +23,16 @@ public class Metier {
 	public LocalDate getDateEntree() {
 		return dateEntree;
 	}
-	public void setDateEntree(int jour, int mois, int annee) {
-		System.out.printf("%d %d %d\n", jour, mois, annee);
-	    LocalDate localDate = LocalDate.of(jour, mois, annee);
+	public void setDateEntree(int annee, int mois, int jour) {
+	    LocalDate localDate = LocalDate.of(annee, mois, jour);
 	    dateEntree = localDate;
 	}
 	public LocalDate getDateSortie() {
 		
 		return dateSortie;
 	}
-	public void setDateSortie(int jour, int mois, int annee) {
-	    LocalDate localDate = LocalDate.of(jour, mois, annee);		
+	public void setDateSortie(int annee, int mois, int jour) {
+	    LocalDate localDate = LocalDate.of(annee, mois, jour);		
 		dateSortie = localDate;
 	}
 	public String getFonction() {
@@ -65,5 +65,13 @@ public class Metier {
 	}
 	public void setListEntreprises(Entreprise entreprise) {
 		entreprises.add(entreprise);
+	}
+	
+	public String getDateEString() {
+		return HelperDate.formatDateFR(getDateEntree());
+	}
+	
+	public String getDateSString() {
+		return HelperDate.formatDateFR(getDateSortie());
 	}
 }

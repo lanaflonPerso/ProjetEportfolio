@@ -8,9 +8,9 @@ public class CtrlMetier extends Ctrl{
 	
 	private Metier metier= new Metier();;
 	private String msgErrFonction;
-	
+	private String classeFonction;
 	private String msgErrDescription;
-	
+	private String classeDescription;
 	private String msgErrDateEntree;
 	private String classeDateEntree;
 	private String msgErrDateSortie;
@@ -26,7 +26,8 @@ public class CtrlMetier extends Ctrl{
 			return true;
 		}
 		msgErrFonction= "La fonction doit avoir plus de 5 caractéres";
-		ok= false;		
+		ok= false;	
+		classeDescription= classe(false);
 		return false;
 	}
 	
@@ -36,6 +37,7 @@ public class CtrlMetier extends Ctrl{
 			return true;
 		}
 		msgErrDescription= "La description doit avoir plus de 5 caractéres";
+		classeDescription= classe(false);
 		ok= false;
 		return false;
 	}
@@ -99,5 +101,13 @@ public class CtrlMetier extends Ctrl{
 
 	public String getClasseDateSortie() {
 		return classeDateSortie;
-	}	
+	}
+
+	public String getClasseFonction() {
+		return classeFonction;
+	}
+
+	public String getClasseDescription() {
+		return classeDescription;
+	}
 }

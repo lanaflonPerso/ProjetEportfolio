@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.IdentityHashMap;
 import java.util.List;
 
 import com.vianney.beans.Metier;
@@ -32,6 +31,9 @@ public class MetierDao extends Dao {
 			result= ps.executeQuery();
 			if (testR(result)) {
 				createList(result);
+				
+				result.close();
+				ps.close();
 				return true;
 			}
 		} catch (SQLException e) {
@@ -42,7 +44,7 @@ public class MetierDao extends Dao {
 	}
 	
 
-	public boolean ajouter(Metier metier, long idStagiaire) {
+	public int ajouter(Metier metier, long idStagiaire) {
 				
 		String sql = "INSERT INTO  Metiers (Fonction) VALUES (?);";
 		String sql2= "INSERT INTO Stagiaire_Metier ";
@@ -58,12 +60,12 @@ public class MetierDao extends Dao {
 				PreparedStatement ps2= initPs(sql2, false, metier.getDateEntree(), metier.getDateSortie(), metier.getDescription(), idStagiaire, idMetier.getInt(1));
 				ps2.executeUpdate();
 			}			
-			return true;
+			return idMetier.getInt(1);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
-		return false;	
+		}
+		return 0; 	
 	}
 	
 	private void createList(ResultSet r) {
@@ -76,10 +78,10 @@ public class MetierDao extends Dao {
 			    
 			    System.out.println("Date Entree= "+r.getString("DateEntree"));
 			    String[] my= r.getString("DateEntree").split("-");
-			    metier.setDateEntree(Integer.parseInt(my[2]), Integer.parseInt(my[1]), Integer.parseInt(my[0]));
+			    metier.setDateEntree(Integer.parseInt(my[0]), Integer.parseInt(my[1]), Integer.parseInt(my[2]));
 			    
 			    my= r.getString("DateSortie").split("-");
-			    metier.setDateSortie(Integer.parseInt(my[2]), Integer.parseInt(my[1]), Integer.parseInt(my[0]));
+			    metier.setDateSortie(Integer.parseInt(my[0]), Integer.parseInt(my[1]), Integer.parseInt(my[2]));
 			    
 			    metier.setDescription(r.getString("Description"));
 			    System.out.println("Description "+metier.getDescription());

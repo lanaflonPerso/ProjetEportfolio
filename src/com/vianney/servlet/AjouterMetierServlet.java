@@ -41,9 +41,17 @@ public class AjouterMetierServlet extends HttpServlet {
 			Stagiaire stagiaire= (Stagiaire) session.getAttribute("user");
 					
 			MetierDao mDao= new MetierDao((Connection) request.getAttribute("connection"));
-			mDao.ajouter(ctrlM.getMetier(), stagiaire.getId());
-			response.sendRedirect( request.getContextPath() + "/Index.jsp");
+			long idMetier= mDao.ajouter(ctrlM.getMetier(), stagiaire.getId());
+			request.setAttribute("page", page);
+			String url= request.getContextPath() +"/metier/id/"+ idMetier;
+			response.sendRedirect( url );
+			return;
 		}
+		
+		request.setAttribute("url", "/ProjetEportfolio/metier/ajouter");
+		request.setAttribute("metier", ctrlM.getMetier());
+		request.setAttribute("info", ctrlM);
+		request.setAttribute("page", page);
+		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
-
 }

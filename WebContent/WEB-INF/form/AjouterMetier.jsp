@@ -6,10 +6,10 @@
 			<c:if test="${ not empty info.ok && !info.ok }" >
 				<div class="alert alert-danger" role="alert">
 					<ul>
-						<c:if test="${ not empty info.msgErrNom }" ><li>${ info.msgErrNom }</li></c:if> 
-						<c:if test="${ not empty info.msgErrAdresse }" ><li>${ info.msgErrAdresse }</li></c:if>
-						<c:if test="${ not empty info.msgErrVille }" ><li>${ info.msgErrVille }</li></c:if>
-						<c:if test="${ not empty info.msgErrCp }" ><li>${ info.msgErrCp }</li></c:if>
+						<c:if test="${ not empty info.msgErrFonction }" ><li>${ info.msgErrFonction }</li></c:if>
+						<c:if test="${ not empty info.msgErrDescription }" ><li>${ info.msgErrDescription }</li></c:if>
+						<c:if test="${ not empty info.msgErrDateEntree }" ><li>${ info.msgErrDateEntree }</li></c:if> 
+						<c:if test="${ not empty info.msgErrDateSortie }" ><li>${ info.msgErrDateSortie }</li></c:if>
 					</ul>
 				</div>
 			</c:if>	
@@ -17,8 +17,6 @@
 		<div class="col-md-7 col-sm-12">
 			<fieldset class="form-group">
 	    		<legend>Votre rôle dans l'entreprise</legend>
-	    		
-	    		<input type="hidden" value="${ entreprise.id }" name="entrepriseId" />
 	    		
 				<div class="form-group">
 					<label for="fonction">Fonction: </label>
@@ -34,14 +32,12 @@
 				
 				<div class="form-group">
 					<label for="dateE">Date d'entrée: </label>
-					<input name="dateE" type="text" class="form-control ${ info.classeDateEntree }" id="dateE" placeholder="Date d'entré dans l'entreprise"
-					<c:if test="${ not empty info.ok && !info.ok }" >value="${ metier.dateEntree }"</c:if> require />
+					<input name="dateE" type="text" class="form-control" id="dateE" placeholder="Date d'entré dans l'entreprise" require />
 				</div>
 				
 				<div class="form-group">
 					<label for="dateS">Date de fin de contrat: </label>
-					<input name="dateS" type="text" class="form-control ${ info.classeDateSortie }" id="dateS" placeholder="Date de départ de l'entreprise"
-					<c:if test="${ not empty info.ok && !info.ok }" >value="${ metier.dateSortie }"</c:if> require />
+					<input name="dateS" type="text" class="form-control" id="dateS" placeholder="Date de départ de l'entreprise" require />
 				</div>		
 			</fieldset>
 			
@@ -50,8 +46,7 @@
 	    		
 	    		<div class="form-group">
 					<label for="nom">Compétence: </label>
-					<input name="dateS" type="text" class="form-control ${ info.classeNom }" id="dateS" placeholder="Compétence acquise"
-					<c:if test="${ not empty info.ok && !info.ok }" >value="${ competence.nom }"</c:if> require />
+					<input name="dateS" type="text" class="form-control " id="dateS" placeholder="Compétence acquise" require />
 				</div>	
 	    	</fieldset>
 

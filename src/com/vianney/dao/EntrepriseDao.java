@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.vianney.beans.Entreprise;
@@ -13,9 +14,40 @@ public class EntrepriseDao extends Dao {
 	
 	private List<Entreprise> entreprises= new ArrayList<>();
 	private Entreprise entreprise;
+	private String selection= "SELECT *, id AS idEntreprise, Nom AS NomEntreprise FROM Entreprises WHERE";
+	
+	private LinkedList<String> options= new LinkedList<>();
+	private LinkedList<Object> cles= new LinkedList<>();
+	
 
 	public EntrepriseDao(Connection uConnection) {
 		super(uConnection);
+	}
+	
+	public void select() {
+		
+
+		for (int i = 0; i < options.size(); i++) {
+			if (i == options.size()-1) {
+				selection+= options.get(i);
+			} else {
+				selection+= options.get(i) +"AND";
+			}
+		}
+		PreparedStatement ps;
+		try {
+			System.out.println(selection);
+			ps = connection.prepareStatement(selection);
+			for ( int i = 0; i < cles.size(); i++ ) {
+				ps.setObject( i + 1, cles.get(i) );
+			}
+			
+			ResultSet r= ps.executeQuery();
+			createList(r);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void selectById(long id) {
@@ -24,7 +56,7 @@ public class EntrepriseDao extends Dao {
 		try {
 			PreparedStatement ps= initPs(sql, false, id);
 			ResultSet r= ps.executeQuery();
-			unique(r);
+			createList(r);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -39,7 +71,7 @@ public class EntrepriseDao extends Dao {
 		try {
 			PreparedStatement ps= initPs(sql, false, idMetier);
 			ResultSet r= ps.executeQuery();
-			unique(r);
+			createList(r);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -55,7 +87,7 @@ public class EntrepriseDao extends Dao {
 		try {
 			PreparedStatement ps= initPs(sql, false, idStagiaire);
 			ResultSet r= ps.executeQuery();
-			unique(r);
+			createList(r);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -68,7 +100,7 @@ public class EntrepriseDao extends Dao {
 			ResultSet r= ps.executeQuery();
 			if (r.next()) {
 				r.first();
-				unique(r);
+				createList(r);
 				return true;
 			}			
 		} catch (SQLException e) {
@@ -103,7 +135,7 @@ public class EntrepriseDao extends Dao {
 		return true;
 	}
 	
-	private void unique(ResultSet r) {
+	private void createList(ResultSet r) {
 		try {
 			while(r.next()) {
 				entreprise= new Entreprise();
@@ -112,6 +144,9 @@ public class EntrepriseDao extends Dao {
 				entreprise.setAdresse(r.getString("Adresse"));
 				entreprise.setVille(r.getString("Ville"));
 				entreprise.setCodePostal(r.getInt("CodePostal"));
+				
+				entreprises.add(entreprise);
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -122,5 +157,16 @@ public class EntrepriseDao extends Dao {
 	}
 	public Entreprise getEntreprise() {
 		return entreprise;
+	}
+	
+	public void likeNom(String nom) {
+		options.add(" Nom LIKE ? ");
+		cles.add("%"+nom+"%");
+		
+	}
+	
+	public void likeCp(String cp) {
+		options.add(" CodePostal LIKE ? ");
+		cles.add("%"+cp+"%");
 	}
 }
