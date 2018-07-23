@@ -14,8 +14,8 @@ import com.vianney.form.CtrlEntreprise;
 public class AjouterEntrepriseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public final String pageVE= "/WEB-INF/vue/VoirEntreprise.jsp";
-	public final String pageAE= "/WEB-INF/form/AjouterEntreprise.jsp";
+	public final String pageVE=			"/WEB-INF/vue/VoirEntreprise.jsp";
+	public final String pageAE=			"/WEB-INF/form/AjouterEntreprise.jsp";
 
     public AjouterEntrepriseServlet() {
         super();
@@ -24,7 +24,7 @@ public class AjouterEntrepriseServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("url", "/ProjetEportfolio/entreprise/ajouter");
 		request.setAttribute("page", pageAE);
-		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
+		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,6 +44,6 @@ public class AjouterEntrepriseServlet extends HttpServlet {
 			request.setAttribute("info", ctrlE);
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
+		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 }

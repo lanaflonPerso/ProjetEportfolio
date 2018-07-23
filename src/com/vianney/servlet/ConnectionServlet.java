@@ -27,7 +27,7 @@ public class ConnectionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setAttribute("page", page);
-		request.getRequestDispatcher("Index.jsp").forward(request, response);
+		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,6 +48,6 @@ public class ConnectionServlet extends HttpServlet {
 			request.setAttribute("page", page);
 		}
 		
-		request.getRequestDispatcher("Index.jsp").forward(request, response);		
+		request.getRequestDispatcher("/Index.jsp").forward(request, response);		
 	}
 }

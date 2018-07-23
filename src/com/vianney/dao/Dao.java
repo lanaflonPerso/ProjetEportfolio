@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -23,10 +24,14 @@ public class Dao {
 		return formattedDate;
 	}
 		
-	protected PreparedStatement initPs(String sql, Object... objects) {
+	protected PreparedStatement initPs(String sql, boolean genered_keys, Object... objects) {
 		PreparedStatement ps = null;
 		try {
-			ps = connection.prepareStatement(sql);
+			if (genered_keys) {
+				ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			} else {
+				ps = connection.prepareStatement(sql);
+			}
 			for ( int i = 0; i < objects.length; i++ ) {
 				ps.setObject( i + 1, objects[i] );
 			}
@@ -47,4 +52,5 @@ public class Dao {
 		}
 		return false;
 	}
+
 }

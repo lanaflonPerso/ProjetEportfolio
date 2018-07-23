@@ -50,7 +50,7 @@
 	    		
 	    		<div class="form-group">
 					<label for="nom">Compétence: </label>
-					<input name="dateS" type="text" class="form-control ${ info.classeNom }" id="dateS" placeholder="Date de départ de l'entreprise"
+					<input name="dateS" type="text" class="form-control ${ info.classeNom }" id="dateS" placeholder="Compétence acquise"
 					<c:if test="${ not empty info.ok && !info.ok }" >value="${ competence.nom }"</c:if> require />
 				</div>	
 	    	</fieldset>

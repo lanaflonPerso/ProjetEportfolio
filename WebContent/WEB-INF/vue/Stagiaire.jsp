@@ -18,17 +18,5 @@
 				</c:forEach>
 			</ul>
 		</ul>
-    	<%-- <li class="list-group-item">${ entreprise.nom } (${ entreprise.id })</li>
-    	<ul>
-    	<c:forEach items="${ entreprise.getMetier() }" var="metier">
-    		<li>
-    			<p>${ metier.fonction } (${ metier.id })</p>
-    			<p>${ metier.description }</p>
-    		</li>
-    		<ul>
-    			<c:forEach items="${ metier.getCompetence() }" var="competence">
-    				<li>${ competence.nom } (${ competence.id })</li>
-    			</c:forEach>
-    		</ul> --%>
 	</c:forEach>
 </ul>

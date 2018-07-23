@@ -22,7 +22,7 @@ public class EntrepriseDao extends Dao {
 		String sql= "SELECT Id AS IdEntreprise, Nom AS NomEntreprise, Adresse, Ville, CodePostal FROM Entreprises WHERE Id= ?";
 		
 		try {
-			PreparedStatement ps= initPs(sql, id);
+			PreparedStatement ps= initPs(sql, false, id);
 			ResultSet r= ps.executeQuery();
 			unique(r);
 		} catch (SQLException e) {
@@ -37,7 +37,7 @@ public class EntrepriseDao extends Dao {
 		sql+= "FROM Entreprises AS E, Metier_Entreprise AS ME, Metiers AS M ";
 		sql+= "WHERE ME.IdMetier= ? AND ME.IdEntreprise= E.Id";
 		try {
-			PreparedStatement ps= initPs(sql, idMetier);
+			PreparedStatement ps= initPs(sql, false, idMetier);
 			ResultSet r= ps.executeQuery();
 			unique(r);
 		} catch (SQLException e) {
@@ -53,7 +53,7 @@ public class EntrepriseDao extends Dao {
 		sql+= "FROM Entreprises AS E, Metier_Entreprise AS ME, Metiers AS M, Stagiaire_Metier AS SM ";
 		sql+= "WHERE SM.IdStagiaire= ? AND ME.IdMetier= SM.IdMetier AND ME.IdEntreprise= E.Id AND SM.IdMetier= M.Id";
 		try {
-			PreparedStatement ps= initPs(sql, idStagiaire);
+			PreparedStatement ps= initPs(sql, false, idStagiaire);
 			ResultSet r= ps.executeQuery();
 			unique(r);
 		} catch (SQLException e) {
@@ -64,7 +64,7 @@ public class EntrepriseDao extends Dao {
 	public boolean SelectByNom(String nom) {
 		String sql= "SELECT Id FROM Entreprises WHERE Nom= ?";
 		try {
-			PreparedStatement ps= initPs(sql, nom);
+			PreparedStatement ps= initPs(sql, false, nom);
 			ResultSet r= ps.executeQuery();
 			if (r.next()) {
 				r.first();
@@ -81,7 +81,7 @@ public class EntrepriseDao extends Dao {
 		String sql= "INSERT INTO  Metier_Entreprise";
 		sql+= " (IdMetier, IdEntreprise)";
 		sql+= " VALUES (?, ?);";
-		PreparedStatement ps= initPs(sql, idMetier, idEntreprise);
+		PreparedStatement ps= initPs(sql, false, idMetier, idEntreprise);
 		try {
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -94,7 +94,7 @@ public class EntrepriseDao extends Dao {
 		String sql= "INSERT INTO  Entreprises";
 		sql+= " (Nom, Adresse, Ville, CodePostal)";
 		sql+= " VALUES (?, ?, ?, ?);";
-		PreparedStatement ps= initPs(sql, ent.getNom(), ent.getAdresse(), ent.getVille(), ent.getCodePostal());
+		PreparedStatement ps= initPs(sql, false, ent.getNom(), ent.getAdresse(), ent.getVille(), ent.getCodePostal());
 		try {
 			ps.executeUpdate();
 		} catch (SQLException e) {

@@ -14,12 +14,10 @@ import com.vianney.dao.PortfolioDAO;
 public class StagiaireServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public final String page2= "Stagiaire";
 	public final String page= "/WEB-INF/vue/Stagiaire.jsp";
 
     public StagiaireServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,11 +37,10 @@ public class StagiaireServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("page", page);
-		request.getRequestDispatcher("Index.jsp").forward(request, response);
+		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String[] pathInfo= request.getPathInfo().split("/");
-//		request.getRequestDispatcher("Index.jsp").forward(request, response);
+
 	}
 }

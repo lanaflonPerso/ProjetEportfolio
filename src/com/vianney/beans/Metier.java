@@ -22,19 +22,17 @@ public class Metier {
 	public LocalDate getDateEntree() {
 		return dateEntree;
 	}
-	public void setDateEntree(String de) {
-		String[] part= de.split("-");
-	    LocalDate localDate = LocalDate.of(Integer.parseInt(part[0]), Integer.parseInt(part[1]), Integer.parseInt(part[2]));		
-		this.dateEntree = localDate;
+	public void setDateEntree(int jour, int mois, int annee) {
+	    LocalDate localDate = LocalDate.of(2012, 06, 05);
+	    dateEntree = localDate;
 	}
 	public LocalDate getDateSortie() {
 		
 		return dateSortie;
 	}
-	public void setDateSortie(String ds) {
-		String[] part= ds.split("-");
-	    LocalDate localDate = LocalDate.of(Integer.parseInt(part[0]), Integer.parseInt(part[1]), Integer.parseInt(part[2]));		
-		this.dateSortie = localDate;
+	public void setDateSortie(int jour, int mois, int annee) {
+	    LocalDate localDate = LocalDate.of(2005, 12, 20);		
+		dateSortie = localDate;
 	}
 	public String getFonction() {
 		return fonction;

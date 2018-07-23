@@ -23,7 +23,7 @@ public class StagiairesDao extends Dao {
 	public boolean SelectById(long id) {
 
 		String sql= "SELECT * FROM Stagiaires WHERE id= ?";
-		PreparedStatement ps= initPs(sql, id);
+		PreparedStatement ps= initPs(sql, false, id);
 		ResultSet result;
 		try {
 			result = ps.executeQuery();
@@ -40,7 +40,7 @@ public class StagiairesDao extends Dao {
 	
 	public boolean SelectByMail(String email) {
 		String sql= "SELECT * FROM Stagiaires WHERE email= ?";
-		PreparedStatement ps= initPs(sql, email);
+		PreparedStatement ps= initPs(sql, false, email);
 		ResultSet r;
 		try {
 			r = ps.executeQuery();
@@ -60,7 +60,7 @@ public class StagiairesDao extends Dao {
 	public void searchAll() {
 		String sql= "SELECT * FROM Stagiaires";
 		try {
-			PreparedStatement ps= initPs(sql);
+			PreparedStatement ps= initPs(sql, false);
 			ResultSet result= ps.executeQuery();
 			createList(result);
 		} catch (SQLException e) {
@@ -85,7 +85,7 @@ public class StagiairesDao extends Dao {
 			ps.setString(3, d);
 			ps.setString(4, stagiaire.getEmail());
 			ps.executeUpdate();
-			ResultSet rs=ps.getGeneratedKeys();
+			ResultSet rs= ps.getGeneratedKeys();
 			if(rs.next()) {
 				id=rs.getInt(1);
 				return id;
@@ -103,7 +103,7 @@ public class StagiairesDao extends Dao {
 	public boolean SelectByEmailMdp(String mdp, String email) {	
 		String sql= "SELECT * FROM Stagiaires WHERE email= ? AND MotDePasse= ?";
 		try {
-			PreparedStatement ps= initPs(sql, email, mdp);
+			PreparedStatement ps= initPs(sql, false, email, mdp);
 			ResultSet r= ps.executeQuery();
 			if(testR(r)) {
 				createList(r);
@@ -123,7 +123,7 @@ public class StagiairesDao extends Dao {
 		sql+= "WHERE Id= ?";
 		
 		String ddn= formatDate (stagiaire.getDateNaissance());
-		PreparedStatement ps= initPs(sql, stagiaire.getNom(), stagiaire.getPrenom(), stagiaire.getEmail(), stagiaire.getAdresse(), ddn, stagiaire.getId());
+		PreparedStatement ps= initPs(sql, false, stagiaire.getNom(), stagiaire.getPrenom(), stagiaire.getEmail(), stagiaire.getAdresse(), ddn, stagiaire.getId());
 		try {
 			ps.executeQuery();
 		} catch (SQLException e) {
@@ -136,7 +136,7 @@ public class StagiairesDao extends Dao {
 	
 	public void changeMdp(long id, String mdp) {
 		String sql= "UPDATE Stagiaires SET MotDePasse = ? WHERE id= ?";
-		PreparedStatement ps= initPs(sql, mdp, id);
+		PreparedStatement ps= initPs(sql, false, mdp, id);
 		try {
 			ps.executeUpdate();
 		} catch (SQLException e) {
