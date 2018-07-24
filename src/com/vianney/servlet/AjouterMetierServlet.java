@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.vianney.beans.Metier;
 import com.vianney.beans.Stagiaire;
 import com.vianney.dao.MetierDao;
 import com.vianney.form.CtrlMetier;
@@ -17,41 +18,48 @@ public class AjouterMetierServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public final String page=			"/WEB-INF/form/AjouterMetier.jsp";
+	private Metier metier;
+	private CtrlMetier ctrl;
 
     public AjouterMetierServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("url", "/ProjetEportfolio/metier/ajouter");
 		request.setAttribute("page", page);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
-		CtrlMetier ctrlM= new CtrlMetier((Connection) request.getAttribute("connection"));
-		ctrlM.ctrlFonction(request.getParameter("fonction"));
-		ctrlM.ctrlDescription(request.getParameter("description"));
-		ctrlM.ctrlDateEntree(request.getParameter("dateE"));
-		ctrlM.ctrlDateSortie(request.getParameter("dateS"));
-		
-		if(ctrlM.isOk()) {
+	
+		if(ctrlMetier(request)) {
 			HttpSession session = request.getSession();
 			Stagiaire stagiaire= (Stagiaire) session.getAttribute("user");
 					
 			MetierDao mDao= new MetierDao((Connection) request.getAttribute("connection"));
-			long idMetier= mDao.ajouter(ctrlM.getMetier(), stagiaire.getId());
+			
+			long idMetier= mDao.add(metier, stagiaire.getId());
 			request.setAttribute("page", page);
-			String url= request.getContextPath() +"/metier/id/"+ idMetier;
+			String url= request.getContextPath() +"/compte/metier/id/"+ idMetier;
 			response.sendRedirect( url );
 			return;
 		}
 		
-		request.setAttribute("url", "/ProjetEportfolio/metier/ajouter");
-		request.setAttribute("metier", ctrlM.getMetier());
-		request.setAttribute("info", ctrlM);
+		request.setAttribute("metier", metier);
+		request.setAttribute("info", ctrl);
 		request.setAttribute("page", page);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
+	}
+	
+	private boolean ctrlMetier(HttpServletRequest request) {
+		CtrlMetier ctrl= new CtrlMetier((Connection) request.getAttribute("connection"));
+		ctrl.ctrlFonction(request.getParameter("fonction"));
+		ctrl.ctrlDescription(request.getParameter("description"));
+		ctrl.ctrlDateEntree(request.getParameter("dateE"));
+		ctrl.ctrlDateSortie(request.getParameter("dateS"));
+		
+		metier= ctrl.getMetier();
+		
+		return ctrl.isOk();
 	}
 }

@@ -20,55 +20,56 @@ public class LierEntrepriseMetierServlet extends HttpServlet {
 	
 	public final String page=			"/WEB-INF/form/LierEntrepriseMetier.jsp";
 	public final String pageC= 			"/WEB-INF/form/Connection.jsp";
+	public final String pageS= 			"/WEB-INF/vue/Stagiaire.jsp";
+	public MetierDao mDao;
+	public long idMetier;
+	
     public LierEntrepriseMetierServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("page", page);
 		HttpSession session = request.getSession();
+		Stagiaire stagiaire= (Stagiaire) session.getAttribute("user");	
+		
+		request.setAttribute("page", page);
+		
+		String[] pathInfo= request.getPathInfo().split("/");
+		
 		try {
-			Stagiaire stagiaire= (Stagiaire) session.getAttribute("user");
-			
-			String[] pathInfo= request.getPathInfo().split("/");
-			try {
-				long idMetier= Integer.parseInt(pathInfo[1]);
-				
-				MetierDao mDao= new MetierDao((Connection) request.getAttribute("connection"));
-				mDao.selectByStagiaireIdMetier(idMetier, stagiaire.getId());
-				
-				request.setAttribute("idMetier", idMetier);
-				EntrepriseDao eDao= new EntrepriseDao((Connection) request.getAttribute("connection"));
-				if(!request.getParameter("cp").equals("")) {
-					eDao.likeCp(request.getParameter("cp"));
-				}
-				
-				if(!request.getParameter("nom").equals("")) {
-					eDao.likeNom(request.getParameter("nom"));
-				}
-							
-				if (eDao.select()) {
-					List<Entreprise> entreprises= eDao.getEntreprises();
-					request.setAttribute("ok", true);
-					request.setAttribute("entreprises", entreprises);	
-				}
-				
-				try {
-					long idEntreprise= Integer.parseInt(pathInfo[2]);
-					mDao.insertMetierEntreprise(idMetier, idEntreprise);
-					System.out.println("idEntreprise= "+ idEntreprise);
-				} catch (Exception e) {
-					
-				}
-				
-				request.setAttribute("url", "/ProjetEportfolio/metier/ajouter");
-				request.setAttribute("page", page);
-				
-			} catch (Exception e) {
-					
-			}
+			long idEntreprise= Long.parseLong(request.getParameter("entreprise"));
+			mDao.addMetierEntreprise(idMetier, idEntreprise);
+			request.setAttribute("page", pageS);
 		} catch (Exception e) {
-			request.setAttribute("page", pageC);	
+			
+		}
+		
+		try {
+			idMetier= Integer.parseInt(pathInfo[1]);
+			
+			mDao= new MetierDao((Connection) request.getAttribute("connection"));
+			mDao.selectByStagiaireIdMetier(idMetier, stagiaire.getId());
+			
+			request.setAttribute("idMetier", idMetier);
+			EntrepriseDao eDao= new EntrepriseDao((Connection) request.getAttribute("connection"));
+			if(!request.getParameter("cp").equals("")) {
+				eDao.likeCp(request.getParameter("cp"));
+			}
+			
+			if(!request.getParameter("nom").equals("")) {
+				eDao.likeNom(request.getParameter("nom"));
+			}
+			
+			if (eDao.select()) {
+				List<Entreprise> entreprises= eDao.getEntreprises();
+				request.setAttribute("idmetier", idMetier);
+				request.setAttribute("ok", true);
+				request.setAttribute("entreprises", entreprises);	
+			}
+			request.setAttribute("page", page);
+			
+		} catch (Exception e) {
+				
 		}
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}

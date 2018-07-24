@@ -8,7 +8,7 @@
 				<ul class="list-group">
 					<c:forEach items="${ metiers }" var="metier">
 						<li>
-							<a href="/ProjetEportfolio/metier/id/${ metier.id }">${ metier.fonction }</a>
+							<a href="<c:url value="/compte/metier/id/${ metier.id }"/>">${ metier.fonction }</a>
 						</li>
 					</c:forEach>
 				</ul>

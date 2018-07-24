@@ -67,23 +67,20 @@ public class MetierDao extends Dao {
 		return false;
 	}
 	
-	public int ajouter(Metier metier, long idStagiaire) {
+	public long add(Metier metier, long idStagiaire) {
 				
 		String sql = "INSERT INTO  Metiers (Fonction) VALUES (?);";
-		String sql2= "INSERT INTO Stagiaire_Metier ";
-		sql2+= "(DateEntree, DateSortie, Description, IdStagiaire, IdMetier) ";
-		sql2+= "VALUES (?, ?, ?, ?, ?) ";
 		
 		PreparedStatement ps= initPs(sql, true, metier.getFonction());
-		ResultSet idMetier = null;
+		ResultSet result = null;
 		try {
 			ps.executeUpdate();
-			idMetier= ps.getGeneratedKeys();
-			if (idMetier.next()) {
-				PreparedStatement ps2= initPs(sql2, false, metier.getDateEntree(), metier.getDateSortie(), metier.getDescription(), idStagiaire, idMetier.getInt(1));
-				ps2.executeUpdate();
+			result= ps.getGeneratedKeys();
+			if (result.next()) {
+				metier.setId(result.getInt(1));
+				insertStagiaireMetier(metier, idStagiaire);	
 			}			
-			return idMetier.getInt(1);
+			return metier.getId();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -91,13 +88,27 @@ public class MetierDao extends Dao {
 		return 0; 	
 	}
 	
-	public void insertMetierEntreprise(long idMetier, long idEntreprise) {
+	private boolean insertStagiaireMetier(Metier metier, long idStagiaire) {
+		String sql= "INSERT INTO Stagiaire_Metier ";
+		sql+= "(DateEntree, DateSortie, Description, IdStagiaire, IdMetier) ";
+		sql+= "VALUES (?, ?, ?, ?, ?) ";
+		
+		PreparedStatement ps= initPs(sql, false, metier.getDateEntree(), metier.getDateSortie(), metier.getDescription(), idStagiaire, metier.getId());
+		try {
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public void addMetierEntreprise(long idMetier, long idEntreprise) {
 		String sql= "INSERT INTO Metier_Entreprise (IdMetier, IdEntreprise) VALUES (?, ?)";
 		PreparedStatement ps= initPs(sql, false, idMetier, idEntreprise);
 		try {
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -134,9 +145,7 @@ public class MetierDao extends Dao {
 			    Metier metier= new Metier();
 			    metier.setId(r.getLong("IdMetier"));
 			    metier.setFonction(r.getString("Fonction"));
-			    System.out.println("Fonction "+metier.getFonction());
 			    
-			    System.out.println("Date Entree= "+r.getString("DateEntree"));
 			    String[] my= r.getString("DateEntree").split("-");
 			    metier.setDateEntree(Integer.parseInt(my[0]), Integer.parseInt(my[1]), Integer.parseInt(my[2]));
 			    
@@ -144,7 +153,6 @@ public class MetierDao extends Dao {
 			    metier.setDateSortie(Integer.parseInt(my[0]), Integer.parseInt(my[1]), Integer.parseInt(my[2]));
 			    
 			    metier.setDescription(r.getString("Description"));
-			    System.out.println("Description "+metier.getDescription());
 
 			    metiers.add(metier);    
 			}

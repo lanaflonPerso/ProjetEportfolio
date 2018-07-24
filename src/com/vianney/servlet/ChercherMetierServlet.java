@@ -26,48 +26,20 @@ public class ChercherMetierServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Stagiaire stagiaire= (Stagiaire) session.getAttribute("user");
 		
-		Stagiaire stagiaire= getSession(request, response);
-		
-		try {
-			MetierDao mDao= new MetierDao((Connection) request.getAttribute("connection"));
-			if(mDao.selectLikeFonction(stagiaire.getId(), request.getParameter("recherche"))) {
-				metiers= mDao.getMetiers();
-				request.setAttribute("metiers", metiers);
-				request.setAttribute("ok", true);
-			}
-		} catch (Exception e) {
-			
+		MetierDao mDao= new MetierDao((Connection) request.getAttribute("connection"));
+		if(mDao.selectLikeFonction(stagiaire.getId(), request.getParameter("recherche"))) {
+			metiers= mDao.getMetiers();
+			request.setAttribute("metiers", metiers);
+			request.setAttribute("ok", true);
 		}
+
 		request.setAttribute("page", PAGE);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
-	
-	public Stagiaire getSession(HttpServletRequest request, HttpServletResponse response) {
-		String page= 			"/WEB-INF/form/Connection.jsp";
-		Stagiaire stagiaire = null;
-		
-		HttpSession session = request.getSession();
-		
-		try {
-			stagiaire= (Stagiaire) session.getAttribute("user");
-			System.out.println(stagiaire.getNom());
-		} catch (Exception e) {
-			request.setAttribute("page", page);
-			try {
-				request.getRequestDispatcher("/Index.jsp").forward(request, response);
-			} catch (ServletException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-		return stagiaire;
-	}
-
 }

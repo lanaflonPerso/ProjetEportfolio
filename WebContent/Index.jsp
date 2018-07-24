@@ -11,14 +11,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2 rouge">
-					<c:if test="${!empty sessionScope.user }">
-						<ul>
-							<li><a href="/ProjetEportfolio/stagiaire/id/${ sessionScope.user.id }">voir compte</a></li>
-							<li><a href="/ProjetEportfolio/stagiaire/modifier">modifier</a></li>
-							<li><a href="/ProjetEportfolio/metier/ajouter">Ajouter Métier</a></li>
-							<li><a href="/ProjetEportfolio/metier/chercher">Chercher Métier</a></li>
-						</ul>
-					</c:if>
+					<%@ include file="/WEB-INF/layout/MenuUser.jsp" %>	
 				</div> 
 
 				<div class="col-md-9 jaune">

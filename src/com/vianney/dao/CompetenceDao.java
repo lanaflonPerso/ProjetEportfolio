@@ -9,14 +9,13 @@ import java.util.List;
 
 import com.vianney.beans.Competence;
 
-public class CompetenceDao {
+public class CompetenceDao extends Dao {
 	
-	private Connection connection;
 	private List<Competence> competences= new ArrayList<>();
 	private Competence competence;
 	
-	public CompetenceDao(Connection connection) {
-		this.connection = connection;
+	public CompetenceDao(Connection uConnection) {
+		super(uConnection);
 	}
 	
 	public void selectCompetenceByMetier(long idMetier) {
@@ -25,9 +24,34 @@ public class CompetenceDao {
 		sql+= "WHERE MC.IdMetier= ? AND C.Id= MC.IdCompetence;";
 		
 		try {
-			PreparedStatement ps= initPs(sql, idMetier);
+			PreparedStatement ps= initPs(sql, false, idMetier);
 			ResultSet r= ps.executeQuery();
 			list(r);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void add(long idMetier, String competence) {
+		String sql= "INSERT INTO Competences (Nom) VALUES (?)";
+		PreparedStatement ps= initPs(sql, true, competence);
+		try {
+			ps.executeUpdate();
+			ResultSet rs= ps.getGeneratedKeys();
+			if(rs.next()) {
+				long idCompetence=rs.getInt(1);
+				addMetierCompetence(idMetier, idCompetence);
+			} 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void addMetierCompetence(long idMetier, long idCompetence) {
+		String sql= "INSERT INTO Metier_Competence (IdMetier, IdCompetence)	VALUES (?, ?)";
+		PreparedStatement ps= initPs(sql, false, idMetier, idCompetence);
+		try {
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -53,17 +77,4 @@ public class CompetenceDao {
  	public Competence getCompetence() {
  		return competence;
  	}
-
-	private PreparedStatement initPs(String sql, Object... objects) {
-		PreparedStatement ps = null;
-		try {
-			ps = connection.prepareStatement(sql);
-			for ( int i = 0; i < objects.length; i++ ) {
-				ps.setObject( i + 1, objects[i] );
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return ps;
-	}
 }
