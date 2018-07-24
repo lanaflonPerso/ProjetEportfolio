@@ -39,9 +39,11 @@ public class ConnectionServlet extends HttpServlet {
 		
 		if(ctrlS.ctrlEmail(email, false) && ctrlS.ctrlStagaireByEmailMdp(email, mdp)) {
 			HttpSession session = request.getSession();
-			
 			stagiaire= ctrlS.getStagiaire();
 			session.setAttribute("user", stagiaire);
+			
+//			String url= request.getContextPath() +"/";
+//			response.sendRedirect( url );
 		} else {
 			request.setAttribute("email", email);
 			request.setAttribute("info", ctrlS);			

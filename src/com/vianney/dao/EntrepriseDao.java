@@ -24,9 +24,8 @@ public class EntrepriseDao extends Dao {
 		super(uConnection);
 	}
 	
-	public void select() {
+	public boolean select() {
 		
-
 		for (int i = 0; i < options.size(); i++) {
 			if (i == options.size()-1) {
 				selection+= options.get(i);
@@ -36,18 +35,20 @@ public class EntrepriseDao extends Dao {
 		}
 		PreparedStatement ps;
 		try {
-			System.out.println(selection);
 			ps = connection.prepareStatement(selection);
 			for ( int i = 0; i < cles.size(); i++ ) {
 				ps.setObject( i + 1, cles.get(i) );
 			}
 			
 			ResultSet r= ps.executeQuery();
-			createList(r);
+			if (testR(r)) {
+				createList(r);
+				return true;
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return false;
 	}
 	
 	public void selectById(long id) {

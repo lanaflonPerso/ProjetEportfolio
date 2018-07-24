@@ -18,13 +18,37 @@ public class MetierDao extends Dao {
 		super(uConnection);
 	}
 	
-	public boolean SelectByStagiaire(long id) {
+	public boolean selectByStagiaireIdMetier(long idMetier, long idStagiaire) {
+		String sql= "SELECT M.Id AS IdMetier, SM.DateEntree, SM.DateSortie, SM.Description, M.Fonction ";
+		sql+= "FROM Stagiaire_Metier AS SM, Metiers AS M ";
+		sql+= "WHERE SM.IdStagiaire= ? AND SM.IdMetier= ? AND M.Id= ?";
+		
+		PreparedStatement ps= initPs(sql, false, idStagiaire, idMetier, idMetier);
+		
+		ResultSet result;
+		try {
+			result = ps.executeQuery();
+			if (testR(result)) {
+				createList(result);
+				
+				result.close();
+				ps.close();
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean SelectByStagiaire(long idStagiaire) {
 
 		String sql= "SELECT M.Id AS IdMetier, SM.DateEntree, SM.DateSortie, SM.Description, M.Fonction ";
 		sql+= "FROM Stagiaire_Metier AS SM, Metiers AS M ";
 		sql+= "WHERE SM.IdStagiaire= ? AND M.Id= SM.IdMetier";
 			
-		PreparedStatement ps= initPs(sql, false, id);
+		PreparedStatement ps= initPs(sql, false, idStagiaire);
 		ResultSet result;
 		
 		try {
@@ -43,7 +67,6 @@ public class MetierDao extends Dao {
 		return false;
 	}
 	
-
 	public int ajouter(Metier metier, long idStagiaire) {
 				
 		String sql = "INSERT INTO  Metiers (Fonction) VALUES (?);";
@@ -66,6 +89,43 @@ public class MetierDao extends Dao {
 			e.printStackTrace();
 		}
 		return 0; 	
+	}
+	
+	public void insertMetierEntreprise(long idMetier, long idEntreprise) {
+		String sql= "INSERT INTO Metier_Entreprise (IdMetier, IdEntreprise) VALUES (?, ?)";
+		PreparedStatement ps= initPs(sql, false, idMetier, idEntreprise);
+		try {
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean selectLikeFonction(long idStagiaire, String likeFonction) {
+		String sql= "SELECT M.Id AS IdMetier, SM.DateEntree, SM.DateSortie, SM.Description, M.Fonction ";
+		sql+= "FROM Stagiaire_Metier AS SM, Metiers AS M ";
+		sql+= "WHERE SM.IdStagiaire= ? AND M.Id= SM.IdMetier AND M.Fonction LIKE ?";
+		
+		String fonction= "%"+likeFonction+"%";
+		
+		PreparedStatement ps= initPs(sql, false, idStagiaire, fonction);
+		
+		ResultSet result;
+		try {
+			result = ps.executeQuery();
+			if (testR(result)) {
+				createList(result);
+				
+				result.close();
+				ps.close();
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 	private void createList(ResultSet r) {

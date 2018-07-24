@@ -29,6 +29,12 @@
     <servlet-name>AjouterEntreprise</servlet-name>
     <servlet-class>com.vianney.servlet.AjouterEntrepriseServlet</servlet-class>
   </servlet>
+  
+  <servlet>
+    <servlet-name>ChercherMetier</servlet-name>
+    <servlet-class>com.vianney.servlet.ChercherMetierServlet</servlet-class>
+  </servlet>
+  
   <servlet>
     <servlet-name>LierEntrepriseMetier</servlet-name>
     <servlet-class>com.vianney.servlet.LierEntrepriseMetierServlet</servlet-class>
@@ -88,6 +94,11 @@
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>/img/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ChercherMetier</servlet-name>
+    <url-pattern>/metier/chercher</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AjouterEntreprise</servlet-name>
