@@ -27,9 +27,7 @@ public class Index extends HttpServlet {
 
 		PortfolioDAO pf= new PortfolioDAO((Connection) request.getAttribute("connection"), id);
 		Stagiaire stagiaire= pf.getStagiaire();
-		
-//		System.out.println("Nom= "+stagiaire.getNom());
-	
+			
 		request.setAttribute("stagiaire", stagiaire);
 		request.setAttribute("page", page);
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);

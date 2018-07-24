@@ -8,3 +8,4 @@ WebContent/META-INF
 WebContent/WEB-INF/log/
 src/com/vianney/dao/MyConnection.java
 WebContent/img/
+src/META-INF/

@@ -9,6 +9,16 @@
     <filter-name>connectJDBC</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+	 <filter>
+		 <filter-name>RestrictionFilter</filter-name>
+		 <filter-class>com.vianney.filters.RestrictionFilter</filter-class>
+	</filter>
+	 <filter-mapping>
+		 <filter-name>RestrictionFilter</filter-name>
+		 <url-pattern>/compte/*</url-pattern>
+	</filter-mapping>
+  
   <filter>
     <filter-name>LogCreateStagiaire</filter-name>
     <filter-class>com.vianney.filters.LogCreateStagiaire</filter-class>
@@ -29,12 +39,10 @@
     <servlet-name>AjouterEntreprise</servlet-name>
     <servlet-class>com.vianney.servlet.AjouterEntrepriseServlet</servlet-class>
   </servlet>
-  
   <servlet>
     <servlet-name>ChercherMetier</servlet-name>
     <servlet-class>com.vianney.servlet.ChercherMetierServlet</servlet-class>
   </servlet>
-  
   <servlet>
     <servlet-name>LierEntrepriseMetier</servlet-name>
     <servlet-class>com.vianney.servlet.LierEntrepriseMetierServlet</servlet-class>
@@ -95,7 +103,6 @@
     <servlet-name>default</servlet-name>
     <url-pattern>/img/*</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>ChercherMetier</servlet-name>
     <url-pattern>/metier/chercher</url-pattern>
@@ -108,10 +115,10 @@
     <servlet-name>LierEntrepriseMetier</servlet-name>
     <url-pattern>/metier/id/*</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>AjouterMetier</servlet-name>
-    <url-pattern>/metier/ajouter</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AjouterMetier</servlet-name>
+		<url-pattern>/compte/metier/ajouter</url-pattern>
+	</servlet-mapping>
   <servlet-mapping>
     <servlet-name>ModifierStagaire</servlet-name>
     <url-pattern>/stagiaire/modifier</url-pattern>
@@ -120,10 +127,10 @@
     <servlet-name>VoirEntreprise</servlet-name>
     <url-pattern>/entreprise/id/*</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>Connection</servlet-name>
-    <url-pattern>/connection</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Connection</servlet-name>
+		<url-pattern>/connection</url-pattern>
+	</servlet-mapping>
   <servlet-mapping>
     <servlet-name>Deconnection</servlet-name>
     <url-pattern>/deconnection</url-pattern>
