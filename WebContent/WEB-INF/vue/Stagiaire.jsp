@@ -5,8 +5,8 @@
 <p>Listes D'entreprise <a href="<c:url value="/compte/entreprise/ajouter"/>"><button type="button" class="btn btn-info btn-sm">Ajouter</button></a></p>
 
 <div class="listeStagiaire">
-	<c:forEach items="${ stagiaire.getMetiers() }" var="metier">
-		<ul >
+	<c:forEach items="${ stagiaire.metiers }" var="metier">
+		<ul>
 			<c:forEach items="${ metier.entreprises }" var="entreprise">
 				<li>
 					<span class="entreprise">${ entreprise.getNom() } à ${ entreprise.ville } de <tags:localDate date="${ metier.dateEntree }"/> a <tags:localDate date="${ metier.dateSortie }"/></span><br />
@@ -15,6 +15,7 @@
 					<span class="description">description du poster: ${ metier.description }</span>
 				</li>
 			</c:forEach>
+			
 			<ul class="competence">
 				<c:forEach items="${ metier.getCompetences() }" var="competence">
 					<li>
@@ -24,5 +25,12 @@
 			</ul>
 		</ul>
 		<hr />
+	</c:forEach>
+	
+	<p>Listes de formations <a href="<c:url value="/compte/formation/ajouter"/>"><button type="button" class="btn btn-info btn-sm">Ajouter</button></a></p>
+	<c:forEach items="${ stagiaire.formations }" var="formation">
+		<ul>
+			<li>${ formation.intituleFormation }</li>	
+		</ul>
 	</c:forEach>
 </div>

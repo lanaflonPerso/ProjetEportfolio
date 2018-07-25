@@ -31,6 +31,10 @@ public class PortfolioDAO {
 			
 				stagiaire.setListMetiers(metier);
 			}
+			
+			FormationDao fDao= new FormationDao(connection);
+			fDao.selectByStagiaire(id);
+			stagiaire.setFormations(fDao.getFormations());
 		}
 	}
 

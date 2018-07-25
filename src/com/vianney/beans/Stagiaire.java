@@ -17,7 +17,8 @@ public class Stagiaire {
 	private Period age;
 	private String civilite;
 	private String adresse;
-	List<Metier> metiers = new ArrayList<>();
+	private List<Metier> metiers = new ArrayList<>();
+	private List<Formation> formations= new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -93,6 +94,10 @@ public class Stagiaire {
 	public void setAdmin(boolean uAdmin) {
 		admin = uAdmin;
 	}
-	
-	
+	public List<Formation> getFormations() {
+		return formations;
+	}
+	public void setFormations(List<Formation> formations) {
+		this.formations = formations;
+	}	
 }

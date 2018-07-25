@@ -17,6 +17,10 @@
     <filter-name>RestrictionFilter</filter-name>
     <url-pattern>/compte/*</url-pattern>
   </filter-mapping>
+  <filter-mapping>
+    <filter-name>RestrictionFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
   <filter>
     <filter-name>LogCreateStagiaire</filter-name>
     <filter-class>com.vianney.filters.LogCreateStagiaire</filter-class>
@@ -178,7 +182,7 @@
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Partie admin</web-resource-name>
-      <url-pattern>/creationstagiaire</url-pattern>
+      <url-pattern>/admin/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>admin</role-name>
