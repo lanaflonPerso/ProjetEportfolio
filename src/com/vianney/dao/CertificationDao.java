@@ -14,10 +14,10 @@ public class CertificationDao extends Dao {
 		super(uConnection);
 	}
 	
-	public void selectByIdFormation(long idFormation) {
+	public void selectByIdFormation(long idCertification) {
 		String sql= "SELECT * FROM Certifications WHERE Id= ?";
 		
-		PreparedStatement ps= initPs(sql, false, idFormation);
+		PreparedStatement ps= initPs(sql, false, idCertification);
 		ResultSet r;
 		try {
 			r = ps.executeQuery();

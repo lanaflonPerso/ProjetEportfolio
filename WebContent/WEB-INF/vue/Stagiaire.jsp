@@ -33,7 +33,7 @@
 			<h2>Centre de formation inconnu</h2>
 			<ul>
 				<li>intitulé de la formation: ${ formation.intituleFormation }</li>
-				<li>Certication obtenu: ${ formation.certification.nom } niveau ${ formation.certification.niveau }</li>	
+				<c:if test="${ not empty formation.certification.nom }"><li>Certication obtenu: ${ formation.certification.nom } niveau ${ formation.certification.niveau }</li></c:if>
 			</ul>
 		</li>
 	</c:forEach>

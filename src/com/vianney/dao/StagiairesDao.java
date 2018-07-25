@@ -12,7 +12,6 @@ import com.vianney.beans.Stagiaire;
 
 public class StagiairesDao extends Dao {
 	
-	private Connection connection;
 	private List<Stagiaire> stagiaires = new ArrayList<Stagiaire>();
 	private Stagiaire stagiaire = new Stagiaire();
 	

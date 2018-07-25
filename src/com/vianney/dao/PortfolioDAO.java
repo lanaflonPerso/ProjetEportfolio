@@ -34,15 +34,8 @@ public class PortfolioDAO {
 			}
 			
 			FormationDao fDao= new FormationDao(connection);
-			fDao.selectByStagiaire(id);
-			
-			for (Formation formation : fDao.getFormations()) {
-				CertificationDao cDao= new CertificationDao(connection);
-				cDao.selectByIdFormation(formation.getId());
-				formation.setCertification(cDao.getCertification());
-				
-				stagiaire.setListFormation(formation);
-			}
+			fDao.selectByStagiaire(id);	
+			stagiaire.setFormations(fDao.getFormations());
 		}
 	}
 
