@@ -10,7 +10,7 @@
 		
 		<div class="container">
 			<div class="row">
-				<div class="col-md-2 rouge">
+				<div class="col-md-3 rouge">
 					<%@ include file="/WEB-INF/layout/MenuUser.jsp" %>	
 				</div> 
 

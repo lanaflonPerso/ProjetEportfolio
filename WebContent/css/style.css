@@ -1,21 +1,76 @@
-@CHARSET "ISO-8859-1";
-
+/* #8A9D34; */
 body {
+  background: #AACB62;
+  color: black; }
 
-}
+form fieldset {
+  background-color: #799933;
+  border: 2px solid #3c4d19;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 10px; }
+  form fieldset legend {
+    margin-bottom: 0px;
+    margin-left: 16px; }
 
 h1 {
-	text-align: center;
-}
+  text-align: center; }
 
 .container {
-	margin: 20px 0px 20px 0px;
-}
+  margin: 20px 0px 20px 0px; }
 
-.rouge {
-	background: red;
-}
+.listeMetier ul {
+  list-style: none;
+  margin: 15px; }
+.listeMetier a {
+  text-decoration: none;
+  color: black;
+  padding: 6px; }
+  .listeMetier a:hover {
+    background: #799933;
+    border-radius: 8px;
+    box-shadow: 4px 4px 0px #3c4d19; }
 
-.jaune {
-	background: yellow;
-}
+.listeStagiaire ul {
+  list-style: none;
+  margin: 15px hr;
+    margin-width: 50px;
+    margin-margin: auto;
+    margin-color: black;
+    margin-size: 3px; }
+  .listeStagiaire ul button {
+    margin-left: 25px; }
+  .listeStagiaire ul .entreprise {
+    font-size: 1.6em; }
+  .listeStagiaire ul .fonction {
+    margin-left: 50px; }
+  .listeStagiaire ul .description {
+    margin-left: 50px; }
+  .listeStagiaire ul .competence li {
+    margin-left: 50px;
+    margin: 5px 0px; }
+
+.menuUser a {
+  text-decoration: none;
+  padding: 6px;
+  color: black; }
+  .menuUser a:hover {
+    background: #799933;
+    border-radius: 8px;
+    box-shadow: 4px 4px 0px #3c4d19; }
+.menuUser ul {
+  list-style: none; }
+  .menuUser ul li {
+    margin: 15px 0px; }
+
+.bg-dark {
+  background: #799933; }
+
+.btn-primary {
+  background: #AACB62;
+  border-color: #3c4d19; }
+  .btn-primary:hover {
+    background: #3c4d19;
+    border-color: #3c4d19; }
+
+/*# sourceMappingURL=style.css.map */

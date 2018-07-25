@@ -211,6 +211,3 @@ INSERT INTO Metier_Entreprise (IdMetier, IdEntreprise)
 	VALUES
 		(4, 3),
 		(3, 1);
-
-
-SELECT * FROM Competences;

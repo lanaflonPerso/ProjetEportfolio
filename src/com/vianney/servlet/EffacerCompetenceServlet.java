@@ -7,41 +7,40 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.vianney.beans.Stagiaire;
-import com.vianney.dao.PortfolioDAO;
+import com.vianney.dao.CompetenceDao;
 
-public class StagiaireServlet extends HttpServlet {
+public class EffacerCompetenceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	public final String PAGE= "/WEB-INF/vue/Stagiaire.jsp";
-
-    public StagiaireServlet() {
+       
+    public EffacerCompetenceServlet() {
         super();
+
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		com.vianney.HelperSession.direction(request, "vue stagiaire", PAGE);
+		HttpSession session = request.getSession();
+		Stagiaire stagiaire= (Stagiaire) session.getAttribute("user");
 		
 		String[] pathInfo= request.getPathInfo().split("/");
+		
 		try {
-			long id= Integer.parseInt(pathInfo[1]);
-			try {
-				PortfolioDAO pDao= new PortfolioDAO((Connection) request.getAttribute("connection"), id);
-				Stagiaire stagiaire= pDao.getStagiaire();
-
-				request.setAttribute("stagiaire", stagiaire);	
-			} catch (Exception e) {
-				System.out.println("n'existe pas");
-			}
+			long idCompetence= Integer.parseInt(pathInfo[1]);
+			long idMetier= Integer.parseInt(pathInfo[2]);
+			CompetenceDao cDao= new CompetenceDao((Connection) request.getAttribute("connection"));
+			cDao.effacer(idCompetence, idMetier);
 		} catch (Exception e) {
-			
+
 		}
 		
-		request.getRequestDispatcher("/Index.jsp").forward(request, response);
+		String url= request.getContextPath() +"/stagiaire/id/"+ stagiaire.getId();
+		response.sendRedirect( url );
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	}
+
 }

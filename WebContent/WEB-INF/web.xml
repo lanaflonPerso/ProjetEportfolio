@@ -34,6 +34,10 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
+    <servlet-name>EffacerCompetence</servlet-name>
+    <servlet-class>com.vianney.servlet.EffacerCompetenceServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>AjouterEntreprise</servlet-name>
     <servlet-class>com.vianney.servlet.AjouterEntrepriseServlet</servlet-class>
   </servlet>
@@ -105,9 +109,13 @@
     <servlet-name>default</servlet-name>
     <url-pattern>/img/*</url-pattern>
   </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>EffacerCompetence</servlet-name>
+    <url-pattern>/compte/competence/effacer/*</url-pattern>
+  </servlet-mapping>  
   <servlet-mapping>
     <servlet-name>ChercherMetier</servlet-name>
-    <url-pattern>/metier/chercher</url-pattern>
+    <url-pattern>/compte/metier/chercher</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AjouterEntreprise</servlet-name>
@@ -127,7 +135,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ModifierStagaire</servlet-name>
-    <url-pattern>/stagiaire/modifier</url-pattern>
+    <url-pattern>/compte/stagiaire/modifier</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>VoirEntreprise</servlet-name>

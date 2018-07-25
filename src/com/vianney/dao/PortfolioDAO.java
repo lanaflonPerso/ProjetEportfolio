@@ -16,9 +16,7 @@ public class PortfolioDAO {
 		StagiairesDao sDao= new StagiairesDao(connection);
 		if (sDao.SelectById(id)) {
 			stagiaire= sDao.getStagiaire();
-			
-			System.out.println(stagiaire.getNom());
-		
+					
 			MetierDao mDao= new MetierDao(connection);
 			mDao.SelectByStagiaire(stagiaire.getId());
 			metiers= mDao.getMetiers();
@@ -26,7 +24,6 @@ public class PortfolioDAO {
 			EntrepriseDao eDao= new EntrepriseDao(connection);
 			
 			for (Metier metier : metiers) {
-				System.out.println(metier.getFonction());
 				CompetenceDao cDao= new CompetenceDao(connection);
 				metier.setListEntreprises(eDao.selectByMetier(metier.getId()));
 				cDao.selectCompetenceByMetier(metier.getId());

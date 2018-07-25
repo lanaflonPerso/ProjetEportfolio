@@ -24,7 +24,6 @@ public class MetierDao extends Dao {
 		sql+= "WHERE SM.IdStagiaire= ? AND SM.IdMetier= ? AND M.Id= ?";
 		
 		PreparedStatement ps= initPs(sql, false, idStagiaire, idMetier, idMetier);
-		
 		ResultSet result;
 		try {
 			result = ps.executeQuery();
@@ -36,7 +35,6 @@ public class MetierDao extends Dao {
 				return true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -133,7 +131,6 @@ public class MetierDao extends Dao {
 				return true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -142,18 +139,18 @@ public class MetierDao extends Dao {
 	private void createList(ResultSet r) {
 		try {
 			while (r.next()) {
-			    Metier metier= new Metier();
-			    metier.setId(r.getLong("IdMetier"));
-			    metier.setFonction(r.getString("Fonction"));
+			    Metier newM= new Metier();
+			    newM.setId(r.getLong("IdMetier"));
+			    newM.setFonction(r.getString("Fonction"));
 			    
 			    String[] my= r.getString("DateEntree").split("-");
-			    metier.setDateEntree(Integer.parseInt(my[0]), Integer.parseInt(my[1]), Integer.parseInt(my[2]));
+			    newM.setDateEntree(Integer.parseInt(my[0]), Integer.parseInt(my[1]), Integer.parseInt(my[2]));
 			    
 			    my= r.getString("DateSortie").split("-");
-			    metier.setDateSortie(Integer.parseInt(my[0]), Integer.parseInt(my[1]), Integer.parseInt(my[2]));
+			    newM.setDateSortie(Integer.parseInt(my[0]), Integer.parseInt(my[1]), Integer.parseInt(my[2]));
 			    
-			    metier.setDescription(r.getString("Description"));
-
+			    newM.setDescription(r.getString("Description"));
+			    metier= newM;
 			    metiers.add(metier);    
 			}
 		} catch (NumberFormatException | SQLException e) {

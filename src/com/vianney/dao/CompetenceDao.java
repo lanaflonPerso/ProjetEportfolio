@@ -19,7 +19,7 @@ public class CompetenceDao extends Dao {
 	}
 	
 	public void selectCompetenceByMetier(long idMetier) {
-		String sql= "SELECT C.Nom ";
+		String sql= "SELECT C.Nom, C.Id ";
 		sql+= "FROM Metier_Competence AS MC, Competences AS C ";
 		sql+= "WHERE MC.IdMetier= ? AND C.Id= MC.IdCompetence;";
 		
@@ -57,13 +57,25 @@ public class CompetenceDao extends Dao {
 		}
 	}
 	
+	public void effacer(long idCompetence, long idMetier) {
+		String sql= "DELETE FROM Metier_Competence WHERE IdCompetence= ? AND IdMetier= ?";
+		PreparedStatement ps= initPs(sql, false, idCompetence, idMetier);
+		try {
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private void list(ResultSet r) {
 		try {
 			while(r.next()) {
-				competence= new Competence();
-				competence.setNom(r.getString("Nom"));
+				Competence newC= new Competence();
+				newC.setId(r.getLong("Id"));
+				newC.setNom(r.getString("Nom"));
 				
-				competences.add(competence);
+				competence= newC;
+				competences.add(newC);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

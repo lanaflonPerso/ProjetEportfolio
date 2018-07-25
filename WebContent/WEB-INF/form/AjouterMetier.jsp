@@ -38,10 +38,9 @@
 				<div class="form-group">
 					<label for="dateS">Date de fin de contrat: </label>
 					<input name="dateS" type="text" class="form-control" id="dateS" placeholder="Date de départ de l'entreprise" require />
-				</div>		
+				</div>
+				<button type="submit" class="btn btn-primary">Enregistrer</button>
 			</fieldset>
-
-			<button type="submit" class="btn btn-primary">Enregistrer</button>
 		</div>
 	</div>			
 </form>

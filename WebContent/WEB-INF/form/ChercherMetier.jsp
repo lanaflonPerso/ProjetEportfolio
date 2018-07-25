@@ -2,7 +2,7 @@
 
 <form method="get" action="">
 	<div class="row">
-		<div class="col-md-5 col-sm-12">
+		<div class="col-md-5 col-sm-12 listeMetier">
 			<c:if test = "${ ok }">
 				<h2>Metiers</h2>
 				<ul class="list-group">

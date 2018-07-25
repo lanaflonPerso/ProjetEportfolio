@@ -31,4 +31,9 @@ public class HelperSession {
 		}
 		return stagiaire;
 	}
+	
+	public static void direction(HttpServletRequest request, String titlePage, String page) {
+		request.setAttribute("titlePage", titlePage);
+		request.setAttribute("page", page);
+	}
 }

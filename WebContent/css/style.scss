@@ -1,0 +1,120 @@
+$cFond: #AACB62;
+$cTexte: black;/* #8A9D34; */
+$cFondList: #799933;
+$cFondListOmbre: #3c4d19;
+
+@mixin lienHover() {
+ 	background: $cFondList;
+	border-radius: 8px;
+	box-shadow: 4px 4px 0px $cFondListOmbre;
+}
+
+body {
+	background: $cFond;
+	color: $cTexte;
+}
+
+form {
+	fieldset {
+		background-color:$cFondList;
+		border:2px solid $cFondListOmbre;
+		padding-left: 15px;
+		padding-right: 15px;
+		padding-bottom: 10px;
+
+		legend {
+			margin-bottom:0px;
+			margin-left:16px;
+		}
+	}
+}
+
+h1 {
+  text-align: center; }
+
+.container {
+  margin: 20px 0px 20px 0px; }
+
+.listeMetier {
+	ul {
+		list-style: none;
+		margin: 15px
+	}
+
+	a {
+		text-decoration: none;
+		color: $cTexte;
+		padding: 6px;
+		&:hover {
+			@include lienHover();
+		}
+	}
+}
+
+.listeStagiaire {
+	ul {
+		list-style: none;
+		margin: 15px
+
+		hr {
+			width: 50px;
+			margin: auto;
+			color: black;
+			size: 3px;
+		}
+
+		button {
+			margin-left: 25px;
+		}
+
+		.entreprise {
+			font-size: 1.6em;
+		}
+
+		.fonction {
+			margin-left:50px;
+		}
+		.description {
+			margin-left:50px;
+		}
+		.competence {
+			li {
+				margin-left:50px;
+				margin: 5px 0px;
+			}
+		}
+	}
+}
+
+.menuUser {
+	a {
+		text-decoration: none;
+		padding: 6px;
+		color: $cTexte;
+
+		&:hover {
+			@include lienHover();
+		}
+	}
+	ul {
+		list-style: none;
+		li {
+			margin: 15px 0px;
+		}
+	}
+}
+
+.bg-dark {
+	background: $cFondList;
+}
+
+
+.btn-primary {
+	background: $cFond;
+	border-color: $cFondListOmbre;
+
+	&:hover {
+		background: $cFondListOmbre;
+		border-color: $cFondListOmbre;
+	}
+}
