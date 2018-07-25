@@ -17,7 +17,7 @@ import com.vianney.form.CtrlMetier;
 public class AjouterMetierServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public final String page=			"/WEB-INF/form/AjouterMetier.jsp";
+	public final String PAGE=			"/WEB-INF/form/AjouterMetier.jsp";
 	private Metier metier;
 	private CtrlMetier ctrl;
 
@@ -26,7 +26,7 @@ public class AjouterMetierServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("page", page);
+		request.setAttribute("page", PAGE);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 
@@ -39,7 +39,6 @@ public class AjouterMetierServlet extends HttpServlet {
 			MetierDao mDao= new MetierDao((Connection) request.getAttribute("connection"));
 			
 			long idMetier= mDao.add(metier, stagiaire.getId());
-			request.setAttribute("page", page);
 			String url= request.getContextPath() +"/compte/metier/id/"+ idMetier;
 			response.sendRedirect( url );
 			return;
@@ -47,7 +46,7 @@ public class AjouterMetierServlet extends HttpServlet {
 		
 		request.setAttribute("metier", metier);
 		request.setAttribute("info", ctrl);
-		request.setAttribute("page", page);
+		request.setAttribute("page", PAGE);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 	

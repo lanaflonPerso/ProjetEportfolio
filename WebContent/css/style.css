@@ -49,6 +49,9 @@ h1 {
   .listeStagiaire ul .competence li {
     margin-left: 50px;
     margin: 5px 0px; }
+.listeStagiaire .titre {
+  text-align: center;
+  font-size: 1.6em; }
 
 .menuUser a {
   text-decoration: none;

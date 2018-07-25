@@ -2,9 +2,8 @@
 
 <h1>${ stagiaire.nom } ${ stagiaire.prenom } ${ stagiaire.age } ans</h1> 
 
-<p>Listes D'entreprise <a href="<c:url value="/compte/entreprise/ajouter"/>"><button type="button" class="btn btn-info btn-sm">Ajouter</button></a></p>
-
 <div class="listeStagiaire">
+	<p class="titre">Listes D'entreprise <a href="<c:url value="/compte/entreprise/ajouter"/>"><button type="button" class="btn btn-info btn-sm">Ajouter</button></a></p>
 	<c:forEach items="${ stagiaire.metiers }" var="metier">
 		<ul>
 			<c:forEach items="${ metier.entreprises }" var="entreprise">
@@ -27,10 +26,16 @@
 		<hr />
 	</c:forEach>
 	
-	<p>Listes de formations <a href="<c:url value="/compte/formation/ajouter"/>"><button type="button" class="btn btn-info btn-sm">Ajouter</button></a></p>
+	<p class="titre">Listes de formations <a href="<c:url value="/compte/formation/ajouter"/>"><button type="button" class="btn btn-info btn-sm">Ajouter</button></a></p>
+	<ul>
 	<c:forEach items="${ stagiaire.formations }" var="formation">
-		<ul>
-			<li>${ formation.intituleFormation } ${ formation.certification.nom } niveau ${ formation.certification.niveau }</li>	
-		</ul>
+		<li>
+			<h2>Centre de formation inconnu</h2>
+			<ul>
+				<li>intitulé de la formation: ${ formation.intituleFormation }</li>
+				<li>Certication obtenu: ${ formation.certification.nom } niveau ${ formation.certification.niveau }</li>	
+			</ul>
+		</li>
 	</c:forEach>
+	</ul>
 </div>

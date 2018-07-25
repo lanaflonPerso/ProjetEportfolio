@@ -10,7 +10,7 @@
 
 	<c:forEach items="${ stagiaires }" var="stagiaire">
 	<tr>
-		<td><c:out value="${ stagiaire.nom }" /></td>
+		<td><a href="<c:url value = "/stagiaire/id/${ stagiaire.id }"/>"><c:out value="${ stagiaire.nom }" /></a></td>
 		<td><c:out value="${ stagiaire.prenom }" /></td>
 		<td><c:out value="${ stagiaire.email }" /></td>
 		<td><c:out value="${ stagiaire.adresse }" /></td>

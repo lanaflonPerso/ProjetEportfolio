@@ -54,6 +54,10 @@
     <servlet-class>com.vianney.servlet.AjouterCompetenceServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>AjouterFormation</servlet-name>
+    <servlet-class>com.vianney.servlet.AjouterFormationServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>LierEntrepriseMetier</servlet-name>
     <servlet-class>com.vianney.servlet.LierEntrepriseMetierServlet</servlet-class>
   </servlet>
@@ -113,10 +117,10 @@
     <servlet-name>default</servlet-name>
     <url-pattern>/img/*</url-pattern>
   </servlet-mapping>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>EffacerCompetence</servlet-name>
     <url-pattern>/compte/competence/effacer/*</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ChercherMetier</servlet-name>
     <url-pattern>/compte/metier/chercher</url-pattern>
@@ -144,6 +148,10 @@
   <servlet-mapping>
     <servlet-name>VoirEntreprise</servlet-name>
     <url-pattern>/entreprise/id/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AjouterFormation</servlet-name>
+    <url-pattern>/compte/formation/ajouter</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Connection</servlet-name>

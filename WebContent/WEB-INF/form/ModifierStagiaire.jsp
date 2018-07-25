@@ -1,6 +1,6 @@
 <h1>Modification du compte</h1>
 
-<form method="post" action="/ProjetEportfolio/stagiaire/modifier">
+<form method="post" action="">
 	<div class="row">
 		<div class="col-md-5 col-sm-12">
 			<c:if test = "${ not empty msg.ok && !msg.ok }">
@@ -49,7 +49,7 @@
 	</div>
 </form>
 
-<form method="post" action="/ProjetEportfolio/stagiaire/modifier">
+<form method="post" action="">
 	<div class="row">
 
 		<div class="col-md-5 col-sm-12">

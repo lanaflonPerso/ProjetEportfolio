@@ -31,7 +31,7 @@ public class StagiairesServlet extends HttpServlet {
 		request.setAttribute("titlePage", "Vue des stagiaires");
 		request.setAttribute("page", page);
 		request.setAttribute("stagiaires", stagiaires);
-		request.getRequestDispatcher("Index.jsp").forward(request, response);
+		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -21,7 +21,7 @@ public class FormationDao extends Dao {
 	
 	public void selectByStagiaire(long idStagiaire) {
 		String sql= "SELECT F.Id, F.IdCertification, F.IntituleFormation ";
-		sql+= "FROM formations as F, stagiaire_formation as SF ";
+		sql+= "FROM Formations as F, Stagiaire_Formation as SF ";
 		sql+= "WHERE SF.Id= ? AND SF.IdFormation= F.Id";
 		
 		PreparedStatement ps= initPs(sql, false, idStagiaire);
