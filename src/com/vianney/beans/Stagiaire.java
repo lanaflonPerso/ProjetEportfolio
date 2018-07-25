@@ -9,6 +9,7 @@ import java.util.List;
 public class Stagiaire {
 
 	private Long id;
+	private boolean admin;
 	private String nom;
 	private String prenom;
 	private String email;
@@ -51,12 +52,10 @@ public class Stagiaire {
       return formatter.format(dateNaissance);
 	}
 	
-	public void setDateNaissance(String ddn) {
-		String[] part= ddn.split("-");
-	    LocalDate localDate = LocalDate.of(Integer.parseInt(part[0]), Integer.parseInt(part[1]), Integer.parseInt(part[2]));		
-		this.dateNaissance = localDate;
+	public void setDateNaissance(LocalDate ddn) {
+		this.dateNaissance = ddn;
 		LocalDate today = LocalDate.now();
-		Period age= Period.between(localDate, today);
+		Period age= Period.between(ddn, today);
 		setAge(age);
 	}
 	public int getAge() {
@@ -88,10 +87,12 @@ public class Stagiaire {
 		this.metiers= metiers;
 	}
 	
-	public void test() {
-		System.out.printf("Id: %s\n", getId());
-		System.out.printf("Nom: %s\n", getNom());
-		System.out.printf("Prenom: %s\n", getPrenom());
-		System.out.printf("Adresse: %s\n", getAdresse());
+	public boolean isAdmin() {
+		return admin;
 	}
+	public void setAdmin(boolean uAdmin) {
+		admin = uAdmin;
+	}
+	
+	
 }

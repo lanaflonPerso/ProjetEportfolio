@@ -3,13 +3,13 @@
 	
 	<div class="collapse navbar-collapse" id="navbarColor01">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active">
+<!-- 			<li class="nav-item active">
 				<a class="nav-link" href="/ProjetEportfolio/creationstagiaire">Création Stagiaire<span class="sr-only">(current)</span></a>
 			</li>
 			
 			<li class="nav-item active">
 				<a class="nav-link" href="http://10.115.57.234:8080/PortfolioAdmin/">autre <span class="sr-only">(current)</span></a>
-			</li>
+			</li> -->
 		</ul>
 		
 		<span>${ sessionScope.user.nom }</span>

@@ -40,15 +40,6 @@
 					<input name="dateS" type="text" class="form-control" id="dateS" placeholder="Date de départ de l'entreprise" require />
 				</div>		
 			</fieldset>
-			
-			<fieldset class="form-group">
-	    		<legend>Compétence acquise dans l'entreprise</legend>
-	    		
-	    		<div class="form-group">
-					<label for="nom">Compétence: </label>
-					<input name="dateS" type="text" class="form-control " id="dateS" placeholder="Compétence acquise" require />
-				</div>	
-	    	</fieldset>
 
 			<button type="submit" class="btn btn-primary">Enregistrer</button>
 		</div>

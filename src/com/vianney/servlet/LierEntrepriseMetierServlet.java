@@ -39,7 +39,9 @@ public class LierEntrepriseMetierServlet extends HttpServlet {
 		try {
 			long idEntreprise= Long.parseLong(request.getParameter("entreprise"));
 			mDao.addMetierEntreprise(idMetier, idEntreprise);
-			request.setAttribute("page", pageS);
+			String url= request.getContextPath()+"/stagiaire/id/"+stagiaire.getId();
+			response.sendRedirect(url);
+			return;
 		} catch (Exception e) {
 			
 		}

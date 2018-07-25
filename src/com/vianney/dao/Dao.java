@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class Dao {
 	
@@ -18,8 +17,10 @@ public class Dao {
 	}
 	
 	protected String formatDate(LocalDate date) { 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		String formattedDate = date.format(formatter);
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//		String formattedDate = date.format(formatter);
+		
+		String formattedDate = date.getYear()+"-"+date.getMonthValue()+"-"+date.getDayOfMonth();
 		
 		return formattedDate;
 	}
@@ -40,6 +41,18 @@ public class Dao {
 		}
 		return ps;
 	}
+	
+	protected LocalDate ddnLocalDate(String date) {
+		String[] my = date.split("-");
+		int jour= Integer.parseInt(my[2]);
+		int mois= Integer.parseInt(my[1]);
+		int annee= Integer.parseInt(my[0]);
+		LocalDate d= LocalDate.of(annee, mois, jour);
+		
+		return d;
+	}
+	
+	
 	
 	public boolean isOk() {
 		return ok;

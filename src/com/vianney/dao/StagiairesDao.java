@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,17 +73,13 @@ public class StagiairesDao extends Dao {
 		long id = 0;
 				
 		String sql= "INSERT INTO  Stagiaires";
-		sql+= 			" (Nom, Prenom, Adresse, DateNaissance, IsStagiaire, IsAdministrateur, Email)";
-		sql+= " VALUES    (?,   ?,      '',       ?,             0,           0,                ?);";
+		sql+= 			" (Nom, Prenom, DateNaissance, IsStagiaire, IsAdministrateur, Email)";
+		sql+= " VALUES    (?,   ?,      ?,             0,           0,                ?);";
 		
 		try {
-			PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); 
 			
-			ps.setString(1, stagiaire.getNom());
-			ps.setString(2, stagiaire.getPrenom());
 			String d= formatDate (stagiaire.getDateNaissance());
-			ps.setString(3, d);
-			ps.setString(4, stagiaire.getEmail());
+			PreparedStatement ps= initPs(sql, true, stagiaire.getNom(), stagiaire.getPrenom(), d, stagiaire.getEmail()); 
 			ps.executeUpdate();
 			ResultSet rs= ps.getGeneratedKeys();
 			if(rs.next()) {
@@ -96,7 +92,6 @@ public class StagiairesDao extends Dao {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-		
 		return id;
 	}
 	
@@ -153,7 +148,15 @@ public class StagiairesDao extends Dao {
 				newS.setPrenom(r.getString("Prenom"));
 				newS.setEmail(r.getString("Email"));
 				newS.setAdresse(r.getString("Adresse"));
-				newS.setDateNaissance(r.getString("DateNaissance"));
+				LocalDate ddn= ddnLocalDate(r.getString("DateNaissance"));
+				newS.setDateNaissance(ddn);
+				
+				boolean admin= false; 
+				if (r.getInt("IsAdministrateur") == 1) {
+					admin= true;
+				}
+				
+				newS.setAdmin(admin);
 			    stagiaire= newS;
 			    stagiaires.add(newS); 
 			}    			

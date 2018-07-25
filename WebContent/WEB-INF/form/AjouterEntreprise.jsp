@@ -1,6 +1,6 @@
 <h1>Ajouter Entreprise</h1>
  
-<form method="post" action="${ url }">
+<form method="post" action="">
 	<div class="row">
 		<div class="col-md-5 col-sm-12">
 			<c:if test="${ not empty info.ok && !info.ok }" >

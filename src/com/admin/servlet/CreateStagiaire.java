@@ -7,77 +7,47 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.vianney.beans.Stagiaire;
 import com.vianney.dao.StagiairesDao;
-import com.vianney.form.ControleNewStagiaire;
+import com.vianney.form.CtrlStagiaire;
 
-/**
- * Servlet implementation class CreationStagiaire
- */
 public class CreateStagiaire extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public final String page= 		"/WEB-INF/form/FormCreateStagiaire.jsp";
-	public final String titrePage= 	"Création d'un stagiaire";
-	       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+	public final String PAGE= 			"/WEB-INF/form/AjouterStagiaire.jsp";
+	public final String TITRE_PAGE= 	"Création d'un stagiaire";
+    
     public CreateStagiaire() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+ 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("titlePage", titrePage);
+		request.setAttribute("titlePage", TITRE_PAGE);
 		request.setAttribute("post", false);
-		request.setAttribute("page", page);
-		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
+		request.setAttribute("page", PAGE);
+		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("page", PAGE);
+		request.setAttribute("titlePage", TITRE_PAGE);
 		
-		ControleNewStagiaire n= new ControleNewStagiaire(request);
-		Stagiaire stagiaire= n.getStagiaire();
-		request.setAttribute("ok", n.getOk());
-		request.setAttribute("stagiaire", stagiaire);
-		request.setAttribute("post", true);
-		request.setAttribute("form", n);
+		CtrlStagiaire ctrlS= new CtrlStagiaire((Connection) request.getAttribute("connection"));
+		ctrlS.addStagiaire(request);
+		Stagiaire stagiaire= ctrlS.getStagiaire();
 		
-		if (n.getOk()) {			
-			HttpSession session = request.getSession();
-	        session.setAttribute("sessionNom", stagiaire.getNom());
-	        session.setAttribute("sessionPrenom", stagiaire.getPrenom());
-	        StagiairesDao newConnect= new StagiairesDao((Connection) request.getAttribute("connection"));
-	        long id= newConnect.newStagiaire(stagiaire);
-	        
-	        String url= "/ProjetEportfolio/stagiaire/"+ id;
-	        request.setAttribute("url", response.encodeURL (url));
+		if (ctrlS.isOk()) {			
+	        StagiairesDao sDao= new StagiairesDao((Connection) request.getAttribute("connection"));
+	        long id= sDao.newStagiaire(stagiaire);
+	        String url= request.getContextPath()+"/stagiaire/id/"+id;
+	        response.sendRedirect(url);
+	        return;
 		}
-		request.setAttribute("page", page);
-		request.setAttribute("titlePage", titrePage);
-		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
-	 */
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
-	/**
-	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
-	 */
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		request.setAttribute("info", ctrlS);
+		request.setAttribute("stagiaire", stagiaire);
+		
+		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 }

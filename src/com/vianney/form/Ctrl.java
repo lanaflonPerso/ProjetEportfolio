@@ -9,9 +9,11 @@ public class Ctrl {
 	
 	protected boolean ok= true;
 	protected Connection connection;
+	protected LocalDate now;
 	
 	public Ctrl(Connection uConnection) {
 		connection= uConnection;
+		LocalDate now = LocalDate.now();
 	}
 	
  	protected String classe(boolean b) {

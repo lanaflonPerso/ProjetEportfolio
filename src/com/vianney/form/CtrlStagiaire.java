@@ -6,6 +6,8 @@ import java.time.Period;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.vianney.beans.Stagiaire;
 import com.vianney.dao.StagiairesDao;
 
@@ -27,6 +29,14 @@ public class CtrlStagiaire extends Ctrl {
 
 	public CtrlStagiaire(Connection uConnection) {
 		super(uConnection);
+	}
+	
+	public void addStagiaire(HttpServletRequest request) {
+		ctrlNom(request.getParameter("nom"));
+		ctrlPrenom(request.getParameter("prenom"));
+		ctrlEmail(request.getParameter("email"), true);
+		ctrlDdn(request.getParameter("ddn"));
+		stagiaire.setCivilite(request.getParameter("civilite"));
 	}
 	
 	public boolean ctrlMdpVs(long id, String mdp1, String mdp2) {
@@ -121,16 +131,27 @@ public class CtrlStagiaire extends Ctrl {
 		
 		if (m.find()) {
 			String[] my = date.split("/");
-			
-			if (Integer.parseInt(my[0]) <= 31 && Integer.parseInt(my[1]) <= 12 && Integer.parseInt(my[2]) <= 2005) {
-				String d= my[2] +"-"+ my[1] +"-" +my[0];
-				stagiaire.setDateNaissance(d);
-				LocalDate today = LocalDate.now();
-				Period age= Period.between(stagiaire.getDateNaissance(), today);
-				stagiaire.setAge(age);
-				classeDdn= classe(true);
-			} else {
-				msgErrDdn= "Format de date incorrect (07/06/79)";
+			int jour= Integer.parseInt(my[0]);
+			int mois= Integer.parseInt(my[1]);
+			int annee= Integer.parseInt(my[2]);
+						
+			LocalDate now = LocalDate.now();
+			if (annee <= now.getYear()-16) {
+				try {
+					LocalDate d= LocalDate.of(annee, mois, jour);
+					stagiaire.setDateNaissance(d);
+		
+					Period age= Period.between(stagiaire.getDateNaissance(), now);
+					stagiaire.setAge(age);
+					classeDdn= classe(true);
+				} catch (Exception e) {
+					msgErrDdn= "Format de date incorrect (07/06/79)";
+					ok= false;
+					classeDdn= classe(false);
+				}
+			}
+			else {
+				msgErrDdn= "Le stagiaire doit avoir 16 ans minimum";
 				ok= false;
 				classeDdn= classe(false);
 			}
