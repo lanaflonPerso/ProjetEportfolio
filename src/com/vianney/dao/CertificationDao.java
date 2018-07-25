@@ -1,18 +1,45 @@
 package com.vianney.dao;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import com.vianney.beans.Certification;
-import com.vianney.beans.Competence;
 
 public class CertificationDao extends Dao {
 
-	private List<Certification> certifications= new ArrayList<>();
-	private Certification certification;
+	private Certification certification= new Certification();
 	
 	public CertificationDao(Connection uConnection) {
 		super(uConnection);
+	}
+	
+	public void selectByIdFormation(long idFormation) {
+		String sql= "SELECT * FROM Certifications WHERE Id= ?";
+		
+		PreparedStatement ps= initPs(sql, false, idFormation);
+		ResultSet r;
+		try {
+			r = ps.executeQuery();
+			list(r);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void list(ResultSet r) {
+		try {
+			if (r.next()) {
+				certification.setId(r.getLong("Id"));				
+				certification.setNom(r.getString("Nom"));
+				certification.setNiveau(r.getInt("Niveau"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Certification getCertification() {
+		return certification;
 	}
 }

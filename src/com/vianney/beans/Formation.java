@@ -23,5 +23,5 @@ public class Formation {
 	}
 	public void setCertification(Certification certification) {
 		this.certification = certification;
-	}	
+	}
 }

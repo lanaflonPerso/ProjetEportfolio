@@ -99,5 +99,9 @@ public class Stagiaire {
 	}
 	public void setFormations(List<Formation> formations) {
 		this.formations = formations;
-	}	
+	}
+	
+	public void setListFormation(Formation formation) {
+		this.formations.add(formation);
+	}
 }

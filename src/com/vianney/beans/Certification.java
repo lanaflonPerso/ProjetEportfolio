@@ -7,7 +7,7 @@ public class Certification {
 	
 	private long id;
 	private String Nom;
-	private String Niveau;
+	private int Niveau;
 	private List<Competence> competences= new ArrayList<>();
 	
 	public long getId() {
@@ -22,10 +22,10 @@ public class Certification {
 	public void setNom(String nom) {
 		Nom = nom;
 	}
-	public String getNiveau() {
+	public int getNiveau() {
 		return Niveau;
 	}
-	public void setNiveau(String niveau) {
+	public void setNiveau(int niveau) {
 		Niveau = niveau;
 	}
 	public List<Competence> getCompetences() {
@@ -34,5 +34,4 @@ public class Certification {
 	public void setCompetences(List<Competence> competences) {
 		this.competences = competences;
 	}
-	
 }

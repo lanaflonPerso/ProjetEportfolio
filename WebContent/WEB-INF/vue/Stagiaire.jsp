@@ -30,7 +30,7 @@
 	<p>Listes de formations <a href="<c:url value="/compte/formation/ajouter"/>"><button type="button" class="btn btn-info btn-sm">Ajouter</button></a></p>
 	<c:forEach items="${ stagiaire.formations }" var="formation">
 		<ul>
-			<li>${ formation.intituleFormation }</li>	
+			<li>${ formation.intituleFormation } ${ formation.certification.nom } niveau ${ formation.certification.niveau }</li>	
 		</ul>
 	</c:forEach>
 </div>

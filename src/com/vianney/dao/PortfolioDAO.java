@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vianney.beans.Formation;
 import com.vianney.beans.Metier;
 import com.vianney.beans.Stagiaire;
 
@@ -34,7 +35,14 @@ public class PortfolioDAO {
 			
 			FormationDao fDao= new FormationDao(connection);
 			fDao.selectByStagiaire(id);
-			stagiaire.setFormations(fDao.getFormations());
+			
+			for (Formation formation : fDao.getFormations()) {
+				CertificationDao cDao= new CertificationDao(connection);
+				cDao.selectByIdFormation(formation.getId());
+				formation.setCertification(cDao.getCertification());
+				
+				stagiaire.setListFormation(formation);
+			}
 		}
 	}
 
