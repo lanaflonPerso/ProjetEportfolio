@@ -13,7 +13,7 @@ public class Ctrl {
 	
 	public Ctrl(Connection uConnection) {
 		connection= uConnection;
-		LocalDate now = LocalDate.now();
+		now = LocalDate.now();
 	}
 	
  	protected String classe(boolean b) {
@@ -34,7 +34,7 @@ public class Ctrl {
  	}
  	
  	protected int yearNow() {
- 		LocalDate now= LocalDate.now();
+ 		now= LocalDate.now();
  		return now.getYear();
  	}
  	

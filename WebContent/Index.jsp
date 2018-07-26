@@ -30,5 +30,6 @@
 		<%-- <% pageContext.include((String) request.getAttribute("page")); %> --%> 
 		
 		<%@ include file="/WEB-INF/layout/Footer.jsp" %>
+
 	</body>
 </html>

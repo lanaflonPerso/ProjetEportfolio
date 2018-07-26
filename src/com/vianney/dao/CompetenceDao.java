@@ -47,6 +47,24 @@ public class CompetenceDao extends Dao {
 		}
 	}
 	
+	public boolean SelectByNomLike(String nom) {
+		String sql= "SELECT * FROM Competences WHERE Nom LIKE ?";
+		try {
+			PreparedStatement ps= initPs(sql, false, "%"+nom+"%");
+			ResultSet r= ps.executeQuery();
+			if (testR(r)) {
+				list(r);
+				
+				r.close();
+				ps.close();
+				return true;
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	} 
+	
 	private void addMetierCompetence(long idMetier, long idCompetence) {
 		String sql= "INSERT INTO Metier_Competence (IdMetier, IdCompetence)	VALUES (?, ?)";
 		PreparedStatement ps= initPs(sql, false, idMetier, idCompetence);

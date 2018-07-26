@@ -1,13 +1,9 @@
 <form method="post" action="">
 	<div class="row">
 		<div class="col-md-5 col-sm-12">
-			<%-- <c:if test="${ not empty metier.id }" > --%>
-				<div>
-					<ul>
-						<li>${ metier.fonction }</li>
-					</ul>
-				</div>
-			<%-- </c:if>	 --%>
+			<h2>${ metier.fonction }</h2>
+			<div id="result">
+			</div>
 		</div>
 		<div class="col-md-7 col-sm-12">
 			<fieldset class="form-group">
@@ -22,3 +18,10 @@
 	    </div>
 	</div>
 </form>
+
+<form method="post" action="">
+	<input type="hidden" name="competence" value="" />
+</form>
+
+<script type="text/javascript" src="<c:url value ="/js/oXHR.js" />"></script>
+<script type="text/javascript" src="<c:url value ="/js/listCompetence.js" />"></script>
