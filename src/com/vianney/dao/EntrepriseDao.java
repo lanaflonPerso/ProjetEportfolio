@@ -99,8 +99,22 @@ public class EntrepriseDao extends Dao {
 		try {
 			PreparedStatement ps= initPs(sql, false, nom);
 			ResultSet r= ps.executeQuery();
-			if (r.next()) {
-				r.first();
+			if (testR(r)) {
+				createList(r);
+				return true;
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean SelectByNomLike(String nom) {
+		String sql= "SELECT *, Nom AS NomEntreprise, Id AS IdEntreprise FROM Entreprises WHERE Nom LIKE ?";
+		try {
+			PreparedStatement ps= initPs(sql, false, "%"+nom+"%");
+			ResultSet r= ps.executeQuery();
+			if (testR(r)) {
 				createList(r);
 				return true;
 			}			

@@ -72,12 +72,35 @@
 				</div>
 				
 				<div class="form-group">
-					<label for="mdp2">Re-mot de passe: </label>
+					<label for="mdp2" >Re-mot de passe: </label> <label id="mdp2Label"></label>
 					<input name="mdp2" type="password" class="form-control" id="mdp2" require />
 				</div>
-				<button type="submit" name="save" class="btn btn-primary" >Changer</button>
+				<button type="submit" id="saveMdp" name="save" class="btn btn-primary" value="changer">Changer</button>
 			</fieldset>
 		</div>
 	</div>
 </form>
+<script language="javascript">
+	var mdp1= document.getElementById("mdp1");
+	var mdp2= document.getElementById("mdp2");
+	var mdpLabel= document.getElementById("mdp2Label");
+	var button = document.getElementById('saveMdp');
 
+	function enlever(e) {
+		e.preventDefault();
+	}
+	
+	button.addEventListener('click', enlever, false);
+	
+	mdp2.addEventListener('input', function() {	
+		button.addEventListener('click', enlever, false);
+		if (mdp1.value != mdp2.value) {
+			mdpLabel.innerHTML= " pas de correspondance";
+			mdpLabel.style.background = "red";
+		} else {
+			mdpLabel.innerHTML= " OK";
+			mdpLabel.style.background = "green";
+			button.removeEventListener('click', enlever);
+		}
+	}); 
+</script>

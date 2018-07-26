@@ -45,7 +45,8 @@ public class ModifierStagiaireServlet extends HttpServlet {
 			StagiairesDao sDao= new StagiairesDao((Connection) request.getAttribute("connection"));
 			long userId= user.getId();
 			
-			if(request.getParameter("save").equals("Changer")) {
+			System.out.println("button= "+ request.getParameter("save"));
+			if(request.getParameter("save").equals("changer")) {
 				try {
 					if(cs.ctrlMdpVs(userId, request.getParameter("mdp1"), request.getParameter("mdp2"))) {
 						sDao.changeMdp(userId, request.getParameter("mdp1"));

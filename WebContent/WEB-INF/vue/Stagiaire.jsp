@@ -4,6 +4,9 @@
 
 <div class="listeStagiaire">
 	<p class="titre">Listes D'entreprise <a href="<c:url value="/compte/entreprise/ajouter"/>"><button type="button" class="btn btn-info btn-sm">Ajouter</button></a></p>
+	<c:if test="${not empty  metier.id || metier.id == null }">
+		<p> le stagiaire n'a pas enregistré d'expérience professionelle</p> 
+	</c:if>
 	<c:forEach items="${ stagiaire.metiers }" var="metier">
 		<ul>
 			<c:forEach items="${ metier.entreprises }" var="entreprise">
@@ -25,8 +28,10 @@
 		</ul>
 		<hr />
 	</c:forEach>
-	
 	<p class="titre">Listes de formations <a href="<c:url value="/compte/formation/ajouter"/>"><button type="button" class="btn btn-info btn-sm">Ajouter</button></a></p>
+	<c:if test="${ not empty  formation.id || formation.id == null }">
+		<p> le stagiaire n'a enregistré aucune formation</p> 
+	</c:if>
 	<ul>
 	<c:forEach items="${ stagiaire.formations }" var="formation">
 		<li>
