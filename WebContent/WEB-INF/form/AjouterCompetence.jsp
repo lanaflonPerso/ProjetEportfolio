@@ -20,6 +20,7 @@
 </form>
 
 <form method="post" action="">
+	<input name="idMetier" type="hidden" value="${ metier.id }" require />
 	<input type="hidden" name="competence" value="" />
 </form>
 
