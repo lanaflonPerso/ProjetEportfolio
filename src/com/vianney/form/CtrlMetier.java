@@ -1,23 +1,27 @@
 package com.vianney.form;
 
 import java.sql.Connection;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import com.vianney.beans.Metier;
+import com.vianney.beans.Stagiaire;
 
 public class CtrlMetier extends Ctrl{
 	
-	private Metier metier= new Metier();;
+	private Metier metier= new Metier();
+	private Stagiaire stagiaire;
 	private String msgErrFonction;
 	private String classeFonction;
 	private String msgErrDescription;
 	private String classeDescription;
-	private String msgErrDateEntree;
-	private String classeDateEntree;
-	private String msgErrDateSortie;
-	private String classeDateSortie;
+	private String msgErrDate;
+	private String classeDate;
 
-	public CtrlMetier(Connection uConnection) {
+
+	public CtrlMetier(Connection uConnection, Stagiaire uStagiaire) {
 		super(uConnection);
+		stagiaire= uStagiaire;
 	}
 	
 	public boolean ctrlFonction(String fonction) {
@@ -42,32 +46,72 @@ public class CtrlMetier extends Ctrl{
 		return false;
 	}
 	
-	public boolean ctrlDateEntree(String date) {
-		if (ctrlDate(date)) {
-			String[] my = date.split("/");
-			
-			if (Integer.parseInt(my[0]) <= 31 && Integer.parseInt(my[1]) <= 12 && Integer.parseInt(my[2]) <= yearNow()) {
-				metier.setDateEntree(Integer.parseInt(my[2]), Integer.parseInt(my[1]), Integer.parseInt(my[0]));
+	public boolean ctrlDate(String dateEntree, String dateSortie) {
+		int anneeN= stagiaire.getDateNaissance().getYear();
+		
+		if (ctrlDate(dateEntree) && ctrlDate(dateSortie)) {
+		
+			LocalDate dateE= enLocalDate(dateEntree);
+			LocalDate dateS= enLocalDate(dateSortie);
+	
+			if(afterDateEntree(dateE, dateS)) {
+				return true;
+			}
+						
+			if (dateE.getYear() > anneeN+16 ) {
 				return true;
 			}
 		}
+		
+		if (ctrlDate(date)) {
+			String[] my = date.split("/");
+			
+			int jour= Integer.parseInt(my[0]);
+			int mois= Integer.parseInt(my[1]);
+			int annee= Integer.parseInt(my[2]);
+			if (annee > stagiaire.getDateNaissance().getYear()+16) {
+				if (jour <= 31 && mois <= 12 && annee <= yearNow()) {
+					metier.setDateEntree(Integer.parseInt(my[2]), Integer.parseInt(my[1]), Integer.parseInt(my[0]));
+					return true;
+				}
+			} else {
+				ok= false;
+				msgErrDate= "Date incoherente";
+				classeDate= classe(false);
+			}
+		}
 		ok= false;
-		msgErrDateEntree= "Format de date incorrect (07/06/79)";
-		classeDateEntree= classe(false);
+		msgErrDate= "Format de date incorrect (07/06/79)";
+		classeDate= classe(false);
 		return false;
 	}
 	
-	public boolean ctrlDateSortie(String date) {
-		if (ctrlDate(date)) {
-			String[] my = date.split("/");
-			if (Integer.parseInt(my[0]) <= 31 && Integer.parseInt(my[1]) <= 12 && Integer.parseInt(my[2]) <= yearNow()) {
-				metier.setDateSortie(Integer.parseInt(my[2]), Integer.parseInt(my[1]), Integer.parseInt(my[0]));
-				return true;
-			}
-		} 
+	private LocalDate enLocalDate(String date) {
+		try {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+			LocalDate localDate = LocalDate.parse(date, formatter);
+			return localDate;
+		} catch (Exception e) {
+			ok= false;
+			msgErrDate= "Format de date incorrect (07/06/79)";
+			classeDate= classe(false);
+		}
+		return now;
+	}
+	
+	private boolean afterDateEntree(LocalDate dateEntree, LocalDate dateSortie) {
+		int moisE= dateEntree.getMonthValue();
+		int anneeE= dateEntree.getYear();
+		int moisS= dateSortie.getMonthValue();
+		int anneeS= dateEntree.getYear();
+		
+		if (anneeE < anneeS) {
+			return true;
+		} else if (anneeE == anneeS && moisE < moisS) {
+			return true;
+		}
+		msgErrDate= "les dates se chevauche";
 		ok= false;
-		msgErrDateSortie= "Format de date incorrect (07/06/79)";
-		classeDateSortie= classe(false);
 		return false;
 	}
 	
@@ -87,20 +131,8 @@ public class CtrlMetier extends Ctrl{
 		return msgErrDescription;
 	}
 
-	public String getMsgErrDateEntree() {
-		return msgErrDateEntree;
-	}
-
-	public String getClasseDateEntree() {
-		return classeDateEntree;
-	}
-
-	public String getMsgErrDateSortie() {
-		return msgErrDateSortie;
-	}
-
-	public String getClasseDateSortie() {
-		return classeDateSortie;
+	public String getMsgErrDate() {
+		return msgErrDate;
 	}
 
 	public String getClasseFonction() {

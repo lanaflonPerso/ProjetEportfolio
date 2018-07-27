@@ -51,7 +51,10 @@ public class AjouterMetierServlet extends HttpServlet {
 	}
 	
 	private boolean ctrlMetier(HttpServletRequest request) {
-		CtrlMetier ctrl= new CtrlMetier((Connection) request.getAttribute("connection"));
+		HttpSession session = request.getSession();
+		Stagiaire stagiaire= (Stagiaire) session.getAttribute("user"); 
+		
+		CtrlMetier ctrl= new CtrlMetier((Connection) request.getAttribute("connection"), stagiaire);
 		ctrl.ctrlFonction(request.getParameter("fonction"));
 		ctrl.ctrlDescription(request.getParameter("description"));
 		ctrl.ctrlDateEntree(request.getParameter("dateE"));
