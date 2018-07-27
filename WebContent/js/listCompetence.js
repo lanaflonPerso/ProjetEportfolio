@@ -37,7 +37,6 @@ xhr.onreadystatechange = function() {
     }
 }
 
-
 function formulaire() {
 	var links = document.querySelectorAll(".competence");
 	for(var i= 0; i < links.length; i++) {
