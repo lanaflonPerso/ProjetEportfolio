@@ -72,8 +72,8 @@ public class StagiairesDao extends Dao {
 		long id = 0;
 				
 		String sql= "INSERT INTO  Stagiaires";
-		sql+= 			" (Nom, Prenom, DateNaissance, IsStagiaire, IsAdministrateur, Email)";
-		sql+= " VALUES    (?,   ?,      ?,             0,           0,                ?);";
+		sql+= 			" (Nom, Prenom, DateNaissance, IsStagiaire, IsAdministrateur, Email, MotDePasse)";
+		sql+= " VALUES    (?,   ?,      ?,             0,           0,                ?, SHA1('a'));";
 		
 		try {
 			
@@ -94,8 +94,8 @@ public class StagiairesDao extends Dao {
 		return id;
 	}
 	
-	public boolean SelectByEmailMdp(String mdp, String email) {	
-		String sql= "SELECT * FROM Stagiaires WHERE email= ? AND MotDePasse= ?";
+	public boolean SelectByEmailMdp(String mdp, String email) {
+		String sql= "SELECT * FROM Stagiaires WHERE email= ? AND MotDePasse= SHA1(?)";
 		try {
 			PreparedStatement ps= initPs(sql, false, email, mdp);
 			ResultSet r= ps.executeQuery();
