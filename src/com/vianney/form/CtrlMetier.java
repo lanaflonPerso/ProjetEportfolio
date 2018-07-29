@@ -3,6 +3,8 @@ package com.vianney.form;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.vianney.beans.Metier;
 import com.vianney.beans.Stagiaire;
@@ -54,56 +56,55 @@ public class CtrlMetier extends Ctrl{
 			LocalDate dateE= enLocalDate(dateEntree);
 			LocalDate dateS= enLocalDate(dateSortie);
 	
-			if(afterDateEntree(dateE, dateS)) {
-				return true;
-			}
-						
-			if (dateE.getYear() > anneeN+16 ) {
-				return true;
-			}
-		}
-		
-		if (ctrlDate(date)) {
-			String[] my = date.split("/");
-			
-			int jour= Integer.parseInt(my[0]);
-			int mois= Integer.parseInt(my[1]);
-			int annee= Integer.parseInt(my[2]);
-			if (annee > stagiaire.getDateNaissance().getYear()+16) {
-				if (jour <= 31 && mois <= 12 && annee <= yearNow()) {
-					metier.setDateEntree(Integer.parseInt(my[2]), Integer.parseInt(my[1]), Integer.parseInt(my[0]));
+			if(afterDateEntree(dateE, dateS)) {	
+				if (dateE.getYear() > anneeN+16 ) {
 					return true;
+				} else {
+					ok= false;
+					msgErrDate= "vous ne pouvez travailler avant 16 ans";
+					classeDate= classe(false);
 				}
-			} else {
-				ok= false;
-				msgErrDate= "Date incoherente";
-				classeDate= classe(false);
-			}
+			} 
+		} else {
+			ok= false;
+			msgErrDate= "Format de date incorrecte exemple: 20/05/2011";
+			classeDate= classe(false);
 		}
-		ok= false;
-		msgErrDate= "Format de date incorrect (07/06/79)";
-		classeDate= classe(false);
 		return false;
 	}
 	
 	private LocalDate enLocalDate(String date) {
+		
+		Pattern regexDate1 = Pattern.compile("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$", Pattern.CASE_INSENSITIVE);
+		Matcher m1 = regexDate1.matcher(date);
+		
+		Pattern regexDate2 = Pattern.compile("^[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}$", Pattern.CASE_INSENSITIVE);
+		Matcher m2 = regexDate2.matcher(date);
+		
+		DateTimeFormatter formatter = null;
+		
+		if (m1.find()) {
+			formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		} else if (m2.find()) {
+			formatter = DateTimeFormatter.ofPattern("d-MM-yyyy");
+		}
+		
 		try {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
 			LocalDate localDate = LocalDate.parse(date, formatter);
 			return localDate;
-		} catch (Exception e) {
+		}catch (Exception e) {
 			ok= false;
-			msgErrDate= "Format de date incorrect (07/06/79)";
+			msgErrDate= "Format de date incorrecte exemple: 20/05/2011";
 			classeDate= classe(false);
+			return now;
 		}
-		return now;
 	}
 	
 	private boolean afterDateEntree(LocalDate dateEntree, LocalDate dateSortie) {
 		int moisE= dateEntree.getMonthValue();
 		int anneeE= dateEntree.getYear();
 		int moisS= dateSortie.getMonthValue();
-		int anneeS= dateEntree.getYear();
+		int anneeS= dateSortie.getYear();
 		
 		if (anneeE < anneeS) {
 			return true;

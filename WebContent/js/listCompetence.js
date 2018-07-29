@@ -25,12 +25,7 @@ xhr.onreadystatechange = function() {
         		var url= "<a href=\""+contextPath+"/compte/competence/ajouter/\">"+competences[i].Nom+"</a>"; 
         		var li = document.createElement('li');
                 li.innerHTML= url;
-                ul.appendChild(li);
-                
-                
-                url.setAttribute("class", competence);
-                url.setAttribute("id", competences[i].Id);
-                
+                ul.appendChild(li);                
             }
         }
         formulaire();
