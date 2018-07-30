@@ -24,9 +24,13 @@
 		<div class="col-md-7 col-sm-12">
 			<fieldset class="form-group">
 	    		<legend>Votre rôle dans l'entreprise</legend>
+	    		<c:if test="${ afficher }" >
+	    			<input type="hidden" name="idMetier" value="${ metier.id }" />
+	    		</c:if>
+	    		
 	    		
 				<div class="form-group">
-					<label for="fonction">Fonction: ${ metier.fonction }</label>
+					<label for="fonction">Fonction: </label>
 					<input name="fonction" type="text" class="form-control ${ info.classeFonction }" id="fonction" placeholder="Fonction occupé dans l'entreprise"
 					<c:if test="${ not empty info.ok && !info.ok }" >value="${ metier.fonction }"</c:if> 
 					<c:if test="${ afficher }" >value="${ metier.fonction }"</c:if> require />

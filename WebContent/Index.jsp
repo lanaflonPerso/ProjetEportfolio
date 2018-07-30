@@ -12,6 +12,21 @@
 			<div class="row">
 				<div class="col-md-4 rouge">
 					<c:choose>
+					<c:when test = "${ page == '/WEB-INF/form/AjouterFormation.jsp' }">
+							<p>
+								ici nous pouvons ajouter une formation a notre parcours.<br />
+								intitulé doit être de 7 caractéres min.<br />
+								la certification de 5 caractéres min.<br />
+								et le niveau un chiffre entre 1 et 6
+								
+								
+							</p>
+						</c:when>
+						<c:when test = "${ page == '/WEB-INF/form/ChercherMetier.jsp' }">
+							<p>
+								nous pouvons rechercher un metier deja en BD et y rajouter par la suite des une description personnel et les dates d'entrée et de sortie!
+							</p>
+						</c:when>
 						<c:when test = "${ page == '/WEB-INF/form/ModifierStagiaire.jsp' }">
 							<p>
 								sur cette page il peut modifier sont nom, son prénom, sont email et sa date de naissance les vérification sont les mêmes que lors de l'enregistrement du stagiaire par l'admin<br />
@@ -29,6 +44,7 @@
 							<p>
 								la page de connection:<br />
 								non rentrons notre mail et notre mot de passe<br />
+								pour tous changement sur un compte un filtre verifie que l'user est bien en session sinon il renvoie sur cette page
 							</p>
 						</c:when>
 						<c:when test = "${ page == '/WEB-INF/form/AjouterStagiaire.jsp' }">
@@ -66,7 +82,9 @@
 								la fonction dans l'entreprise 5 caractéres min.<br />
 								une description du poste  5 caractéres min.<br />
 								la date de début et la date de fin elle peut prendre le même motif que la date de naissance soit 10/05/2012 ou 10-05-2012
-								une verification est faite pour savoir si le salarié avait plus de 16 ans aux début du contrat et si les deux date sont bien rentré dans l'ordre.
+								une verification est faite pour savoir si le salarié avait plus de 16 ans aux début du contrat et si les deux date sont bien rentré dans l'ordre.<br />
+								<br />
+								si nous venous de la page recherche métiers le champ fonction est deja pré rempli!
 							</p>
 						</c:when>
 						<c:when test = "${ page == '/WEB-INF/form/LierEntrepriseMetier.jsp' }">
@@ -95,15 +113,19 @@
 						</c:when>
 						<c:otherwise>
 							<p>
-								page d'accueil connecté:<br />
-								une fois connectée un objet user est crée et mis dans la session<br />
+								page d'accueil<br />
+								
 								<c:choose>
+									<c:when test="${ empty user.id }">
+									page index nous devons nous connecter ou voir la list des stagiaires!
+									</c:when>
 									<c:when test="${ sessionScope.user.admin }">
 								ici connection en <strong>admin</strong> le menu couleur jaune lui est dedié avec la possibilité de crée un stagaire.<br />
 								<br />
 								une confirmation de connection seras demandé par le navigateur.		
 									</c:when>
 									<c:otherwise>
+								une fois connectée un objet user est crée et mis dans la session<br />
 								ici nous somme connecté avec un user standard donc pas de menu jaune
 									</c:otherwise>
 								</c:choose>					

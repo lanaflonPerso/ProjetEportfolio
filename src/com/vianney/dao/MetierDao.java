@@ -66,7 +66,7 @@ public class MetierDao extends Dao {
 	}
 	
 	public long add(Metier metier, long idStagiaire) {
-				
+			
 		String sql = "INSERT INTO  Metiers (Fonction) VALUES (?);";
 		
 		PreparedStatement ps= initPs(sql, true, metier.getFonction());
@@ -83,7 +83,7 @@ public class MetierDao extends Dao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return 0; 	
+		return 0;
 	}
 	
 	private boolean insertStagiaireMetier(Metier metier, long idStagiaire) {

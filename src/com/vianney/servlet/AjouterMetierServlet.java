@@ -69,9 +69,13 @@ public class AjouterMetierServlet extends HttpServlet {
 		
 		if(ctrlMetier(request)) {				
 			MetierDao mDao= new MetierDao((Connection) request.getAttribute("connection"));				
+						
+			if(request.getParameter("idMetier") != null) {
+				metier.setId(Long.parseLong(request.getParameter("idMetier")));
+			}
 			
 			long idMetier= mDao.add(metier, stagiaire.getId());
-			
+						
 			if (request.getParameter("idEntreprise") != null) {
 				long idntreprise= Long.parseLong(request.getParameter("idEntreprise"));
 				mDao.addMetierEntreprise(idMetier, idntreprise);
