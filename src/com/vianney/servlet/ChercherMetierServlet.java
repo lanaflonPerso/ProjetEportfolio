@@ -9,10 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.vianney.beans.Metier;
-import com.vianney.beans.Stagiaire;
 import com.vianney.dao.MetierDao;
 
 public class ChercherMetierServlet extends HttpServlet {
@@ -26,11 +24,8 @@ public class ChercherMetierServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		Stagiaire stagiaire= (Stagiaire) session.getAttribute("user");
-		
 		MetierDao mDao= new MetierDao((Connection) request.getAttribute("connection"));
-		if(mDao.selectLikeFonction(stagiaire.getId(), request.getParameter("recherche"))) {
+		if(mDao.selectLikeFonction(request.getParameter("recherche"))) {
 			metiers= mDao.getMetiers();
 			request.setAttribute("metiers", metiers);
 			request.setAttribute("ok", true);

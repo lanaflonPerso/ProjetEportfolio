@@ -42,8 +42,9 @@ public class ConnectionServlet extends HttpServlet {
 			stagiaire= ctrlS.getStagiaire();
 			session.setAttribute("user", stagiaire);
 			
-//			String url= request.getContextPath() +"/";
-//			response.sendRedirect( url );
+			String url= request.getContextPath() +"/";
+			response.sendRedirect( url );
+			return;
 		} else {
 			request.setAttribute("email", email);
 			request.setAttribute("info", ctrlS);			

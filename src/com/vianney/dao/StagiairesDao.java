@@ -67,13 +67,27 @@ public class StagiairesDao extends Dao {
 		}
 	}
 	
+	public boolean selectStagiaireByIdEntreprise(long idEntreprise) {
+		String sql= "SELECT S.Id, S.Nom, S.Prenom, S.Email, S.Adresse, S.DateNaissance, S.IsAdministrateur ";
+		sql+= "FROM Stagiaires AS S,  Stagiaire_Metier AS SM, Metier_Entreprise AS ME ";
+		sql+= "WHERE ME.IdEntreprise= ? AND ME.IdMetier= SM.IdMetier AND SM.IdStagiaire= S.Id";
+		PreparedStatement ps= initPs(sql, false, idEntreprise);
+		try {
+			ResultSet result= ps.executeQuery();
+			createList(result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
 	public long newStagiaire(Stagiaire stagiaire) {
 		
 		long id = 0;
 				
 		String sql= "INSERT INTO  Stagiaires";
 		sql+= 			" (Nom, Prenom, DateNaissance, IsStagiaire, IsAdministrateur, Email, MotDePasse)";
-		sql+= " VALUES    (?,   ?,      ?,             0,           0,                ?, SHA1('a'));";
+		sql+= " VALUES    (?,   ?,      ?,             0,           0,                ?, SHA1('azerty'));";
 		
 		try {
 			
@@ -119,7 +133,7 @@ public class StagiairesDao extends Dao {
 		String ddn= formatDate (stagiaire.getDateNaissance());
 		PreparedStatement ps= initPs(sql, false, stagiaire.getNom(), stagiaire.getPrenom(), stagiaire.getEmail(), stagiaire.getAdresse(), ddn, stagiaire.getId());
 		try {
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -129,7 +143,7 @@ public class StagiairesDao extends Dao {
 	}
 	
 	public void changeMdp(long id, String mdp) {
-		String sql= "UPDATE Stagiaires SET MotDePasse = ? WHERE id= ?";
+		String sql= "UPDATE Stagiaires SET MotDePasse = SHA1(?) WHERE id= ?";
 		PreparedStatement ps= initPs(sql, false, mdp, id);
 		try {
 			ps.executeUpdate();

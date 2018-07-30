@@ -18,16 +18,12 @@ public class ModifierStagiaireServlet extends HttpServlet {
 	
 	public final String formUrl= 		"/ProjetEportfolio/stagiaire/modifier";
 	public final String page= 			"/WEB-INF/form/ModifierStagiaire.jsp";
-	public final String pageS= 			"/WEB-INF/vue/Stagiaire.jsp";
-	public final String pageC= 			"/WEB-INF/form/Connection.jsp";
        
     public ModifierStagiaireServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println("Modifier");
 		request.setAttribute("titlePage", "Modification du compte");
 		request.setAttribute("page", page);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
@@ -37,48 +33,42 @@ public class ModifierStagiaireServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		request.setAttribute("page", page);
+								
+		Stagiaire user= (Stagiaire) session.getAttribute("user");
+		CtrlStagiaire cs= new CtrlStagiaire((Connection) request.getAttribute("connection"));
+		StagiairesDao sDao= new StagiairesDao((Connection) request.getAttribute("connection"));
+		long userId= user.getId();
 		
-		if(session.getAttribute("user") != null || !session.getAttribute("user").equals("")) {
-						
-			Stagiaire user= (Stagiaire) session.getAttribute("user");
-			CtrlStagiaire cs= new CtrlStagiaire((Connection) request.getAttribute("connection"));
-			StagiairesDao sDao= new StagiairesDao((Connection) request.getAttribute("connection"));
-			long userId= user.getId();
-			
-			System.out.println("button= "+ request.getParameter("save"));
-			if(request.getParameter("save").equals("changer")) {
-				try {
-					if(cs.ctrlMdpVs(userId, request.getParameter("mdp1"), request.getParameter("mdp2"))) {
-						sDao.changeMdp(userId, request.getParameter("mdp1"));
-						
-					} else {
-						request.setAttribute("info", cs);
-					}
-				} catch (Exception e) {
+		if(request.getParameter("save").equals("changer")) {
+			try {
+				if(cs.ctrlMdpVs(userId, request.getParameter("mdp1"), request.getParameter("mdp2"))) {
+					sDao.changeMdp(userId, request.getParameter("mdp1"));
 					
-				}
-			} else {				
-				cs.setId(userId);
-				cs.ctrlNom(request.getParameter("nom"));
-				cs.ctrlPrenom(request.getParameter("prenom"));
-				if (!user.getEmail().equals(request.getParameter("email"))) {
-					cs.ctrlEmail(request.getParameter("email"), true);
 				} else {
-					cs.ctrlEmail(request.getParameter("email"), false);
+					request.setAttribute("info", cs);
 				}
-				cs.ctrlAdresse(request.getParameter("adresse"));
-				cs.ctrlDdn(request.getParameter("ddn"));
+			} catch (Exception e) {
 				
-				if (cs.isOk()) {
-					cs.setId(user.getId());
-					sDao.updateStagiaire(cs.getStagiaire());
-					
-					session.setAttribute("user", cs.getStagiaire());
-				}
-				request.setAttribute("msg", cs);
 			}
-		} else {
-			request.setAttribute("page", pageC);
+		} else {				
+			cs.setId(userId);
+			cs.ctrlNom(request.getParameter("nom"));
+			cs.ctrlPrenom(request.getParameter("prenom"));
+			if (!user.getEmail().equals(request.getParameter("email"))) {
+				cs.ctrlEmail(request.getParameter("email"), true);
+			} else {
+				cs.ctrlEmail(request.getParameter("email"), false);
+			}
+			cs.ctrlAdresse(request.getParameter("adresse"));
+			cs.ctrlDdn(request.getParameter("ddn"));
+			
+			if (cs.isOk()) {
+				cs.setId(user.getId());
+				sDao.updateStagiaire(cs.getStagiaire());
+				
+				session.setAttribute("user", cs.getStagiaire());
+			}
+			request.setAttribute("msg", cs);
 		}
 		
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);

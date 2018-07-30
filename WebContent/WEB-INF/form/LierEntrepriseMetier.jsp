@@ -6,7 +6,7 @@
 			<ul class="list-group">
 				<c:forEach items="${ entreprises }" var="entreprise">
 					<li>
-						<a href="<c:url value="/compte/metier/id/${ idmetier }/?entreprise=${ entreprise.id }"/>">${ entreprise.nom }</a> à ${ entreprise.ville } de ${ metier.dateEntree } a ${ metier.dateSortie }
+						<a href="<c:url value="/compte/metier/id/${ idmetier }/?entreprise=${ entreprise.id }"/>">${ entreprise.nom }</a> à ${ entreprise.ville }
 					</li>
 				</c:forEach>
 			</ul>

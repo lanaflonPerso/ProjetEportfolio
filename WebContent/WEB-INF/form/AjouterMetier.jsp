@@ -26,25 +26,27 @@
 	    		<legend>Votre rôle dans l'entreprise</legend>
 	    		
 				<div class="form-group">
-					<label for="fonction">Fonction: </label>
+					<label for="fonction">Fonction: ${ metier.fonction }</label>
 					<input name="fonction" type="text" class="form-control ${ info.classeFonction }" id="fonction" placeholder="Fonction occupé dans l'entreprise"
-					<c:if test="${ not empty info.ok && !info.ok }" >value="${ metier.fonction }"</c:if> require />
+					<c:if test="${ not empty info.ok && !info.ok }" >value="${ metier.fonction }"</c:if> 
+					<c:if test="${ afficher }" >value="${ metier.fonction }"</c:if> require />
 				</div>
 				 
 				<div class="form-group">
 					<label for="description">Description: </label>
 					<input name="description" type="text" class="form-control ${ info.classeDescription }" id="description" placeholder="Description de votre rôles dans l'entreprise"
-						<c:if test="${ not empty info.ok && !info.ok }" >value="${ metier.description }"</c:if> require />
+						<c:if test="${ not empty info.ok && !info.ok }" >value="${ metier.description }"</c:if>
+						 require />
 				</div>
 				
 				<div class="form-group">
 					<label for="dateE">Date d'entrée: </label>
-					<input name="dateE" type="text" class="form-control ${ info.ClasseDate }" id="dateE" placeholder="Date d'entré dans l'entreprise" require />
+					<input name="dateE" type="text" class="form-control ${ info.classeDate }" id="dateE" placeholder="Date d'entré dans l'entreprise" require />
 				</div>
 				
 				<div class="form-group">
 					<label for="dateS">Date de fin de contrat: </label>
-					<input name="dateS" type="text" class="form-control ${ info.ClasseDate }" id="dateS" placeholder="Date de départ de l'entreprise" require />
+					<input name="dateS" type="text" class="form-control ${ info.classeDate }" id="dateS" placeholder="Date de départ de l'entreprise" require />
 				</div>
 				<button type="submit" class="btn btn-primary">Enregistrer</button>
 			</fieldset>

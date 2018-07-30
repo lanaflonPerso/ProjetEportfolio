@@ -33,19 +33,43 @@ public class CompetenceDao extends Dao {
 	}
 	
 	public void add(long idMetier, String competence) {
-		String sql= "INSERT INTO Competences (Nom) VALUES (?)";
-		PreparedStatement ps= initPs(sql, true, competence);
+		
+		if(!selectCompetenceByNom(competence)) {
+			String sql= "INSERT INTO Competences (Nom) VALUES (?)";
+			PreparedStatement ps= initPs(sql, true, competence);
+			try {
+				ps.executeUpdate();
+				ResultSet rs= ps.getGeneratedKeys();
+				if(rs.next()) {
+					long idCompetence=rs.getInt(1);
+					addMetierCompetence(idMetier, idCompetence);
+				} 
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else {
+			long idCompetence= getCompetence().getId();
+			addMetierCompetence(idMetier, idCompetence);
+		}
+	}
+	
+	public boolean selectCompetenceByNom(String nom) {
+		String sql= "SELECT * FROM Competences WHERE Nom= ?";
 		try {
-			ps.executeUpdate();
-			ResultSet rs= ps.getGeneratedKeys();
-			if(rs.next()) {
-				long idCompetence=rs.getInt(1);
-				addMetierCompetence(idMetier, idCompetence);
-			} 
+			PreparedStatement ps= initPs(sql, false, nom);
+			ResultSet r= ps.executeQuery();
+			if (testR(r)) {
+				list(r);
+				
+				r.close();
+				ps.close();
+				return true;
+			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+		return false;
+	} 
 	
 	public boolean SelectByNomLike(String nom) {
 		String sql= "SELECT * FROM Competences WHERE Nom LIKE ?";

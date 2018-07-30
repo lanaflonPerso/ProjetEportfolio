@@ -97,6 +97,9 @@
 		if (mdp1.value != mdp2.value) {
 			mdpLabel.innerHTML= " pas de correspondance";
 			mdpLabel.style.background = "red";
+		} else if (mdp1.value.length < 8) {
+			mdpLabel.innerHTML= " 8 caractéres min.";
+			mdpLabel.style.background = "red";
 		} else {
 			mdpLabel.innerHTML= " OK";
 			mdpLabel.style.background = "green";

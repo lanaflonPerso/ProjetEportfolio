@@ -122,3 +122,20 @@ h1 {
 		border-color: $cFondListOmbre;
 	}
 }
+
+.rouge {
+	background: red;
+	border: dashed;
+	padding: 15px 10px;
+}
+
+.jaune {
+	background: yellow;
+	padding: 15px 0px;
+	border-radius: 8px;
+	box-shadow: 4px 4px 0px $cFondListOmbre;
+}
+
+.container {
+	width: 100%;
+}

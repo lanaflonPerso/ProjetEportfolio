@@ -2,7 +2,7 @@
 	<c:if test="${!empty sessionScope.user }">
 	
 		<c:if test="${ sessionScope.user.admin }">
-			<ul>
+			<ul class="jaune">
 				<li><a href="<c:url value="/admin/stagiaire/add"/>">Ajouter Stagiaire</a></li>
 			</ul>
 		</c:if>

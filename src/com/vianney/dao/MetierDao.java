@@ -111,21 +111,42 @@ public class MetierDao extends Dao {
 		}
 	}
 	
-	public boolean selectLikeFonction(long idStagiaire, String likeFonction) {
-		String sql= "SELECT M.Id AS IdMetier, SM.DateEntree, SM.DateSortie, SM.Description, M.Fonction ";
-		sql+= "FROM Stagiaire_Metier AS SM, Metiers AS M ";
-		sql+= "WHERE SM.IdStagiaire= ? AND M.Id= SM.IdMetier AND M.Fonction LIKE ?";
-		
-		String fonction= "%"+likeFonction+"%";
-		
-		PreparedStatement ps= initPs(sql, false, idStagiaire, fonction);
+	public boolean selectById(long idMetier) {
+		String sql= "SELECT * FROM Metiers WHERE Id= ?";
+		PreparedStatement ps= initPs(sql, false, idMetier);
+		ResultSet result;
+		try {
+			result = ps.executeQuery();
+			if(result.next()) {
+				Metier newM= new Metier();
+				newM.setId(result.getLong("Id"));
+				newM.setFonction(result.getString("Fonction"));
+				metier= newM;					
+			}
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean selectLikeFonction(String likeFonction) {
+		String sql= "SELECT * ";
+		sql+= "FROM Metiers  ";
+		sql+= "WHERE Fonction LIKE ?";		
+		PreparedStatement ps= initPs(sql, false, "%"+likeFonction+"%");
 		
 		ResultSet result;
 		try {
 			result = ps.executeQuery();
 			if (testR(result)) {
-				createList(result);
-				
+				while (result.next()) {
+					Metier newM= new Metier();
+					newM.setId(result.getLong("Id"));
+					newM.setFonction(result.getString("Fonction"));
+					metiers.add(newM);					
+				}
 				result.close();
 				ps.close();
 				return true;

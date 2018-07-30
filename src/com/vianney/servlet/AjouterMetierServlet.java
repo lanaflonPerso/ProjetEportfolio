@@ -29,6 +29,20 @@ public class AjouterMetierServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (request.getParameter("metier") != null) {
+			try {
+				long idMetier= Long.parseLong(request.getParameter("metier"));
+				MetierDao mDao= new MetierDao((Connection) request.getAttribute("connection"));
+				mDao.selectById(idMetier);
+				Metier metier= mDao.getMetier();
+				request.setAttribute("afficher", true);
+				request.setAttribute("metier", metier);
+				
+			} catch (Exception e) {
+
+			}
+			
+		}
 		if (request.getParameter("entreprise") != null) {
 			EntrepriseDao eDao= new EntrepriseDao((Connection) request.getAttribute("connection"));
 			try {
