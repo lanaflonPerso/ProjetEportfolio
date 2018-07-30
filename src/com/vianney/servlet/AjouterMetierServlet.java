@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.vianney.beans.Entreprise;
 import com.vianney.beans.Metier;
 import com.vianney.beans.Stagiaire;
+import com.vianney.dao.EntrepriseDao;
 import com.vianney.dao.MetierDao;
 import com.vianney.form.CtrlMetier;
 
@@ -26,6 +28,22 @@ public class AjouterMetierServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (request.getParameter("entreprise") != null) {
+			EntrepriseDao eDao= new EntrepriseDao((Connection) request.getAttribute("connection"));
+			try {
+				long id= Long.parseLong(request.getParameter("entreprise"));
+				eDao.selectById(id);
+				Entreprise entrerpise= eDao.getEntreprise();
+				
+				request.setAttribute("entreprise", entrerpise);
+				request.setAttribute("source", false);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+
+			request.setAttribute("", PAGE);
+		}
+		
 		request.setAttribute("page", PAGE);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
@@ -57,8 +75,8 @@ public class AjouterMetierServlet extends HttpServlet {
 		CtrlMetier ctrl= new CtrlMetier((Connection) request.getAttribute("connection"), stagiaire);
 		ctrl.ctrlFonction(request.getParameter("fonction"));
 		ctrl.ctrlDescription(request.getParameter("description"));
-		ctrl.ctrlDateEntree(request.getParameter("dateE"));
-		ctrl.ctrlDateSortie(request.getParameter("dateS"));
+		ctrl.ctrlDate(request.getParameter("dateE"));
+		ctrl.ctrlDate(request.getParameter("dateS"));
 		
 		metier= ctrl.getMetier();
 		

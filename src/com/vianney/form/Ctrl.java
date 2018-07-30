@@ -24,7 +24,7 @@ public class Ctrl {
 		}
 	}
  	
- 	protected boolean ctrlDate(String date) {
+ 	public boolean ctrlDate(String date) {
  		Pattern regexDate1 = Pattern.compile("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$", Pattern.CASE_INSENSITIVE);
 		Matcher m1 = regexDate1.matcher(date);
 		

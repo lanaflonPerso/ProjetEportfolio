@@ -1,8 +1,16 @@
 <h1>Ajouter Metier</h1>
  
 <form method="post" action="">
+	<c:if test="${ not empty entreprise.id}" >
+		<input type="hidden" name="idEntreprise" value="${ entreprise.id }" />
+	</c:if>
 	<div class="row">
 		<div class="col-md-5 col-sm-12">
+			<c:if test="${ not empty entreprise.id }" >
+				<%@include file="/WEB-INF/vue/VoirEntreprise.jsp" %>			
+			</c:if>
+		
+		
 			<c:if test="${ not empty info.ok && !info.ok }" >
 				<div class="alert alert-danger" role="alert">
 					<ul>

@@ -14,15 +14,14 @@ import com.vianney.form.CtrlEntreprise;
 public class AjouterEntrepriseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public final String pageVE=			"/WEB-INF/vue/VoirEntreprise.jsp";
-	public final String pageAE=			"/WEB-INF/form/AjouterEntreprise.jsp";
+	public final String PAGE=			"/WEB-INF/form/AjouterEntreprise.jsp";
 
     public AjouterEntrepriseServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("page", pageAE);
+		request.setAttribute("page", PAGE);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 
@@ -35,10 +34,13 @@ public class AjouterEntrepriseServlet extends HttpServlet {
 
 		if (ctrlE.isOk()) {
 			EntrepriseDao eDao= new EntrepriseDao((Connection) request.getAttribute("connection"));
-			eDao.InsertEntreprise(ctrlE.getEntreprise());
-			request.setAttribute("page", pageVE);
+			long id= eDao.InsertEntreprise(ctrlE.getEntreprise());
+			
+			String url= request.getContextPath() +"/entreprise/"+ id;
+			response.sendRedirect( url );
+			return;
 		} else {
-			request.setAttribute("page", pageAE);
+			request.setAttribute("page", PAGE);
 			request.setAttribute("entreprise", ctrlE.getEntreprise());
 			request.setAttribute("info", ctrlE);
 		}

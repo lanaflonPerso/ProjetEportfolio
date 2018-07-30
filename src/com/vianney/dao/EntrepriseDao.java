@@ -25,7 +25,6 @@ public class EntrepriseDao extends Dao {
 	}
 	
 	public boolean select() {
-		
 		for (int i = 0; i < options.size(); i++) {
 			if (i == options.size()-1) {
 				selection+= options.get(i);
@@ -137,17 +136,25 @@ public class EntrepriseDao extends Dao {
 		return true;
 	}
 	
-	public boolean InsertEntreprise(Entreprise ent) {
+	public long InsertEntreprise(Entreprise ent) {
+		long id = 0;
+		
 		String sql= "INSERT INTO  Entreprises";
 		sql+= " (Nom, Adresse, Ville, CodePostal)";
 		sql+= " VALUES (?, ?, ?, ?);";
-		PreparedStatement ps= initPs(sql, false, ent.getNom(), ent.getAdresse(), ent.getVille(), ent.getCodePostal());
 		try {
+			PreparedStatement ps= initPs(sql, true, ent.getNom(), ent.getAdresse(), ent.getVille(), ent.getCodePostal());
 			ps.executeUpdate();
+			ResultSet rs= ps.getGeneratedKeys();
+			if(rs.next()) {
+				id=rs.getInt(1);
+			} 
 		} catch (SQLException e) {
+			System.out.println("Problème de base de donnée");
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-		return true;
+		return id;
 	}
 	
 	private void createList(ResultSet r) {

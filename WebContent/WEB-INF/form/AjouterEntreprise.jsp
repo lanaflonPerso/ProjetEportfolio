@@ -40,10 +40,9 @@
 					<label for="cp">Code postal: </label>
 					<input name="cp" type="text" class="form-control ${ info.classeCp }" id="cp" placeholder="Code postal de l'entreprise"
 					<c:if test="${ not empty info.ok && !info.ok }" >value="${ entreprise.codePostal }"</c:if> require />
-				</div>		
+				</div>
+				<button type="submit" class="btn btn-primary">Enregistrer</button>
 			</fieldset>
-			
-			<button type="submit" class="btn btn-primary">Enregistrer</button>
 		</div>
 	</div>			
 </form>
