@@ -4,9 +4,10 @@
 
 <div class="listeStagiaire">
 	<p class="titre">Listes D'entreprise 
-	<c:if test="${ sessionScope.user.id == stagiaire.id }">
-		<a href="<c:url value="/compte/entreprise/ajouter"/>"><button type="button" class="btn btn-info btn-sm">Ajouter</button></a></p>
-	</c:if>
+		<c:if test="${ sessionScope.user.id == stagiaire.id }">
+			<a href="<c:url value="/compte/entreprise/ajouter"/>"><button type="button" class="btn btn-info btn-sm">Ajouter</button></a>
+		</c:if>
+	</p>
 	
 
 	<c:forEach items="${ stagiaire.metiers }" var="metier">
@@ -45,9 +46,10 @@
 	</c:forEach>
 
 	<p class="titre">Listes de formations 
-	<c:if test="${ sessionScope.user.id == stagiaire.id }">
-		<a href="<c:url value="/compte/formation/ajouter"/>"><button type="button" class="btn btn-info btn-sm">Ajouter</button></a></p>
-	</c:if>
+		<c:if test="${ sessionScope.user.id == stagiaire.id }">
+			<a href="<c:url value="/compte/formation/ajouter"/>"><button type="button" class="btn btn-info btn-sm">Ajouter</button></a>
+		</c:if>
+	</p>
 	
 	<ul>
 	<c:forEach items="${ stagiaire.formations }" var="formation">
