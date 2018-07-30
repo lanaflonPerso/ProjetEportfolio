@@ -82,7 +82,7 @@ public class FormationDao extends Dao {
 		PreparedStatement ps;
 		
 		if (idCertification == 0) {
-			sql= "INSERT INTO Formations (IntituleFormation, IdCertification) VALUES (?)";
+			sql= "INSERT INTO Formations (IntituleFormation) VALUES (?)";
 			ps= initPs(sql, true, intituleFormation);
 		} else {
 			sql= "INSERT INTO Formations (IntituleFormation, IdCertification) VALUES (?, ?)";

@@ -35,11 +35,8 @@ public class AjouterCompetenceServlet extends HttpServlet {
 			long idMetier= Integer.parseInt(pathInfo[1]);
 			Connection connection= (Connection) request.getAttribute("connection");
 			getMetier(connection, idMetier, stagiaire.getId());
-			System.out.println("ID competence: "+request.getParameter("competence") );
 			try {
-				System.out.println(request.getParameter("competence") );
 				long idCompetence= Long.parseLong(request.getParameter("competence"));
-				System.out.println("ici");
 				CompetenceDao cDao= new CompetenceDao((Connection) request.getAttribute("connection"));
 				cDao.addMetierCompetence(idMetier, idCompetence);
 				 
