@@ -21,10 +21,13 @@ xhr.onreadystatechange = function() {
         result.appendChild(ul);
 
         if (input.value.length > 3 ) {
+        	var idMetier = document.location.href.substring(document.location.href.lastIndexOf( "/" )+1 );
+        	
         	for (var i= 0; i<competences.length; i++) {
-        		var url= "<a href=\""+contextPath+"/compte/competence/ajouter/\">"+competences[i].Nom+"</a>"; 
+        		var ulr= contextPath+"/compte/competence/ajouter/"+idMetier+"?competence="+competences[i].Id
+        		var lien= "<a href=\" "+ulr+" \">"+competences[i].Nom+"</a>"; 
         		var li = document.createElement('li');
-                li.innerHTML= url;
+                li.innerHTML= lien;
                 ul.appendChild(li);                
             }
         }

@@ -27,7 +27,7 @@ public class AjouterCompetenceServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Stagiaire stagiaire= (Stagiaire) session.getAttribute("user");
+		stagiaire= (Stagiaire) session.getAttribute("user");
 		
 		String[] pathInfo= request.getPathInfo().split("/");
 		
@@ -35,9 +35,24 @@ public class AjouterCompetenceServlet extends HttpServlet {
 			long idMetier= Integer.parseInt(pathInfo[1]);
 			Connection connection= (Connection) request.getAttribute("connection");
 			getMetier(connection, idMetier, stagiaire.getId());
+			System.out.println("ID competence: "+request.getParameter("competence") );
+			try {
+				System.out.println(request.getParameter("competence") );
+				long idCompetence= Long.parseLong(request.getParameter("competence"));
+				System.out.println("ici");
+				CompetenceDao cDao= new CompetenceDao((Connection) request.getAttribute("connection"));
+				cDao.addMetierCompetence(idMetier, idCompetence);
+				 
+				 String url= request.getContextPath() +"/compte/competence/ajouter/"+ idMetier;
+				 response.sendRedirect( url );
+				 return;
+			} catch (Exception e) {
+				System.out.println("erreur");
+			}
 		} catch (Exception e) {
 			
-		}	
+		}
+		
 		request.setAttribute("metier", metier);
 		com.vianney.HelperSession.direction(request, "Ajout de competence", PAGE);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
@@ -48,12 +63,12 @@ public class AjouterCompetenceServlet extends HttpServlet {
 		stagiaire= (Stagiaire) session.getAttribute("user");		
 		long idMetier= Long.parseLong(request.getParameter("idMetier"));
 		
-		Connection connection= (Connection) request.getAttribute("connection");
-		CompetenceDao cDao= new CompetenceDao(connection);
+		CompetenceDao cDao= new CompetenceDao((Connection) request.getAttribute("connection"));
 		cDao.add(idMetier, request.getParameter("competence"));
 	
 		String url= request.getContextPath() +"/compte/competence/ajouter/"+ idMetier;
 		response.sendRedirect( url );
+		return;
 	}
 	
 	private void getMetier(Connection connection, long idMetier, long idStagiaire) {
@@ -63,4 +78,5 @@ public class AjouterCompetenceServlet extends HttpServlet {
 			metier= mDao.getMetier();
 		}
 	}
+
 }

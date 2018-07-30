@@ -65,7 +65,7 @@ public class CompetenceDao extends Dao {
 		return false;
 	} 
 	
-	private void addMetierCompetence(long idMetier, long idCompetence) {
+	public void addMetierCompetence(long idMetier, long idCompetence) {
 		String sql= "INSERT INTO Metier_Competence (IdMetier, IdCompetence)	VALUES (?, ?)";
 		PreparedStatement ps= initPs(sql, false, idMetier, idCompetence);
 		try {
