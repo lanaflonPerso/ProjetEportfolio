@@ -13,7 +13,7 @@ public class CtrlFormation extends Ctrl {
 	
 	private Formation formation= new Formation();
 	private Certification certification= new Certification();
-	private boolean avecCertification;
+	private boolean avecCertification= true;
 	private String msgErrIntitule;
 	private String classeIntitule;
 	private String msgErrNomCertification;
@@ -49,6 +49,7 @@ public class CtrlFormation extends Ctrl {
 	}
 	
 	public boolean ctrlNomCertification(String nom) {
+		System.out.println(nom);
 		if(nom.equals("")) {
 			avecCertification= false;
 			return true;
@@ -58,6 +59,7 @@ public class CtrlFormation extends Ctrl {
 			ok= false;
 			return false;
 		}
+		System.out.println(avecCertification);
 		certification.setNom(nom);
 		return true;
 	}

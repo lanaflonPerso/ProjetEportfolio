@@ -114,6 +114,8 @@ public class FormationDao extends Dao {
 				
 				Certification certification= new Certification();
 				if ( r.getLong("IdCertification") != 0) {
+					System.out.println("Nom= "+ r.getString("Nom"));
+					System.out.println("Niveau= "+ r.getInt("Niveau"));
 					certification.setId(r.getLong("IdCertification"));
 					certification.setNom(r.getString("Nom"));
 					certification.setNiveau(r.getInt("Niveau"));

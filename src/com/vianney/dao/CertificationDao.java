@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import com.vianney.beans.Certification;
 
 public class CertificationDao extends Dao {
@@ -14,7 +15,7 @@ public class CertificationDao extends Dao {
 		super(uConnection);
 	}
 	
-	public void selectByIdFormation(long idCertification) {
+	public void selectByIdCertification(long idCertification) {
 		String sql= "SELECT * FROM Certifications WHERE Id= ?";
 		
 		PreparedStatement ps= initPs(sql, false, idCertification);

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.vianney.beans.Formation;
 import com.vianney.beans.Metier;
 import com.vianney.beans.Stagiaire;
 
