@@ -20,7 +20,6 @@ public class CtrlMetier extends Ctrl{
 	private String msgErrDate;
 	private String classeDate;
 
-
 	public CtrlMetier(Connection uConnection, Stagiaire uStagiaire) {
 		super(uConnection);
 		stagiaire= uStagiaire;
@@ -33,7 +32,7 @@ public class CtrlMetier extends Ctrl{
 		}
 		msgErrFonction= "La fonction doit avoir plus de 5 caractéres";
 		ok= false;	
-		classeDescription= classe(false);
+		classeFonction= classe(false);
 		return false;
 	}
 	
@@ -47,7 +46,7 @@ public class CtrlMetier extends Ctrl{
 		ok= false;
 		return false;
 	}
-	
+		
 	public boolean ctrlDate(String dateEntree, String dateSortie) {
 		int anneeN= stagiaire.getDateNaissance().getYear();
 		
@@ -55,6 +54,9 @@ public class CtrlMetier extends Ctrl{
 		
 			LocalDate dateE= enLocalDate(dateEntree);
 			LocalDate dateS= enLocalDate(dateSortie);
+			
+			metier.setDateEntree(dateE.getYear(), dateE.getMonthValue(), dateE.getDayOfMonth());
+			metier.setDateSortie(dateS.getYear(), dateS.getMonthValue(), dateS.getDayOfMonth());
 	
 			if(afterDateEntree(dateE, dateS)) {	
 				if (dateE.getYear() > anneeN+16 ) {
@@ -143,4 +145,9 @@ public class CtrlMetier extends Ctrl{
 	public String getClasseDescription() {
 		return classeDescription;
 	}
+
+	public String getClasseDate() {
+		return classeDate;
+	}
+
 }

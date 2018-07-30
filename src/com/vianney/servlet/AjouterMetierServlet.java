@@ -22,6 +22,7 @@ public class AjouterMetierServlet extends HttpServlet {
 	public final String PAGE=			"/WEB-INF/form/AjouterMetier.jsp";
 	private Metier metier;
 	private CtrlMetier ctrl;
+	private Stagiaire stagiaire;
 
     public AjouterMetierServlet() {
         super();
@@ -49,14 +50,23 @@ public class AjouterMetierServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		if(ctrlMetier(request)) {
-			HttpSession session = request.getSession();
-			Stagiaire stagiaire= (Stagiaire) session.getAttribute("user");
-					
-			MetierDao mDao= new MetierDao((Connection) request.getAttribute("connection"));
+		HttpSession session = request.getSession();
+		stagiaire= (Stagiaire) session.getAttribute("user"); 
+		
+		if(ctrlMetier(request)) {				
+			MetierDao mDao= new MetierDao((Connection) request.getAttribute("connection"));				
 			
 			long idMetier= mDao.add(metier, stagiaire.getId());
+			
+			if (request.getParameter("idEntreprise") != null) {
+				long idntreprise= Long.parseLong(request.getParameter("idEntreprise"));
+				mDao.addMetierEntreprise(idMetier, idntreprise);
+				
+				String url= request.getContextPath() +"/stagiaire/id/"+ stagiaire.getId();
+				response.sendRedirect( url );
+				return;
+			}
+			
 			String url= request.getContextPath() +"/compte/metier/id/"+ idMetier;
 			response.sendRedirect( url );
 			return;
@@ -68,18 +78,13 @@ public class AjouterMetierServlet extends HttpServlet {
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 	
-	private boolean ctrlMetier(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		Stagiaire stagiaire= (Stagiaire) session.getAttribute("user"); 
-		
-		CtrlMetier ctrl= new CtrlMetier((Connection) request.getAttribute("connection"), stagiaire);
+	private boolean ctrlMetier(HttpServletRequest request) {	
+		ctrl= new CtrlMetier((Connection) request.getAttribute("connection"), stagiaire);
 		ctrl.ctrlFonction(request.getParameter("fonction"));
 		ctrl.ctrlDescription(request.getParameter("description"));
-		ctrl.ctrlDate(request.getParameter("dateE"));
-		ctrl.ctrlDate(request.getParameter("dateS"));
+		ctrl.ctrlDate(request.getParameter("dateE"), request.getParameter("dateS"));
 		
 		metier= ctrl.getMetier();
-		
 		return ctrl.isOk();
 	}
 }

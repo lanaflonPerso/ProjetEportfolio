@@ -16,8 +16,7 @@
 					<ul>
 						<c:if test="${ not empty info.msgErrFonction }" ><li>${ info.msgErrFonction }</li></c:if>
 						<c:if test="${ not empty info.msgErrDescription }" ><li>${ info.msgErrDescription }</li></c:if>
-						<c:if test="${ not empty info.msgErrDateEntree }" ><li>${ info.msgErrDateEntree }</li></c:if> 
-						<c:if test="${ not empty info.msgErrDateSortie }" ><li>${ info.msgErrDateSortie }</li></c:if>
+						<c:if test="${ not empty info.msgErrDate }" ><li>${ info.msgErrDate }</li></c:if> 
 					</ul>
 				</div>
 			</c:if>	
@@ -40,12 +39,12 @@
 				
 				<div class="form-group">
 					<label for="dateE">Date d'entrée: </label>
-					<input name="dateE" type="text" class="form-control" id="dateE" placeholder="Date d'entré dans l'entreprise" require />
+					<input name="dateE" type="text" class="form-control ${ info.ClasseDate }" id="dateE" placeholder="Date d'entré dans l'entreprise" require />
 				</div>
 				
 				<div class="form-group">
 					<label for="dateS">Date de fin de contrat: </label>
-					<input name="dateS" type="text" class="form-control" id="dateS" placeholder="Date de départ de l'entreprise" require />
+					<input name="dateS" type="text" class="form-control ${ info.ClasseDate }" id="dateS" placeholder="Date de départ de l'entreprise" require />
 				</div>
 				<button type="submit" class="btn btn-primary">Enregistrer</button>
 			</fieldset>
