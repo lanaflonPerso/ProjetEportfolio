@@ -2,6 +2,7 @@ package com.vianney.filters;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,18 +15,25 @@ import com.vianney.dao.MyConnection;
 
 public class connectJDBC implements Filter {
 
+	public Connection connection = null;
+	
     public connectJDBC() {
-        // TODO Auto-generated constructor stub
     }
 
 	public void destroy() {
-		// TODO Auto-generated method stub
+		try {
+			connection.close();
+			System.out.println("\t\tArrêt de la connexion\n\n");
+		} catch (SQLException ex) {
+			System.out.println("Erreur sur l'arrêt de la connexion à la base de données");
+}
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		if (request.getAttribute("connection") instanceof Connection == false) {
-			MyConnection connection= new MyConnection();
-			request.setAttribute("connection", connection.getConnection());
+			MyConnection conn= new MyConnection();
+			connection= conn.getConnection();
+			request.setAttribute("connection", connection);
 		}
 		
 		chain.doFilter(request, response);

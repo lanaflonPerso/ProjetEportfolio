@@ -22,7 +22,6 @@ public class DeconnectionServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		session.invalidate();
-		
 		String url= request.getContextPath();
 		response.sendRedirect( url );
 		return;
