@@ -37,10 +37,6 @@ public class EffacerCompetenceServlet extends HttpServlet {
 		
 		String url= request.getContextPath() +"/stagiaire/id/"+ stagiaire.getId();
 		response.sendRedirect( url );
+		return;
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	}
-
 }

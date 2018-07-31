@@ -14,7 +14,7 @@ import com.vianney.dao.PortfolioDAO;
 public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public final String page= "/WEB-INF/vue/Home.jsp";
+	public final String PAGE= "/WEB-INF/vue/Home.jsp";
        
     public Index() {
         super();
@@ -29,7 +29,7 @@ public class Index extends HttpServlet {
 		Stagiaire stagiaire= pf.getStagiaire();
 			
 		request.setAttribute("stagiaire", stagiaire);
-		request.setAttribute("page", page);
+		com.vianney.HelperSession.direction(request, "Projet E Portfolio IDP", PAGE);
 		request.getRequestDispatcher("/WEB-INF/Index.jsp").forward(request, response);
 	}
 

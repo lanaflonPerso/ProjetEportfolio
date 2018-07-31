@@ -31,7 +31,7 @@ public class ChercherMetierServlet extends HttpServlet {
 			request.setAttribute("ok", true);
 		}
 
-		request.setAttribute("page", PAGE);
+		com.vianney.HelperSession.direction(request, "Chercher Metier", PAGE);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 

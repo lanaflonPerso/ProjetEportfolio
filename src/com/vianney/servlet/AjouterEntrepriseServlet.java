@@ -21,7 +21,7 @@ public class AjouterEntrepriseServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("page", PAGE);
+		com.vianney.HelperSession.direction(request, "Ajouter Entreprise", PAGE);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 
@@ -40,7 +40,7 @@ public class AjouterEntrepriseServlet extends HttpServlet {
 			response.sendRedirect( url );
 			return;
 		} else {
-			request.setAttribute("page", PAGE);
+			com.vianney.HelperSession.direction(request, "Ajouter Entreprise", PAGE);
 			request.setAttribute("entreprise", ctrlE.getEntreprise());
 			request.setAttribute("info", ctrlE);
 		}

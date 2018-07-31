@@ -10,7 +10,7 @@
 		
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4 rouge">
+				<%-- <div class="col-md-4 rouge">
 					<c:choose>
 					<c:when test = "${ page == '/WEB-INF/form/AjouterFormation.jsp' }">
 							<p>
@@ -132,13 +132,13 @@
 							</p>
 						</c:otherwise>
 					</c:choose>
-				</div>
+				</div> --%>
 				
-				<div class="col-md-3">
+				<div class="col-md-4">
 					<%@ include file="/WEB-INF/layout/MenuUser.jsp" %>	
 				</div>
 
-				<div class="col-md-5">
+				<div class="col-md-8">
 					<c:choose>
 						<c:when test="${ not empty page }">
 							<% pageContext.include((String) request.getAttribute("page")); %>

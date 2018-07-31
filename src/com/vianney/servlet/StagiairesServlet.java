@@ -15,7 +15,7 @@ import com.vianney.dao.StagiairesDao;
 public class StagiairesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public final String page= "/WEB-INF/vue/Stagiaires.jsp";
+	public final String PAGE= "/WEB-INF/vue/Stagiaires.jsp";
 	private List<Stagiaire> stagiaires;
        
     public StagiairesServlet() {
@@ -24,18 +24,13 @@ public class StagiairesServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		StagiairesDao sDao= new StagiairesDao((Connection) request.getAttribute("connection"));
 		sDao.searchAll();
 		stagiaires= sDao.getStagiaires();
 		
-		request.setAttribute("titlePage", "Vue des stagiaires");
-		request.setAttribute("page", page);
+		com.vianney.HelperSession.direction(request, "Liste Des Stagiaires", PAGE);
 		request.setAttribute("stagiaires", stagiaires);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 }

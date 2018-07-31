@@ -55,11 +55,9 @@ public class AjouterMetierServlet extends HttpServlet {
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-
-			request.setAttribute("", PAGE);
 		}
 		
-		request.setAttribute("page", PAGE);
+		com.vianney.HelperSession.direction(request, "Ajouter Metier", PAGE);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 
@@ -92,7 +90,7 @@ public class AjouterMetierServlet extends HttpServlet {
 		
 		request.setAttribute("metier", metier);
 		request.setAttribute("info", ctrl);
-		request.setAttribute("page", PAGE);
+		com.vianney.HelperSession.direction(request, "Ajouter Metier", PAGE);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 	

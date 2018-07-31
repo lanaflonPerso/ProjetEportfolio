@@ -18,9 +18,7 @@ import com.vianney.dao.MetierDao;
 public class LierEntrepriseMetierServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public final String page=			"/WEB-INF/form/LierEntrepriseMetier.jsp";
-	public final String pageC= 			"/WEB-INF/form/Connection.jsp";
-	public final String pageS= 			"/WEB-INF/vue/Stagiaire.jsp";
+	public final String PAGE=			"/WEB-INF/form/LierEntrepriseMetier.jsp";
 	public MetierDao mDao;
 	public long idMetier;
 	
@@ -32,13 +30,14 @@ public class LierEntrepriseMetierServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Stagiaire stagiaire= (Stagiaire) session.getAttribute("user");	
 		
-		request.setAttribute("page", page);
+		com.vianney.HelperSession.direction(request, "Lier Metier - Entreprise", PAGE);
 		
 		String[] pathInfo= request.getPathInfo().split("/");
 		
 		try {
 			long idEntreprise= Long.parseLong(request.getParameter("entreprise"));
 			mDao.addMetierEntreprise(idMetier, idEntreprise);
+			
 			String url= request.getContextPath()+"/stagiaire/id/"+stagiaire.getId();
 			response.sendRedirect(url);
 			return;
@@ -68,7 +67,8 @@ public class LierEntrepriseMetierServlet extends HttpServlet {
 				request.setAttribute("ok", true);
 				request.setAttribute("entreprises", entreprises);	
 			}
-			request.setAttribute("page", page);
+			
+			com.vianney.HelperSession.direction(request, "Lier Metier - Entreprise", PAGE);
 			
 		} catch (Exception e) {
 				

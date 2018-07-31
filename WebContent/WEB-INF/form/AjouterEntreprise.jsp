@@ -21,13 +21,13 @@
 				<div class="form-group">
 					<label for="nom">Nom: </label>
 					<input name="nom" type="text" class="form-control ${ info.classeNom }" id="nom" placeholder="Nom de l'entreprise"
-					<c:if test="${ not empty info.ok && !info.ok }" >value="${ entreprise.nom }"</c:if> require />
+					<c:if test="${ not empty info.ok && !info.ok }" >value="${ entreprise.nom }"</c:if> required="required" />
 				</div>
 				 
 				<div class="form-group">
 					<label for="adresse">Adresse: </label>
 					<input name="adresse" type="text" class="form-control ${ info.classeAdresse }" id="adresse" placeholder="Adresse de l'entreprise"
-						<c:if test="${ not empty info.ok && !info.ok }" >value="${ entreprise.adresse }"</c:if> require />
+						<c:if test="${ not empty info.ok && !info.ok }" >value="${ entreprise.adresse }"</c:if> required="required" />
 				</div>
 				
 				<div class="form-group">

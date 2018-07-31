@@ -16,7 +16,7 @@ import com.vianney.form.CtrlStagiaire;
 public class ConnectionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public final String page= 		"/WEB-INF/form/Connection.jsp";
+	public final String PAGE= 		"/WEB-INF/form/Connection.jsp";
 	public Stagiaire stagiaire;
 	public StagiairesDao info;
 
@@ -26,7 +26,7 @@ public class ConnectionServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setAttribute("page", page);
+		com.vianney.HelperSession.direction(request, "Page De Connection", PAGE);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 
@@ -48,7 +48,7 @@ public class ConnectionServlet extends HttpServlet {
 		} else {
 			request.setAttribute("email", email);
 			request.setAttribute("info", ctrlS);			
-			request.setAttribute("page", page);
+			com.vianney.HelperSession.direction(request, "Page De Connection", PAGE);
 		}
 		
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);		

@@ -16,23 +16,22 @@ import com.vianney.form.CtrlStagiaire;
 public class ModifierStagiaireServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public final String formUrl= 		"/ProjetEportfolio/stagiaire/modifier";
-	public final String page= 			"/WEB-INF/form/ModifierStagiaire.jsp";
+	public final String formUrl	= 		"/ProjetEportfolio/stagiaire/modifier";
+	public final String PAGE	= 		"/WEB-INF/form/ModifierStagiaire.jsp";
        
     public ModifierStagiaireServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("titlePage", "Modification du compte");
-		request.setAttribute("page", page);
+		com.vianney.HelperSession.direction(request, "Modification du compte", PAGE);
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		request.setAttribute("page", page);
+		com.vianney.HelperSession.direction(request, "Modification du compte", PAGE);
 								
 		Stagiaire user= (Stagiaire) session.getAttribute("user");
 		CtrlStagiaire cs= new CtrlStagiaire((Connection) request.getAttribute("connection"));

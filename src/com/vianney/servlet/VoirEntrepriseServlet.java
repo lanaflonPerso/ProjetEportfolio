@@ -39,15 +39,13 @@ public class VoirEntrepriseServlet extends HttpServlet {
 			sDao.selectStagiaireByIdEntreprise(entreprise.getId());			
 			List<Stagiaire> stagiaires= sDao.getStagiaires();
 
-			for (Stagiaire stagiaire : stagiaires) {
-				System.out.println("Nom= "+stagiaire.getNom());
-			}
 			request.setAttribute("stagiaires", stagiaires);
 			request.setAttribute("source", true);
 			request.setAttribute("entreprise", entreprise);
-			request.setAttribute("page", PAGE);			
+			com.vianney.HelperSession.direction(request, "Vue Entreprise", PAGE);		
 		} catch (Exception e) {
-			
+			response.sendError(404, "Entreprise non trouver");
+			return;
 		}
 		
 		request.getRequestDispatcher("/Index.jsp").forward(request, response);
